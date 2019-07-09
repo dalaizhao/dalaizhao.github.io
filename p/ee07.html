@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="配置solrconfig.xmlsolrconfig.xml文件是具有影响Solr本身的最多参数的配置文件。   在solrconfig.xml中，您可以配置重要功能，例如：    requestHandlers(请求处理程序)，它将请求处理到Solr，例如向索引添加文档的请求或为查询返回结果的请求。   listeners(侦听器)，“侦听”特定的进程 查询相关事件; 侦听器可用于触发特殊代码的">
+<meta name="keywords" content="java,solr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置良好的solr实例">
+<meta property="og:url" content="http://yoursite.com/p/ee07.html">
+<meta property="og:site_name" content="k先生">
+<meta property="og:description" content="配置solrconfig.xmlsolrconfig.xml文件是具有影响Solr本身的最多参数的配置文件。   在solrconfig.xml中，您可以配置重要功能，例如：    requestHandlers(请求处理程序)，它将请求处理到Solr，例如向索引添加文档的请求或为查询返回结果的请求。   listeners(侦听器)，“侦听”特定的进程 查询相关事件; 侦听器可用于触发特殊代码的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-15T06:52:48.085Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置良好的solr实例">
+<meta name="twitter:description" content="配置solrconfig.xmlsolrconfig.xml文件是具有影响Solr本身的最多参数的配置文件。   在solrconfig.xml中，您可以配置重要功能，例如：    requestHandlers(请求处理程序)，它将请求处理到Solr，例如向索引添加文档的请求或为查询返回结果的请求。   listeners(侦听器)，“侦听”特定的进程 查询相关事件; 侦听器可用于触发特殊代码的">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/p/ee07">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>配置良好的solr实例 | k先生</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">k先生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/dalaizhao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/ee07.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="k先生">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="k先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">配置良好的solr实例
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-09-26 21:32:19" itemprop="dateCreated datePublished" datetime="2017-09-26T21:32:19Z">2017-09-26</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-15 06:52:48" itemprop="dateModified" datetime="2019-04-15T06:52:48Z">2019-04-15</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/solr/" itemprop="url" rel="index"><span itemprop="name">solr</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="配置solrconfig-xml"><a href="#配置solrconfig-xml" class="headerlink" title="配置solrconfig.xml"></a>配置solrconfig.xml</h2><p>solrconfig.xml文件是具有影响Solr本身的最多参数的配置文件。  </p>
+<p>在solrconfig.xml中，您可以配置重要功能，例如：  </p>
+<ul>
+<li>requestHandlers(请求处理程序)，它将请求处理到Solr，例如向索引添加文档的请求或为查询返回结果的请求。  </li>
+<li>listeners(侦听器)，“侦听”特定的进程 查询相关事件; 侦听器可用于触发特殊代码的执行，例如调用一些常见查询来预热高速缓存。  </li>
+<li>用于管理HTTP通信的请求分派器。   </li>
+<li>管理Web界面。  </li>
+<li>与复制和复制相关的参数（这些参数详细介绍 在传统的规模和分配）。  </li>
+</ul>
+<h3 id="在Solr配置文件中替换属性"><a href="#在Solr配置文件中替换属性" class="headerlink" title="在Solr配置文件中替换属性"></a>在Solr配置文件中替换属性</h3><p>JVM系统属性</p>
+<a id="more"></a>
+<p>任何JVM系统属性，通常在启动JVM时使用-D标志指定，可以用作Solr中任何XML配置文件中的变量。   </p>
+<p>例如，在示例solrconfig.xml文件中，您将看到此值定义要使用的lockType：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;lockType&gt;$&#123;solr.lock.type:native&#125;&lt;/lockType&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这意味着锁定类型默认为“native”，但是当启动Solr时，您可以使用JVM系统属性重新启动它，方法是启动Solr它：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/solr start -Dsolr.lock.type=name</span><br></pre></td></tr></table></figure>
+
+<p>Config API  </p>
+<p>可以通过config API去修改solr配置文件，用API修改的文件被命名成configoverlay.json。这个文件可以被API编辑，看起来像这样：   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;userProps&quot;:&#123;</span><br><span class="line">  &quot;dih.db.url&quot;:&quot;jdbc:oracle:thin:@localhost:1521&quot;,</span><br><span class="line">  &quot;dih.db.user&quot;:&quot;username&quot;,</span><br><span class="line">  &quot;dih.db.pass&quot;:&quot;password&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>core.properties  </p>
+<p>每个core下的文件夹都有这个文件（core.properties），文件可以使用Java标准属性文件格式包含任意用户定义的属性名称和值,并且这些属性可以用作Solr核心的XML配置文件中的变量。  </p>
+<p>core.properties文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#core.properties</span><br><span class="line">name=gettingstarted</span><br><span class="line">my.custom.prop=edismax</span><br></pre></td></tr></table></figure>
+
+<p>在solrconfig.xml文件中使用例子:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;requestHandler name=&quot;/select&quot;&gt;</span><br><span class="line">  &lt;lst name=&quot;defaults&quot;&gt;</span><br><span class="line">  &lt;str name=&quot;defType&quot;&gt;$&#123;my.custom.prop&#125;&lt;/str&gt;</span><br><span class="line">  &lt;/lst&gt;</span><br><span class="line">&lt;/requestHandler&gt;</span><br></pre></td></tr></table></figure>
+
+<p>core隐藏属性</p>
+<p>Solr核心的几个属性可用作“隐含”属性，可用于变量替换，独立于基础值初始化的位置或方式。 例如：无论特定Solr核心的名称是否在core.properties中显式配置，或者从实例目录的名称推断，隐式属性solr.core.name可用作该核心配置文件中的变量。所有隐式属性都使用solr.core. 名称前缀，并反映等效的core.properties属性的运行时值：  </p>
+<ul>
+<li>solr.core.name  </li>
+<li>solr.core.config</li>
+<li>solr.core.schema</li>
+<li>solr.core.dataDir</li>
+<li>solr.core.transient</li>
+<li>solr.core.loadOnStartup</li>
+</ul>
+<p>DataDir and DirectoryFactory in SolrConfig</p>
+<p>Solr存储其索引的位置和方式是可配置的选项。  </p>
+<p>用参数dataDir指定一个索引数据的位置，例如：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;dataDir&gt;$&#123;solr.data.dir:&#125;&lt;/dataDir&gt;</span><br></pre></td></tr></table></figure>
+
+<p>为索引指定DirectoryFactory  </p>
+<ul>
+<li>solr.StandardDirectoryFactory是文件系统并尝试挑选当前的最佳实现JVM和平台。   </li>
+<li>solr.NRTCachingDirectoryFactory，默认，包装solr.StandardDirectoryFactory并将小文件缓存在内存中为了更好的NRT性能。</li>
+<li>solr.MMapDirectoryFactory,solr.NIOFSDirectoryFactory或solr.SimpleFSDirectoryFactory可以通过强制实现特定的实现。  </li>
+<li>solr.RAMDirectoryFactory是基于内存的，而不是持久性，并且不能与复制配合使用。<br>例子：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;directoryFactory name=&quot;DirectoryFactory&quot;</span><br><span class="line">  class=&quot;solr.MMapDirectoryFactory&quot;&gt;</span><br><span class="line">  &lt;bool name=&quot;preload&quot;&gt;true&lt;/bool&gt;</span><br><span class="line">&lt;/directoryFactory&gt;/</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>Lib Directives in SolrConfig</p>
+<p>Solr允许通过在solrconfig.xml中定义<lib>指令来加载插件。  </lib></p>
+<p>插件按照它们在solrconfig.xml中显示的顺序加载。如果有依赖关系，首先列出最低级别的依赖项。 正则表达式可用于为同一目录中的其他jar提供依赖的控件加载jar。 所有目录都相对于Solr instanceDir解析。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;lib dir=&quot;$&#123;solr.install.dir:../../../..&#125;/contrib/extraction/lib&quot; regex=&quot;.*\.jar&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Schema Factory Definition in SolrConfig</p>
+<p>Solr 默认使用manage-shcema</p>
+<p>当在solrconfig.xml文件中未明确声明<schemafactory>时，Solr会隐式使用ManagedIndexSchemaFactory，默认情况下为“mutable”，并将模式信息保存在managedschema文件中。<br>一个Solr隐式默认行为的例子，如果没有明确定义schemaFactory。  </schemafactory></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;schemaFactory class=&quot;ManagedIndexSchemaFactory&quot;&gt;</span><br><span class="line">  &lt;bool name=&quot;mutable&quot;&gt;true&lt;/bool&gt;</span><br><span class="line">  &lt;str name=&quot;managedSchemaResourceName&quot;&gt;managed-schema&lt;/str&gt;</span><br><span class="line">&lt;/schemaFactory&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果要明确配置ManagedIndexSchemaFactory，可以使用以下选项：  </p>
+<ul>
+<li>mutable - 控制是否可以对架构数据进行更改。 这必须设置为true，以允许使用Schema API进行编辑。 </li>
+<li>managedSchemaResourceName是一个默认为“managed-schema”的可选参数，并为架构文件定义了一个新的名称，该名称可以是除“schema.xml”以外的其他文件。<br>使用上面显示的默认配置，您可以使用Schema API根据需要修改模式，然后如果希望将模式“锁定”到位并防止将来更改，那么稍后将mutable的值更改为false。  </li>
+</ul>
+<p>schema.xml文件</p>
+<p>使用managed-schema的另一种方法是显式配置一个ClassicIndexSchemaFactory。 ClassicIndexSchemaFactory需要使用schema.xml配置文件，并且不允许在运行时对模式进行任何程序更改。 必须手动编辑schema.xml文件，仅在加载集合时加载。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;schemaFactory class=&quot;ClassIndexSchemaFactory&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>配置模式managed-schema换成schema.xml   </p>
+<p>如果solr core使用ClassicIndexSchemaFactory，并且配置模式换成schema-managed模式，只要简单的吧solrconfig.xml<br>文件中指定为ManagedIndexSchemaFactory即可。<br>一旦Solr重新启动并且它检测到schema.xml文件存在，但managedSchemaResourceName文件（即：“managed-schema”）不存在，现有的schema.xml文件将被重命名为schema.xml.bak和内容 被重写到managed-schema文件。 如果您查看生成的文件，您将在页面顶部看到它：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Solr managed schema - automatically generated - DO NOT EDIT --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>现在，您可以随意使用Schema API进行更改，并删除schema.xml.bak。  </p>
+<p>配置模式从managed-schema切换到手动编辑的schema.xml</p>
+<p>如果已启动managed-schema的Solr，并且要切换到手动编辑schema.xml文件，则应执行以下步骤：  </p>
+<ol>
+<li>将managed-schema文件重命名为schema.xml。   </li>
+<li>修改solrconfig.xml以替换schemaFactory类。   <ul>
+<li>删除任何ManagedIndexSchemaFactory定义（如果存在）。  </li>
+<li>添加一个ClassicIndexSchemaFactory定义，如上所示，重新加载内核。<br>如果您使用SolrCloud，您可能需要通过ZooKeeper修改文件。 bin / solr脚本提供了一种从ZooKeeper下载文件并在编辑后上传它们的简单方法。 有关详细信息，请参阅ZooKeeper操作部分。  </li>
+</ul>
+</li>
+</ol>
+<h3 id="IndexConfig-in-SolrConfig"><a href="#IndexConfig-in-SolrConfig" class="headerlink" title="IndexConfig in SolrConfig"></a>IndexConfig in SolrConfig</h3><p>solrconfig.xml的<indexconfig>部分定义了Lucene索引编写器的低级行为。默认情况下，Solr中包含的示例solrconfig.xml中的设置被注释掉，这意味着使用默认值。 在大多数情况下，默认值是正确的。  </indexconfig></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;indexConfig&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/indexConfig&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ramBufferSizeMB&gt;100&lt;ramBufferSizeMB&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一旦累积的文档更新超过了这么多的内存空间（以MB定义），则刷新挂起的更新。 这也可以创建新的段或触发一个合并。 使用此设置通常比maxBufferedDocs更好。 如果在solrconfig.xml中都设置了maxBufferedDocs和ramBufferSizeMB，则在达到任一限制时将会发生刷新。 默认值为100Mb。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;maxBufferedDocs&gt;1000&lt;/maxBufferedDocs&gt;</span><br></pre></td></tr></table></figure>
+
+<p>将文件更新的数量设置为内存中缓冲区的数量，然后再将其刷新为新的段。 这也可能触发一个合并。 默认的Solr配置设置为通过RAM使用进行刷新（ramBufferSizeMB）。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;useCompoundFile&gt;false&lt;/useCompoundFile&gt;</span><br></pre></td></tr></table></figure>
+
+<p>控制新写入（尚未合并）索引片段是否应使用复合文件段格式。 默认值为false。  </p>
+<p>合并索引片段  </p>
+<p>Solr中的默认值是使用TieredMergePolicy，它合并大小相等的段，但必须符合每层允许的段数。其他可用的策略是LogByteSizeMergePolicy和LogDocMergePolicy。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;mergePolicyFactory class=&quot;org.apache.solr.index.TieredMergePolicyFactory&quot;&gt;</span><br><span class="line">  &lt;int name=&quot;maxMergeAtOnce&quot;&gt;10&lt;/int&gt;</span><br><span class="line">  &lt;int name=&quot;segmentsPerTier&quot;&gt;10&lt;/int&gt;</span><br><span class="line">&lt;/mergePolicyFactory&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对于TieredMergePolicy，这是通过设置<int name="“maxMergeAtOnce”">和<int name="“segmentsPerTier”">选项来控制的，而LogByteSizeMergePolicy有一个<int name="“mergeFactor”">选项。  </int></int></int></p>
+<p>要了解为什么这些选项很重要，请考虑使用LogByteSizeMergePolicy对索引进行更新时会发生什么：文档总是添加到最近打开的段中。当片段填满时，将创建一个新的片段，并将其后续的更新放在那里。  </p>
+<p>如果创建新段将导致最低级别段的数量超过mergeFactor值，则所有这些段都将合并在一起以形成单个大段。因此，如果合并因子为10，则每个合并导致创建比其十个组成部分中的每一个大约十倍的单个分段。当这些较大的段中有10个时，它们又被合并成一个更大的单个段。这个过程可以无限期地继续下去。<br>当使用TieredMergePolicy时，该过程是相同的，但是不使用单个mergeFactor值，将segmentPerTier设置用作阈值来决定是否应该进行合并，并且maxMergeAtOnce设置确定合并中应包含多少段。  </p>
+<p>选择最佳合并因子通常是索引速度与搜索速度的折衷。索引中较少的片段通常会加快搜索速度，因为找不到要查找的地方。它还可以减少磁盘上的物理文件。但是为了保持段数低，合并将更频繁地出现，这可能会增加系统的负载，并减缓对索引的更新。  </p>
+<p>相反，保留更多细分可以加快索引，因为并发发生的频率较低，使更新不太可能触发合并。但搜索变得更加计算昂贵，可能会更慢，因为搜索字词必须在更多的索引片段中查找。更快的索引更新也意味着更短的提交周转时间，这意味着更及时的搜索结果。  </p>
+<p>自定义合并策略</p>
+<p>如果内置合并策略的配置选项不完全适合您的用例，则可以自定义它们：通过创建在配置中指定的自定义合并策略工厂，或者通过配置使用包装的合并策略wrapped.prefix配置选项来控制如何将其包装的工厂配置：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;mergePolicyFactory class=&quot;org.apache.solr.index.SortingMergePolicyFactory&quot;&gt;</span><br><span class="line">  &lt;str name=&quot;sort&quot;&gt;timestamp desc&lt;/str&gt;</span><br><span class="line">  &lt;str name=&quot;wrapped.prefix&quot;&gt;inner&lt;/str&gt;</span><br><span class="line">  &lt;str name=&quot;inner.class&quot;&gt;org.apache.solr.index.TieredMergePolicyFactory&lt;/str&gt;</span><br><span class="line">  &lt;int name=&quot;inner.maxMergeAtOnce&quot;&gt;10&lt;/int&gt;</span><br><span class="line">  &lt;int name=&quot;inner.segmentsPerTier&quot;&gt;10&lt;/int&gt;</span><br><span class="line">&lt;/mergePolicyFactory&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的示例显示了Solr的SortingMergePolicyFactory被配置为通过“timestamp desc”对合并的段中的文档进行排序，并且包裹在配置为通过SortingMergePolicyFactory的“wrapped.prefix”选项定义的内部前缀maxMergeAtOnce = 10和segmentsPerTier = 10的TieredMergePolicyFactory。 有关使用SortingMergePolicyFactory的更多信息，请参阅segmentTerminateEarly参数。  </p>
+<p>mergeScheduler  </p>
+<p>合并调度程序控制如何执行合并。 默认ConcurrentMergeScheduler使用单独的线程在后台执行合并。 另一种方法是SerialMergeScheduler，不会与单独的线程执行合并。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;mergeScheduler class=&quot;org.apache.lucene.index.ConcurrentMergeScheduler&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>mergedSegmentWarmer</p>
+<p>当使用Solr进行近实时搜索合并的分段加热器可以配置为在合并提交之前对新合并的分段进行加热。 这对于近实时搜索来说不是必需的，但是在合并完成之后会打开一个新的近实时阅读器会减少搜索延迟。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;mergedSegmentWarmer class=&quot;org.apache.lucene.index.SimpleMergedSegmentWarmer&quot;/&gt;</span><br></pre></td></tr></table></figure>
+
+<p>复合文件段</p>
+<p>每个Lucene段通常由十几个文件组成。 Lucene可以配置为使用.cfs文件扩展名将段的所有文件捆绑到单个复合文件中。 它是复合文件段的缩写。  </p>
+<p>索引锁   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;lockType&gt;native&lt;/lockType&gt;</span><br></pre></td></tr></table></figure>
+
+<p>LockFactory选项指定要使用的锁定实现。 该组有效的锁类型选项取决于您配置的DirectoryFactory。 下面列出的值由StandardDirectoryFactory（默认值）支持：  </p>
+<ul>
+<li>native（默认）使用NativeFSLockFactory来指定本地操作系统文件锁定。如果第二个Solr进程尝试访问目录，它将失败。 当多个Solr Web应用程序试图共享一个索引时，不要使用。  </li>
+<li>简单的使用SimpleFSLockFactory指定一个普通文件进行锁定。 </li>
+<li>single（专家）使用SingleInstanceLockFactory。 用于只读索引目录的特殊情况，或者不可能有多个进程尝试修改索引（甚至顺序）。 此类型将防止同一个JVM中的多个内核尝试访问相同的索引。 警告！ 如果不同JVM中的多个Solr实例修改索引，则此类型将不会防止索引损坏。   </li>
+<li>hdfs使用HdfsLockFactory来支持将索引和事务日志文件读取和写入HDFS文件系统。 有关使用此功能的详细信息，请参阅在HDFS上运行Solr的部分。  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;writeLockTimeout&gt;1000&lt;/writeLockTimeout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>等待IndexWriter写入锁定的最长时间。 默认值为1000，以毫秒表示。  </p>
+<p>其它索引设置  </p>
+<p>还有一些其他参数可能对您的实现进行配置很重要。 这些设置会影响对索引进行更新的方式或时间。  </p>
+<ul>
+<li>reopenReaders：控制是否重新打开IndexReaders，而不是关闭然后打开，这通常效率较低。 默认值为true。  </li>
+<li>deletionPolicy：控制在回滚情况下保留提交的方式。 默认值为SolrDeletionPolicy，它具有要保留的最大提交数（MAXCommitsToKeep）的子参数，要保留的优化提交的最大数量（maxOptimizedCommitsToKeep）以及要保留的任何提交的最大时间（maxCommitAge），它支持DateMathParser 句法。  </li>
+<li>infoStream：InfoStream设置指示底层的Lucene类将索引过程中的详细调试信息写入Solr日志消息。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;reopenReaders&gt;true&lt;/reopenReaders&gt;</span><br><span class="line">&lt;deletionPolicy class=&quot;solr.SolrDeletionPolicy&quot;&gt;</span><br><span class="line">  &lt;str name=&quot;maxCommitsToKeep&quot;&gt;1&lt;/str&gt;</span><br><span class="line">  &lt;str name=&quot;maxOptimizedCommitsToKeep&quot;&gt;0&lt;/str&gt;</span><br><span class="line">  &lt;str name=&quot;maxCommitAge&quot;&gt;1DAY&lt;/str&gt;</span><br><span class="line">&lt;/deletionPolicy&gt;</span><br><span class="line">&lt;infoStream&gt;false&lt;/infoStream&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="SolrConfig中的RequestHandlers和SearchComponent"><a href="#SolrConfig中的RequestHandlers和SearchComponent" class="headerlink" title="SolrConfig中的RequestHandlers和SearchComponent"></a>SolrConfig中的RequestHandlers和SearchComponent</h3><p>RequestHandlers处理来到Solr的请求。 这些可能是查询请求或索引更新请求。 您可能需要几个这些定义，这取决于您希望Solr如何处理您将要做的各种请求。<br>SearchComponent是搜索的特征，例如突出显示或刻面。SearchComponent在solrconfig.xml中定义，与RequestHandlers分开，然后根据需要向RequestHandlers注册。  </p>
+<p>RequestHandlers</p>
+<p>SearchHandlers  </p>
+<p>默认情况下用Solr定义的主RequestHandlers是“SearchHandler”，它处理搜索查询。 定义RequestHandlers，然后默认使用一个列表定义RequestHandlers的默认列表。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;requestHandler name=&quot;/select&quot; class=&quot;solr.SearchHandler&quot;&gt;</span><br><span class="line">  &lt;lst name=&quot;defaults&quot;&gt;</span><br><span class="line">  &lt;str name=&quot;echoParams&quot;&gt;explicit&lt;/str&gt;</span><br><span class="line">  &lt;int name=&quot;rows&quot;&gt;10&lt;/int&gt;</span><br><span class="line">  &lt;/lst&gt;</span><br><span class="line">&lt;/requestHandler&gt;</span><br></pre></td></tr></table></figure>
+
+<p>此示例将rows参数定义为要返回的搜索结果的数量为“10”。 echoParams参数定义当返回调试信息时，应该返回查询中定义的参数。 还要注意，如果参数是字符串，整数或其他类型，则在列表中定义默认值的方式会有所不同。  </p>
+<p>搜索部分中描述的所有参数可以被定义为任何SearchHandler的默认值。  </p>
+<p>UpdateRequestHandlers  </p>
+<p>ShardHandlers  </p>
+<p>Search Components(搜索组件)</p>
+<p>默认组件</p>
+<p>如果没有定义任何组件（除了第一个组件和最后一个组件 - 见下文），默认情况下将按以下顺序执行：<br>|组件名称|类名|<br>|—-|—|<br>|query|solr.QueryComponent|<br>|facet|solr.FacetComponent|<br>|mit|solr.MoreLinkeThisCmponent|<br>|highlight|solr.HighlightComponent|<br>|stats|solr.StatsComponent|<br>|debug|solr.DebugComponent|<br>|expand|solr.ExpandComponent|<br>如果您使用这些默认名称之一注册新的搜索组件，则新定义的组件将将替换默认组件执行。  </p>
+<p>第一组件贺最后组件  </p>
+<p>可以将某些组件定义为之前（使用第一个组件）或之后（使用最后组件）上面列出的默认组件。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;arr name=&quot;first-components&quot;&gt;</span><br><span class="line">  &lt;str&gt;mycomponent&lt;/str&gt;</span><br><span class="line">&lt;/arr&gt;</span><br><span class="line">&lt;arr name=&quot;last-components&quot;&gt;</span><br><span class="line">  &lt;str&gt;spellcheck&lt;/str&gt;</span><br><span class="line">&lt;/ar</span><br></pre></td></tr></table></figure>
+
+<p>其它有用的组件  </p>
+<ul>
+<li>SpellCheckComponent  </li>
+<li>TermVectorComponent</li>
+<li>QueryElevationComponent</li>
+<li>TermsComponent</li>
+</ul>
+<h3 id="InitParams在SolrConfig"><a href="#InitParams在SolrConfig" class="headerlink" title="InitParams在SolrConfig"></a>InitParams在SolrConfig</h3><p>solrconfig.xml的<initparams>部分允许您在处理程序配置之外定义请求处理程序参数。  </initparams></p>
+<p>例如，如果您希望多个搜索处理程序返回相同的字段列表，则可以创建一个<initparams>部分，而无需在每个请求处理程序定义中定义相同的参数集。 如果您有一个请求处理程序返回不同的字段，那么您可以像往常一样在单个<requesthandler>部分中定义覆盖参数。<br>例如，这里是data_driven_config示例中默认定义的<initparams>部分之一：  </initparams></requesthandler></initparams></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;initParams path=&quot;/update/**,/query,/select,/tvrh,/elevate,/spell,/browse&quot;&gt;</span><br><span class="line">  &lt;lst name=&quot;defaults&quot;&gt;</span><br><span class="line">  &lt;str name=&quot;df&quot;&gt;_text_&lt;/str&gt;</span><br><span class="line">  &lt;/lst&gt;</span><br><span class="line">&lt;/initParams&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="UpdateHandlers-in-SolrConfig"><a href="#UpdateHandlers-in-SolrConfig" class="headerlink" title="UpdateHandlers in SolrConfig"></a>UpdateHandlers in SolrConfig</h3><p>本节中的设置在solrconfig.xml中的<updatehandler>元素中进行配置，可能会影响索引更新的性能。 这些设置会影响内部更新的完成。 <updatehandler>配置不影响处理客户端更新请求的RequestHandler的更高级别配置。  </updatehandler></updatehandler></p>
+<h3 id="Query-Settings-in-SolrConfig"><a href="#Query-Settings-in-SolrConfig" class="headerlink" title="Query Settings in SolrConfig"></a>Query Settings in SolrConfig</h3><p>本节中的设置会影响Solr将处理和响应查询的方式。 这些设置都在solrconfig.xml中的<query>元素的子元素中进行配置。  </query></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;query&gt;</span><br><span class="line">  ...</span><br><span class="line">&lt;/query&gt;</span><br></pre></td></tr></table></figure>
+
+<p>高速缓存(Caches)</p>
+<p>未完，持续更新。。。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/solr/" rel="tag"><i class="fa fa-tag"></i> solr</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/889e.html" rel="next" title="solr 文档、字段和schema设计">
+                <i class="fa fa-chevron-left"></i> solr 文档、字段和schema设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/c96a.html" rel="prev" title="shell脚本 快速入门">
+                shell脚本 快速入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="k先生">
+            
+              <p class="site-author-name" itemprop="name">k先生</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/dalaizhao" title="GitHub &rarr; https://github.com/dalaizhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置solrconfig-xml"><span class="nav-number">1.</span> <span class="nav-text">配置solrconfig.xml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在Solr配置文件中替换属性"><span class="nav-number">1.1.</span> <span class="nav-text">在Solr配置文件中替换属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IndexConfig-in-SolrConfig"><span class="nav-number">1.2.</span> <span class="nav-text">IndexConfig in SolrConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SolrConfig中的RequestHandlers和SearchComponent"><span class="nav-number">1.3.</span> <span class="nav-text">SolrConfig中的RequestHandlers和SearchComponent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InitParams在SolrConfig"><span class="nav-number">1.4.</span> <span class="nav-text">InitParams在SolrConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UpdateHandlers-in-SolrConfig"><span class="nav-number">1.5.</span> <span class="nav-text">UpdateHandlers in SolrConfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Query-Settings-in-SolrConfig"><span class="nav-number">1.6.</span> <span class="nav-text">Query Settings in SolrConfig</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017-2019</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">k先生</span>
+  <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+  <span id="busuanzi_container_site_pv">
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<span id="busuanzi_container_site_uv">
+  访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">站点共64.7k字</span>
+</div>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

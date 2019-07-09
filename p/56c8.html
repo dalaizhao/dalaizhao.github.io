@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Redis 简介Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。   Redis 与其他 key - value 缓存产品有以下三个特点：    Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。   Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储">
+<meta name="keywords" content="jedis api">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jedis API 详细示例">
+<meta property="og:url" content="http://yoursite.com/p/56c8.html">
+<meta property="og:site_name" content="k先生">
+<meta property="og:description" content="Redis 简介Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。   Redis 与其他 key - value 缓存产品有以下三个特点：    Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。   Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-15T06:52:48.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jedis API 详细示例">
+<meta name="twitter:description" content="Redis 简介Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。   Redis 与其他 key - value 缓存产品有以下三个特点：    Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。   Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/p/56c8">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Jedis API 详细示例 | k先生</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">k先生</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/dalaizhao" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/p/56c8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="k先生">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="k先生">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Jedis API 详细示例
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-16 20:59:42" itemprop="dateCreated datePublished" datetime="2018-01-16T20:59:42Z">2018-01-16</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-15 06:52:48" itemprop="dateModified" datetime="2019-04-15T06:52:48Z">2019-04-15</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Redis-简介"><a href="#Redis-简介" class="headerlink" title="Redis 简介"></a>Redis 简介</h2><p>Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。  </p>
+<p>Redis 与其他 key - value 缓存产品有以下三个特点：  </p>
+<ul>
+<li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。  </li>
+<li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。  </li>
+<li>Redis支持数据的备份，即master-slave模式的数据备份。  </li>
+</ul>
+<h2 id="Redis-优势"><a href="#Redis-优势" class="headerlink" title="Redis 优势"></a>Redis 优势</h2><ul>
+<li>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。</li>
+<li>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。    </li>
+<li>原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。</li>
+<li>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。  <a id="more"></a>
+
+</li>
+</ul>
+<h2 id="Redis与其他key-value存储有什么不同？"><a href="#Redis与其他key-value存储有什么不同？" class="headerlink" title="Redis与其他key-value存储有什么不同？"></a>Redis与其他key-value存储有什么不同？</h2><ul>
+<li>Redis有着更为复杂的数据结构并且提供对他们的原子性操作，这是一个不同于其他数据库的进化路径。Redis的数据类型都是基于基本数据结构的同时对程序员透明，无需进行额外的抽象。</li>
+<li>Redis运行在内存中但是可以持久化到磁盘，所以在对不同数据集进行高速读写时需要权衡内存，因为数据量不能大于硬件内存。在内存数据库方面的另一个优点是，相比在磁盘上相同的复杂的数据结构，在内存中操作起来非常简单，这样Redis可以做很多内部复杂性很强的事情。同时，在磁盘格式方面他们是紧凑的以追加的方式产生的，因为他们并不需要进行随机访问。</li>
+</ul>
+<h2 id="redis-数据类型"><a href="#redis-数据类型" class="headerlink" title="redis 数据类型"></a>redis 数据类型</h2><p>Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。   </p>
+<h2 id="maven依赖"><a href="#maven依赖" class="headerlink" title="maven依赖"></a>maven依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/redis.clients/jedis --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Jedis-API-操作示例"><a href="#Jedis-API-操作示例" class="headerlink" title="Jedis API 操作示例"></a>Jedis API 操作示例</h2><h3 id="Jedis-连接池"><a href="#Jedis-连接池" class="headerlink" title="Jedis 连接池"></a>Jedis 连接池</h3><p>连接Jedis线程安全单列模式可配置多个redis数据源的连接池。   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JedisApi</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOG = LoggerFactory.getLogger(JedisApi.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> JedisApi jedisApi;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 保存多个连接源</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, JedisPool&gt; poolMap = <span class="keyword">new</span> HashMap&lt;String, JedisPool&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">JedisApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: jedisPool 池</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Param</span>: [ip, port]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: redis.clients.jedis.JedisPool</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: imdalai</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span>: 2018/1/15</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> JedisPool <span class="title">getPool</span><span class="params">(String ip, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String key = ip + <span class="string">":"</span> + port;</span><br><span class="line">            JedisPool pool = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (!poolMap.containsKey(key)) &#123;</span><br><span class="line">                JedisPoolConfig config = <span class="keyword">new</span> JedisPoolConfig();</span><br><span class="line">                config.setMaxIdle(RedisConfig.MAX_IDLE);</span><br><span class="line">                config.setMaxTotal(RedisConfig.MAX_ACTIVE);</span><br><span class="line">                <span class="comment">//  在获取连接的时候检查有效性, 默认false</span></span><br><span class="line">                config.setTestOnBorrow(<span class="keyword">true</span>);</span><br><span class="line">                <span class="comment">//  在空闲时检查有效性, 默认false</span></span><br><span class="line">                config.setTestOnReturn(<span class="keyword">true</span>);</span><br><span class="line">                pool = <span class="keyword">new</span> JedisPool(config, ip, port, RedisConfig.TIME_OUT);</span><br><span class="line">                poolMap.put(key, pool);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                pool = poolMap.get(key);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> pool;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            LOG.error(<span class="string">"init jedis pool failed ! "</span> + e.getMessage(), e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 线程安全单列模式</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Param</span>: []</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: JedisApi</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: imdalai</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span>: 2018/1/15</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JedisApi <span class="title">getRedisApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (jedisApi == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (JedisApi.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (jedisApi == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    jedisApi = <span class="keyword">new</span> JedisApi();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jedisApi;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 获取一个jedis连接</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Param</span>: [ip, port]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: redis.clients.jedis.Jedis</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: imdalai</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span>: 2018/1/15</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Jedis <span class="title">getRedis</span><span class="params">(String ip, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        Jedis jedis = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (jedis == <span class="keyword">null</span> &amp;&amp; count &lt;= RedisConfig.RETRY_NUM) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                jedis = getPool(ip, port).getResource();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                LOG.error(<span class="string">"get redis failed ! "</span> + e.getMessage(), e);</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> jedis;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Description</span>: 释放jedis到jedisPool中</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Param</span>: [jedis, ip, port]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>: void</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Author</span>: imdalai</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@Date</span>: 2018/1/15</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">closeRedis</span><span class="params">(Jedis jedis)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (jedis != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                jedis.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                LOG.error(<span class="string">"colse jedis failed ! "</span> + e.getMessage(), e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="键（key）"><a href="#键（key）" class="headerlink" title="键（key）"></a>键（key）</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"====key功能展示===="</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        jedis.select(<span class="number">0</span>);</span><br><span class="line">        System.out.println(<span class="string">"清除数据："</span> + jedis.flushDB());</span><br><span class="line">        System.out.println(<span class="string">"判断某个键是否存在："</span> + jedis.exists(<span class="string">"1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"新增&#123;1，a&#125;键值对:"</span> + jedis.set(<span class="string">"1"</span>, <span class="string">"a"</span>));</span><br><span class="line">        System.out.println(jedis.exists(<span class="string">"1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"新增&#123;2，b&#125;键值对:"</span> + jedis.set(<span class="string">"2"</span>, <span class="string">"b"</span>));</span><br><span class="line">        System.out.println(<span class="string">"系统中所有的键如下："</span> + jedis.keys(<span class="string">"*"</span>).toString());</span><br><span class="line">        System.out.println(<span class="string">"删除键 1:"</span> + jedis.del(<span class="string">"1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"判断键 1是否存在："</span> + jedis.exists(<span class="string">"1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"设置键 2的过期时间为5s:"</span> + jedis.expire(<span class="string">"2"</span>, <span class="number">5</span>));</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">2</span>);</span><br><span class="line">        System.out.println(<span class="string">"查看键 2的剩余生存时间："</span> + jedis.ttl(<span class="string">"2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"移除键 2的生存时间："</span> + jedis.persist(<span class="string">"2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"查看键 2的剩余生存时间："</span> + jedis.ttl(<span class="string">"2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"查看键 2所存储的值的类型："</span> + jedis.type(<span class="string">"2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"查看键 2的值："</span> + jedis.get(<span class="string">"2"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+<p>====key功能展示====<br>清除数据：OK<br>判断某个键是否存在：false<br>新增{1，a}键值对:OK<br>true<br>新增{2，b}键值对 :OK<br>系统中所有的键如下：[1, 2]<br>删除键 1:1<br>判断键 1是否存在：false<br>设置键 2的过期时间为5s:1<br>查看键 2的剩余生存时间：3<br>移除键 2的生存时间：1<br>查看键 2的剩余生存时间：-1<br>查看键 2所存储的值的类型：string<br>查看键 2的值：b   </p>
+</blockquote>
+<h3 id="字符串、整型和浮点数"><a href="#字符串、整型和浮点数" class="headerlink" title="字符串、整型和浮点数"></a>字符串、整型和浮点数</h3><p>string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。    </p>
+<p>string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。   </p>
+<p>string类型是Redis最基本的数据类型，一个键最大能存储512MB。   </p>
+<p><strong>字符串</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        jedis.select(<span class="number">1</span>);</span><br><span class="line">        jedis.flushDB();</span><br><span class="line">        System.out.println(<span class="string">"====字符串功能展示===="</span>);</span><br><span class="line">        System.out.println(<span class="string">"增:"</span>);</span><br><span class="line">        System.out.println(jedis.set(<span class="string">"a"</span>, <span class="string">"1"</span>));</span><br><span class="line">        System.out.println(jedis.set(<span class="string">"b"</span>, <span class="string">"2"</span>));</span><br><span class="line">        System.out.println(jedis.set(<span class="string">"c"</span>, <span class="string">"3"</span>));</span><br><span class="line">        System.out.println(<span class="string">"删除键 a:"</span> + jedis.del(<span class="string">"a"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键 a:"</span> + jedis.get(<span class="string">"a"</span>));</span><br><span class="line">        System.out.println(<span class="string">"修改键 b:"</span> + jedis.set(<span class="string">"b"</span>, <span class="string">"bChanged"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键 b 的值:"</span> + jedis.get(<span class="string">"b"</span>));</span><br><span class="line">        System.out.println(<span class="string">"在键 c后面加入值："</span> + jedis.append(<span class="string">"c"</span>, <span class="string">"End"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键 c的值："</span> + jedis.get(<span class="string">"c"</span>));</span><br><span class="line">        System.out.println(<span class="string">"增加多个键值对："</span> + jedis.mset(<span class="string">"key01"</span>, <span class="string">"value01"</span>, <span class="string">"key02"</span>, <span class="string">"value02"</span>, <span class="string">"key03"</span>, <span class="string">"value03"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取多个键值对："</span> + jedis.mget(<span class="string">"key01"</span>, <span class="string">"key02"</span>, <span class="string">"key03"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取多个键值对："</span> + jedis.mget(<span class="string">"key01"</span>, <span class="string">"key02"</span>, <span class="string">"key03"</span>, <span class="string">"key04"</span>));</span><br><span class="line">        System.out.println(<span class="string">"删除多个键值对："</span> + jedis.del(<span class="keyword">new</span> String[]&#123;<span class="string">"key01"</span>, <span class="string">"key02"</span>&#125;));</span><br><span class="line">        System.out.println(<span class="string">"获取多个键值对："</span> + jedis.mget(<span class="string">"key01"</span>, <span class="string">"key02"</span>, <span class="string">"key03"</span>));</span><br><span class="line"></span><br><span class="line">        jedis.flushDB();</span><br><span class="line">        System.out.println(<span class="string">"新增键值对防止覆盖原先值:"</span>);</span><br><span class="line">        System.out.println(jedis.setnx(<span class="string">"key001"</span>, <span class="string">"value001"</span>));</span><br><span class="line">        System.out.println(jedis.setnx(<span class="string">"key002"</span>, <span class="string">"value002"</span>));</span><br><span class="line">        System.out.println(jedis.setnx(<span class="string">"key002"</span>, <span class="string">"value002-new"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key001的值："</span> + jedis.get(<span class="string">"key001"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key002的值："</span> + jedis.get(<span class="string">"key002"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"新增键值对并设置有效时间:"</span>);</span><br><span class="line">        System.out.println(jedis.setex(<span class="string">"key003"</span>, <span class="number">2</span>, <span class="string">"value003"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key003的值："</span> + jedis.get(<span class="string">"key003"</span>));</span><br><span class="line">        TimeUnit.SECONDS.sleep(<span class="number">3</span>);</span><br><span class="line">        System.out.println(<span class="string">"获取键key003的值："</span> + jedis.get(<span class="string">"key003"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"获取原值，更新为新值:"</span>);</span><br><span class="line">        System.out.println(jedis.getSet(<span class="string">"key002"</span>, <span class="string">"key2GetSet"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key002的值："</span> + jedis.get(<span class="string">"key002"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"截取key002的值的字符串："</span> + jedis.getrange(<span class="string">"key002"</span>, <span class="number">2</span>, <span class="number">5</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：  </p>
+<blockquote>
+<p>====字符串功能展示====<br>增:<br>OK<br>OK<br>OK<br>删除键 a:1<br>获取键 a:null<br>修改键 b:OK<br>获取键 b 的值:bChanged<br>在键 c后面加入值：4<br>获取键 c的值：3End<br>增加多个键值对：OK<br>获取多个键值对：[value01, value02, value03]<br>获取多个键值对：[value01, value02, value03, null]<br>删除多个键值对：2<br>获取多个键值对：[null, null, value03]<br>新增键值对防止覆盖原先值:<br>1<br>1<br>0<br>获取键key001的值：value001<br>获取键key002的值：value002<br>新增键值对并设置有效时间:<br>OK<br>获取键key003的值：value003<br>获取键key003的值：null<br>获取原值，更新为新值:<br>value002<br>获取键key002的值：key2GetSet<br>截取key002的值的字符串：y2Ge  </p>
+</blockquote>
+<p><strong>整数和浮点数</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        jedis.select(<span class="number">2</span>);</span><br><span class="line">        jedis.flushDB();</span><br><span class="line">        System.out.println(<span class="string">"====整数和浮点数功能展示===="</span>);</span><br><span class="line">        jedis.set(<span class="string">"key001"</span>, <span class="string">"1"</span>);</span><br><span class="line">        jedis.set(<span class="string">"key002"</span>, <span class="string">"2"</span>);</span><br><span class="line">        jedis.set(<span class="string">"key003"</span>, <span class="string">"3.3"</span>);</span><br><span class="line">        System.out.println(<span class="string">"获取键key001的值："</span> + jedis.get(<span class="string">"key001"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key002的值："</span> + jedis.get(<span class="string">"key002"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将键key001的值+1："</span> + jedis.incr(<span class="string">"key001"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key001的值："</span> + jedis.get(<span class="string">"key001"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将键key002的值-1："</span> + jedis.decr(<span class="string">"key002"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取键key002的值："</span> + jedis.get(<span class="string">"key002"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将key001的值加上整数5："</span> + jedis.incrBy(<span class="string">"key001"</span>, <span class="number">5</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取key001的值："</span> + jedis.get(<span class="string">"key001"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将key002的值减去整数5："</span> + jedis.decrBy(<span class="string">"key002"</span>, <span class="number">5</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取key002的值："</span> + jedis.get(<span class="string">"key002"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：  </p>
+<blockquote>
+<p>====整数和浮点数功能展示====<br>获取键key001的值：1<br>获取键key002的值：2<br>将键key001的值+1：2<br>获取键key001的值：2<br>将键key002的值-1：1<br>获取键key002的值：1<br>将key001的值加上整数5：7<br>获取key001的值：7<br>将key002的值减去整数5：-4<br>获取key002的值：-4  </p>
+</blockquote>
+<h3 id="List（列表）"><a href="#List（列表）" class="headerlink" title="List（列表）"></a>List（列表）</h3><p>Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。    </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testList</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    jedis.select(<span class="number">3</span>);</span><br><span class="line">    jedis.flushDB();</span><br><span class="line">    System.out.println(<span class="string">"====列表list功能展示===="</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"collections"</span>, <span class="string">"ArrayList"</span>, <span class="string">"LinkedList"</span>, <span class="string">"Vector"</span>, <span class="string">"Stack"</span>, <span class="string">"queue"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"collections"</span>, <span class="string">"HashMap"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"collections"</span>, <span class="string">"HashMap"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"collections"</span>, <span class="string">"HashMap"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"collections"</span>, <span class="string">"HashMap"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"number"</span>, <span class="string">"1"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"number"</span>, <span class="string">"2"</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"number"</span>, <span class="string">"3"</span>);</span><br><span class="line">    <span class="comment">// -1 代表倒数第一个</span></span><br><span class="line">    System.out.println(<span class="string">"collections 的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections区间0-2内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, <span class="number">2</span>));</span><br><span class="line">    System.out.println(<span class="string">"================="</span>);</span><br><span class="line">    <span class="comment">// 删除列表指定的值 ，第二个参数为删除的个数（有重复时），后add进去的值先被删，类似于出栈</span></span><br><span class="line">    System.out.println(<span class="string">"删除指定元素个数："</span> + jedis.lrem(<span class="string">"collections"</span>, <span class="number">2</span>, <span class="string">"HashMap"</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections 的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"删除区间0-4以外的数据："</span> + jedis.ltrim(<span class="string">"collections"</span>, <span class="number">0</span>, <span class="number">4</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections 的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections列表出栈（左端）："</span> + jedis.lpop(<span class="string">"collections"</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections添加元素，从列表右端，与lpush相对应："</span> + jedis.rpush(<span class="string">"collections"</span>, <span class="string">"EnumMap"</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections列表出栈（右端）："</span> + jedis.rpop(<span class="string">"collections"</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"修改collections指定下标1的内容："</span> + jedis.lset(<span class="string">"collections"</span>, <span class="number">1</span>, <span class="string">"LinkedArrayList"</span>));</span><br><span class="line">    System.out.println(<span class="string">"collections的内容："</span> + jedis.lrange(<span class="string">"collections"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(<span class="string">"================="</span>);</span><br><span class="line">    System.out.println(<span class="string">"collections的长度："</span> + jedis.llen(<span class="string">"collections"</span>));</span><br><span class="line">    System.out.println(<span class="string">"获取collections下标为2的元素："</span> + jedis.lindex(<span class="string">"collections"</span>, <span class="number">2</span>));</span><br><span class="line">    System.out.println(<span class="string">"================="</span>);</span><br><span class="line">    jedis.lpush(<span class="string">"sortedList"</span>, <span class="string">"3"</span>, <span class="string">"6"</span>, <span class="string">"2"</span>, <span class="string">"0"</span>, <span class="string">"7"</span>, <span class="string">"4"</span>);</span><br><span class="line">    System.out.println(<span class="string">"sortedList排序前："</span> + jedis.lrange(<span class="string">"sortedList"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    System.out.println(jedis.sort(<span class="string">"sortedList"</span>));</span><br><span class="line">    System.out.println(<span class="string">"sortedList排序后："</span> + jedis.lrange(<span class="string">"sortedList"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">    </span><br><span class="line">    System.out.println(<span class="string">""</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：  </p>
+<blockquote>
+<p>====列表list功能展示====<br>collections 的内容：[HashMap, HashMap, HashMap, HashMap, queue, Stack, Vector, LinkedList, ArrayList]<br>collections区间0-2内容：[HashMap, HashMap, HashMap]<br><code>=================</code><br>删除指定元素个数：2<br>collections 的内容：[HashMap, HashMap, queue, Stack, Vector, LinkedList, ArrayList]<br>删除区间0-4以外的数据：OK<br>collections 的内容：[HashMap, HashMap, queue, Stack, Vector]<br>collections列表出栈（左端）：HashMap<br>collections的内容：[HashMap, queue, Stack, Vector]<br>collections添加元素，从列表右端，与lpush相对应：5<br>collections的内容：[HashMap, queue, Stack, Vector, EnumMap]<br>collections列表出栈（右端）：EnumMap<br>collections的内容：[HashMap, queue, Stack, Vector]<br>修改collections指定下标1的内容：OK<br>collections的内容：[HashMap, LinkedArrayList, Stack, Vector]<br><code>=================</code><br>collections的长度：4<br>获取collections下标为2的元素：Stack<br><code>================</code><br>sortedList排序前：[4, 7, 0, 2, 6, 3]<br>[0, 2, 3, 4, 6, 7]<br>sortedList排序后：[4, 7, 0, 2, 6, 3]  </p>
+</blockquote>
+<h3 id="集合（Set）"><a href="#集合（Set）" class="headerlink" title="集合（Set）"></a>集合（Set）</h3><p>Redis的Set是string类型的无序集合。  </p>
+<p>集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。      </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        jedis.select(<span class="number">4</span>);</span><br><span class="line">        jedis.flushDB();</span><br><span class="line">        System.out.println(<span class="string">"========测试集合（set）========="</span>);</span><br><span class="line">        System.out.println(<span class="string">"集合set添加数据："</span> + jedis.sadd(<span class="string">"setElement"</span>, <span class="string">"e1"</span>, <span class="string">"e7"</span>, <span class="string">"e3"</span>, <span class="string">"e6"</span>, <span class="string">"e0"</span>, <span class="string">"e4"</span>));</span><br><span class="line">        System.out.println(jedis.sadd(<span class="string">"setElement"</span>, <span class="string">"e6"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement的所有元素："</span> + jedis.smembers(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"删除元素e0:"</span> + jedis.srem(<span class="string">"setElement"</span>, <span class="string">"e0"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement的所有元素："</span> + jedis.smembers(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"删除两个元素e7和e6："</span> + jedis.srem(<span class="string">"setElement"</span>, <span class="string">"e7"</span>, <span class="string">"e6"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement的所有元素为："</span> + jedis.smembers(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"随机的移除集合中的一个元素："</span> + jedis.spop(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"随机的移除集合中的一个元素："</span> + jedis.spop(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement的所有元素为："</span> + jedis.smembers(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement中包含元素的个数："</span> + jedis.scard(<span class="string">"setElement"</span>));</span><br><span class="line">        System.out.println(<span class="string">"e3是否在setElement中："</span> + jedis.sismember(<span class="string">"setElement"</span>, <span class="string">"e3"</span>));</span><br><span class="line">        System.out.println(<span class="string">"e1是否在setElement中："</span> + jedis.sismember(<span class="string">"setElement"</span>, <span class="string">"e1"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"================="</span>);</span><br><span class="line">        System.out.println(jedis.sadd(<span class="string">"setElement1"</span>, <span class="string">"e1"</span>, <span class="string">"e2"</span>, <span class="string">"e4"</span>, <span class="string">"e3"</span>, <span class="string">"e0"</span>, <span class="string">"e8"</span>, <span class="string">"e7"</span>, <span class="string">"e5"</span>));</span><br><span class="line">        System.out.println(jedis.sadd(<span class="string">"setElement2"</span>, <span class="string">"e1"</span>, <span class="string">"e2"</span>, <span class="string">"e4"</span>, <span class="string">"e3"</span>, <span class="string">"e0"</span>, <span class="string">"e8"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将setElement1中删除e1并存入setElement3中："</span> + jedis.smove(<span class="string">"setElement1"</span>, <span class="string">"setElement3"</span>, <span class="string">"e1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将setElement1中删除e2并存入setElement3中："</span> + jedis.smove(<span class="string">"setElement1"</span>, <span class="string">"setElement3"</span>, <span class="string">"e2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement1中的元素："</span> + jedis.smembers(<span class="string">"setElement1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement3中的元素："</span> + jedis.smembers(<span class="string">"setElement3"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"集合运算:"</span>);</span><br><span class="line">        System.out.println(<span class="string">"setElement1中的元素："</span> + jedis.smembers(<span class="string">"setElement1"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement2中的元素："</span> + jedis.smembers(<span class="string">"setElement2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement1和setElement2的交集:"</span> + jedis.sinter(<span class="string">"setElement1"</span>, <span class="string">"setElement2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"setElement1和setElement2的并集:"</span> + jedis.sunion(<span class="string">"setElement1"</span>, <span class="string">"setElement2"</span>));</span><br><span class="line">        <span class="comment">// setElement1中有，setElement2中没有</span></span><br><span class="line">        System.out.println(<span class="string">"setElement1和setElement2的差集:"</span> + jedis.sdiff(<span class="string">"setElement1"</span>, <span class="string">"setElement2"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+<p>========测试集合（set）=========<br>集合set添加数据：6<br>0<br>setElement的所有元素：[e3, e6, e1, e7, e0, e4]<br>删除元素e0:1<br>setElement的所有元素：[e6, e3, e1, e7, e4]<br>删除两个元素e7和e6：2<br>setElement的所有元素为：[e3, e1, e4]<br>随机的移除集合中的一个元素：e3<br>随机的移除集合中的一个元素：e4<br>setElement的所有元素为：[e1]<br>setElement中包含元素的个数：1<br>e3是否在setElement中：false<br>e1是否在setElement中：true<br><code>=================</code><br>8<br>6<br>将setElement1中删除e1并存入setElement3中：1<br>将setElement1中删除e2并存入setElement3中：1<br>setElement1中的元素：[e5, e8, e3, e7, e0, e4]<br>setElement3中的元素：[e1, e2]<br>集合运算:<br>setElement1中的元素：[e5, e8, e3, e7, e0, e4]<br>setElement2中的元素：[e3, e4, e2, e8, e1, e0]<br>setElement1和setElement2的交集:[e3, e4, e8, e0]<br>setElement1和setElement2的并集:[e5, e8, e3, e1, e7, e0, e2, e4]<br>setElement1和setElement2的差集:[e5, e7]  </p>
+</blockquote>
+<h3 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h3><p>Redis hash 是一个键值(key=&gt;value)对集合。   </p>
+<p>Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"=======集合（Set）======="</span>);</span><br><span class="line">        jedis.select(<span class="number">5</span>);</span><br><span class="line">        jedis.flushDB();</span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        map.put(<span class="string">"key001"</span>, <span class="string">"value001"</span>);</span><br><span class="line">        map.put(<span class="string">"key002"</span>, <span class="string">"value002"</span>);</span><br><span class="line">        map.put(<span class="string">"key003"</span>, <span class="string">"value003"</span>);</span><br><span class="line">        jedis.hmset(<span class="string">"hash"</span>, map);</span><br><span class="line">        jedis.hset(<span class="string">"hash"</span>, <span class="string">"key004"</span>, <span class="string">"value004"</span>);</span><br><span class="line">        <span class="comment">// return Map&lt;String,String&gt;</span></span><br><span class="line">        System.out.println(<span class="string">"散列hash的所有键值对为："</span> + jedis.hgetAll(<span class="string">"hash"</span>));</span><br><span class="line">        <span class="comment">// return Set&lt;String&gt;</span></span><br><span class="line">        System.out.println(<span class="string">"散列hash的所有键为："</span> + jedis.hkeys(<span class="string">"hash"</span>));</span><br><span class="line">        <span class="comment">// return List&lt;String&gt;</span></span><br><span class="line">        System.out.println(<span class="string">"散列hash的所有值为："</span> + jedis.hvals(<span class="string">"hash"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将key006保存的值加上一个整数，如果key006不存在则添加key006："</span> + jedis.hincrBy(<span class="string">"hash"</span>, <span class="string">"key006"</span>, <span class="number">6</span>));</span><br><span class="line">        System.out.println(<span class="string">"散列hash的所有键值对为："</span> + jedis.hgetAll(<span class="string">"hash"</span>));</span><br><span class="line">        System.out.println(<span class="string">"将key006保存的值加上一个整数，如果key006不存在则添加key006："</span> + jedis.hincrBy(<span class="string">"hash"</span>, <span class="string">"key006"</span>, <span class="number">3</span>));</span><br><span class="line">        System.out.println(<span class="string">"散列hash的所有键值对为："</span> + jedis.hgetAll(<span class="string">"hash"</span>));</span><br><span class="line">        System.out.println(<span class="string">"删除一个或者多个键值对："</span> + jedis.hdel(<span class="string">"hash"</span>, <span class="string">"key002"</span>));</span><br><span class="line">        System.out.println(<span class="string">"散列hash的所有键值对为："</span> + jedis.hgetAll(<span class="string">"hash"</span>));</span><br><span class="line">        System.out.println(<span class="string">"散列hash中键值对的个数："</span> + jedis.hlen(<span class="string">"hash"</span>));</span><br><span class="line">        System.out.println(<span class="string">"判断hash中是否存在key002："</span> + jedis.hexists(<span class="string">"hash"</span>, <span class="string">"key002"</span>));</span><br><span class="line">        System.out.println(<span class="string">"判断hash中是否存在key003："</span> + jedis.hexists(<span class="string">"hash"</span>, <span class="string">"key003"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取hash中的值："</span> + jedis.hmget(<span class="string">"hash"</span>, <span class="string">"key003"</span>));</span><br><span class="line">        System.out.println(<span class="string">"获取hash中的值："</span> + jedis.hmget(<span class="string">"hash"</span>, <span class="string">"key003"</span>, <span class="string">"key004"</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">""</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<blockquote>
+<p>=======集合（Set）=======<br>散列hash的所有键值对为：{key004=value004, key003=value003, key002=value002, key001=value001}<br>散列hash的所有键为：[key004, key003, key002, key001]<br>散列hash的所有值为：[value001, value003, value002, value004]<br>将key006保存的值加上一个整数，如果key006不存在则添加key006：6<br>散列hash的所有键值对为：{key004=value004, key003=value003, key006=6, key002=value002, key001=value001}<br>将key006保存的值加上一个整数，如果key006不存在则添加key006：9<br>散列hash的所有键值对为：{key004=value004, key003=value003, key006=9, key002=value002, key001=value001}<br>删除一个或者多个键值对：1<br>散列hash的所有键值对为：{key004=value004, key003=value003, key006=9, key001=value001}<br>散列hash中键值对的个数：4<br>判断hash中是否存在key002：false<br>判断hash中是否存在key003：true<br>获取hash中的值：[value003]<br>获取hash中的值：[value003, value004]  </p>
+</blockquote>
+<h3 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h3><p>zset(sorted set：有序集合)<br>Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。<br>不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。  </p>
+<p>zset的成员是唯一的,但分数(score)却可以重复。   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testSortSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"=======有序集合======="</span>);</span><br><span class="line">        jedis.select(<span class="number">6</span>);</span><br><span class="line">        jedis.flushDB();</span><br><span class="line">        Map&lt;String, Double&gt; map = <span class="keyword">new</span> HashMap&lt;String, Double&gt;();</span><br><span class="line">        map.put(<span class="string">"key2"</span>, <span class="number">1.2</span>);</span><br><span class="line">        map.put(<span class="string">"key3"</span>, <span class="number">4.0</span>);</span><br><span class="line">        map.put(<span class="string">"key4"</span>, <span class="number">5.0</span>);</span><br><span class="line">        map.put(<span class="string">"key5"</span>, <span class="number">0.2</span>);</span><br><span class="line">        System.out.println(jedis.zadd(<span class="string">"zset"</span>, <span class="number">3</span>, <span class="string">"key1"</span>));</span><br><span class="line">        System.out.println(jedis.zadd(<span class="string">"zset"</span>, map));</span><br><span class="line">        System.out.println(<span class="string">"zset中的所有元素："</span> + jedis.zrange(<span class="string">"zset"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中的所有元素："</span> + jedis.zrangeWithScores(<span class="string">"zset"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中的所有元素："</span> + jedis.zrangeByScore(<span class="string">"zset"</span>, <span class="number">0</span>, <span class="number">100</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中的所有元素："</span> + jedis.zrangeByScoreWithScores(<span class="string">"zset"</span>, <span class="number">0</span>, <span class="number">100</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中key2的分值："</span> + jedis.zscore(<span class="string">"zset"</span>, <span class="string">"key2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中key2的排名："</span> + jedis.zrank(<span class="string">"zset"</span>, <span class="string">"key2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"删除zset中的元素key3："</span> + jedis.zrem(<span class="string">"zset"</span>, <span class="string">"key3"</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中的所有元素："</span> + jedis.zrange(<span class="string">"zset"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中元素的个数："</span> + jedis.zcard(<span class="string">"zset"</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中分值在1-4之间的元素的个数："</span> + jedis.zcount(<span class="string">"zset"</span>, <span class="number">1</span>, <span class="number">4</span>));</span><br><span class="line">        System.out.println(<span class="string">"key2的分值加上5："</span> + jedis.zincrby(<span class="string">"zset"</span>, <span class="number">5</span>, <span class="string">"key2"</span>));</span><br><span class="line">        System.out.println(<span class="string">"key3的分值加上4："</span> + jedis.zincrby(<span class="string">"zset"</span>, <span class="number">4</span>, <span class="string">"key3"</span>));</span><br><span class="line">        System.out.println(<span class="string">"zset中的所有元素："</span> + jedis.zrange(<span class="string">"zset"</span>, <span class="number">0</span>, -<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：  </p>
+<blockquote>
+<p>=======有序集合=======<br>1<br>4<br>zset中的所有元素：[key5, key2, key1, key3, key4]<br>zset中的所有元素：[[[107, 101, 121, 53],0.2], [[107, 101, 121, 50],1.2], [[107, 101, 121, 49],3.0], [[107, 101, 121, 51],4.0], [[107, 101, 121, 52],5.0]]<br>zset中的所有元素：[key5, key2, key1, key3, key4]<br>zset中的所有元素：[[[107, 101, 121, 53],0.2], [[107, 101, 121, 50],1.2], [[107, 101, 121, 49],3.0], [[107, 101, 121, 51],4.0], [[107, 101, 121, 52],5.0]]<br>zset中key2的分值：1.2<br>zset中key2的排名：1<br>删除zset中的元素key3：1<br>zset中的所有元素：[key5, key2, key1, key4]<br>zset中元素的个数：4<br>zset中分值在1-4之间的元素的个数：2<br>key2的分值加上5：6.2<br>key3的分值加上4：4.0<br>zset中的所有元素：[key5, key1, key3, key4, key2]  </p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://blog.csdn.net/u013256816/article/details/51120023" target="_blank" rel="noopener">redisAPI简单使用</a><br><a href="http://blog.csdn.net/u013256816/article/details/51125842" target="_blank" rel="noopener">API整理原处-朱小斯</a>      </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/jedis-api/" rel="tag"><i class="fa fa-tag"></i> jedis api</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/91ef.html" rel="next" title="Apache Spark LDA 官方文档">
+                <i class="fa fa-chevron-left"></i> Apache Spark LDA 官方文档
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/p/ea70.html" rel="prev" title="git命令收集">
+                git命令收集 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpg" alt="k先生">
+            
+              <p class="site-author-name" itemprop="name">k先生</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/dalaizhao" title="GitHub &rarr; https://github.com/dalaizhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-简介"><span class="nav-number">1.</span> <span class="nav-text">Redis 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-优势"><span class="nav-number">2.</span> <span class="nav-text">Redis 优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis与其他key-value存储有什么不同？"><span class="nav-number">3.</span> <span class="nav-text">Redis与其他key-value存储有什么不同？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis-数据类型"><span class="nav-number">4.</span> <span class="nav-text">redis 数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven依赖"><span class="nav-number">5.</span> <span class="nav-text">maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jedis-API-操作示例"><span class="nav-number">6.</span> <span class="nav-text">Jedis API 操作示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jedis-连接池"><span class="nav-number">6.1.</span> <span class="nav-text">Jedis 连接池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键（key）"><span class="nav-number">6.2.</span> <span class="nav-text">键（key）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串、整型和浮点数"><span class="nav-number">6.3.</span> <span class="nav-text">字符串、整型和浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#List（列表）"><span class="nav-number">6.4.</span> <span class="nav-text">List（列表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合（Set）"><span class="nav-number">6.5.</span> <span class="nav-text">集合（Set）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash"><span class="nav-number">6.6.</span> <span class="nav-text">hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序集合"><span class="nav-number">6.7.</span> <span class="nav-text">有序集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017-2019</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">k先生</span>
+  <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+  <span id="busuanzi_container_site_pv">
+    总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<span id="busuanzi_container_site_uv">
+  访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+<span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">站点共64.7k字</span>
+</div>
+</div>
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
