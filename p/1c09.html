@@ -113,13 +113,13 @@
 <meta property="og:site_name" content="k先生">
 <meta property="og:description" content="基本方法hash法前言   适用于在处理海量数据的过程中，使用hash方法一般可以快速存取、统计某些数据，将大量数据进行分类，例如提取某日访问网站次数最多的ip地址。   简介   hash主要用来进行“快速存取”，在O(1)时间复杂度里就可以找到目标元素，或者判断是否存在。hash一般被称为散列，给定关键字key，按一个确定的散列函数计算出hash(key),把hash(key)作为关键字key">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/p/1c09/trieTree.png">
-<meta property="og:image" content="http://yoursite.com/p/1c09/bucketAlgo.png">
+<meta property="og:image" content="http://yoursite.com/p/1c09.htm/trieTree.png">
+<meta property="og:image" content="http://yoursite.com/p/1c09.htm/bucketAlgo.png">
 <meta property="og:updated_time" content="2019-04-15T06:52:48.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="海量数据处理算法">
 <meta name="twitter:description" content="基本方法hash法前言   适用于在处理海量数据的过程中，使用hash方法一般可以快速存取、统计某些数据，将大量数据进行分类，例如提取某日访问网站次数最多的ip地址。   简介   hash主要用来进行“快速存取”，在O(1)时间复杂度里就可以找到目标元素，或者判断是否存在。hash一般被称为散列，给定关键字key，按一个确定的散列函数计算出hash(key),把hash(key)作为关键字key">
-<meta name="twitter:image" content="http://yoursite.com/p/1c09/trieTree.png">
+<meta name="twitter:image" content="http://yoursite.com/p/1c09.htm/trieTree.png">
 
 
 
@@ -518,7 +518,7 @@
 <p>Trie树的典型应用是用于统计和排序大量的字符串（但不仅限于字符串），所以经常被搜索引擎系统用于文本词频统计。  </p>
 <p>简介  </p>
 <p>Trie 这个单词来自“retrieve”，Trie 树又称字典树或键树，它是一种用于快速字符串检索的多叉树结构，其原理是利用字符串的公共前缀来减少时空开销，即空间换时间。它的优点是：最大限制地减少无谓的字符串比较，查询效率比散列表高。缺点：若系统中存在大量字符串且这些字符串基本没有公共前缀，这对应的Trie树非常的消费内存。<br>Trie树的一般具有3个特性：<br>(1)根节点不包含字符，除根结点外每一个节点都只包含一个字符。<br>(2)从根节点到某一结点，路径上经过的字符串连起来，为该节点对应的字符串。<br>(3)每个节点的所有子节点包含的字符不相同。 </p>
-<p>例子：要保存5个字符串tea,ten,to,int,inn.如图所示：<br><img src="/p/1c09/trieTree.png" alt>  </p>
+<p>例子：要保存5个字符串tea,ten,to,int,inn.如图所示：<br><img src="/p/1c09.htm/trieTree.png" alt>  </p>
 <h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>前言  </p>
 <p>堆特别适合海量数据中寻找前N大数据（最大堆）或者前N小数据问题，其中N比较小。  </p>
 <p>简介  </p>
@@ -526,7 +526,7 @@
 <h3 id="双层桶法"><a href="#双层桶法" class="headerlink" title="双层桶法"></a>双层桶法</h3><p>前言  </p>
 <p>桶排序一般适用于寻找第K大的数、寻找中位数、寻找不重复或重复的数字等情况。  </p>
 <p>简介  </p>
-<p>双层桶不是数据结构，而是一种算法实现，类似于分治思想，其次并不是分两次，“双”只是个拟词，只要没达到要求就可以继续分。因为元素范围很大，不能利用直接寻址表，所以通过多次划分，逐步确定范围，然后最后在一个可以接受的范围内进行。桶排序的平均时间复杂度为O(n),最坏情况下O(n^2)。<br>例子：存在集合{11，2，5，17，45，31，36，27，26}，用桶排序。<br>解题：<br>最大值为45，所以分成了5个桶，并在桶内进行选择/堆/快排后在整合在一起。<br><img src="/p/1c09/bucketAlgo.png" alt>   </p>
+<p>双层桶不是数据结构，而是一种算法实现，类似于分治思想，其次并不是分两次，“双”只是个拟词，只要没达到要求就可以继续分。因为元素范围很大，不能利用直接寻址表，所以通过多次划分，逐步确定范围，然后最后在一个可以接受的范围内进行。桶排序的平均时间复杂度为O(n),最坏情况下O(n^2)。<br>例子：存在集合{11，2，5，17，45，31，36，27，26}，用桶排序。<br>解题：<br>最大值为45，所以分成了5个桶，并在桶内进行选择/堆/快排后在整合在一起。<br><img src="/p/1c09.htm/bucketAlgo.png" alt>   </p>
 <h2 id="经典实例分析"><a href="#经典实例分析" class="headerlink" title="经典实例分析"></a>经典实例分析</h2><h3 id="top-K问题"><a href="#top-K问题" class="headerlink" title="top K问题"></a>top K问题</h3><p>前言  </p>
 <p>在海量数据处理时经常遇到需要寻找出现频率最高的或最大的前K个数，这类问题通常被称为top K问题，例如搜索引擎中，统计搜索引擎的最热门10个查询词，或者最热门的20个歌曲。  </p>
 <p>简介  </p>

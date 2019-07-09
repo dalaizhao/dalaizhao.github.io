@@ -113,12 +113,12 @@
 <meta property="og:site_name" content="k先生">
 <meta property="og:description" content="最近用Apache Spark 处理一些大数据，学了spark官方英文文档，顺便翻译了方便学习。    spark 版本 2.2.0.    翻译官方文档原地址：http://spark.apache.org/docs/latest/rdd-programming-guide.html     概述在较高层次上，每个Spark应用程序都包含一个驱动程序，该程序运行用户的main方法，并在集群上执行">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/p/c3f7/spark-webui-accumulators.png">
+<meta property="og:image" content="http://yoursite.com/p/c3f7.htm/spark-webui-accumulators.png">
 <meta property="og:updated_time" content="2019-04-15T06:52:48.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apache Spark 官方文档 编程指南">
 <meta name="twitter:description" content="最近用Apache Spark 处理一些大数据，学了spark官方英文文档，顺便翻译了方便学习。    spark 版本 2.2.0.    翻译官方文档原地址：http://spark.apache.org/docs/latest/rdd-programming-guide.html     概述在较高层次上，每个Spark应用程序都包含一个驱动程序，该程序运行用户的main方法，并在集群上执行">
-<meta name="twitter:image" content="http://yoursite.com/p/c3f7/spark-webui-accumulators.png">
+<meta name="twitter:image" content="http://yoursite.com/p/c3f7.htm/spark-webui-accumulators.png">
 
 
 
@@ -699,7 +699,7 @@
 <p>在创建广播变量之后，应该在群集上运行的任何函数中使用值而不是值v，以便v不会多次传送到节点。 另外，对象v在广播之后不应被修改，以确保所有节点获得广播变量的相同值（例如，如果变量稍后被运送到新节点）。   </p>
 <h3 id="累加器"><a href="#累加器" class="headerlink" title="累加器"></a>累加器</h3><p>累加器是只能通过关联和交换操作“添加”的变量，因此可以并行有效地支持。 它们可以用来实现计数器（如在MapReduce中）或者和。 Spark本身支持数字类型的累加器，程序员可以添加对新类型的支持。   </p>
 <p>作为用户，您可以创建名称或未命名的累加器。 如下图所示，一个命名的累加器（在这种情况下计数器）将显示在修改该累加器的阶段的Web UI中。 Spark显示由“任务”表中的任务修改的每个累加器的值。  </p>
-<p><img src="/p/c3f7/spark-webui-accumulators.png" alt="累加器">  </p>
+<p><img src="/p/c3f7.htm/spark-webui-accumulators.png" alt="累加器">  </p>
 <p>跟踪用户界面中的累加器对于理解运行阶段的进度非常有用（注意：Python尚不支持）。  </p>
 <p>可以通过调用SparkContext.longAccumulator（）或SparkContext.doubleAccumulator（）来分别累积Long或Double类型的值来创建数字累加器。 在群集上运行的任务可以使用add方法添加到它。 但是，他们无法读懂它的价值。 只有驱动程序可以使用其值方法读取累加器的值。 下面的代码显示了一个累加器被用来加总一个数组的元素： </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LongAccumulator accum = jsc.sc().longAccumulator();</span><br><span class="line"></span><br><span class="line">sc.parallelize(Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)).foreach(x -&gt; accum.add(x));</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 10/09/29 18:41:08 INFO SparkContext: Tasks finished in 0.317106 s</span></span><br><span class="line"></span><br><span class="line">accum.value();</span><br><span class="line"><span class="comment">// returns 10</span></span><br></pre></td></tr></table></figure>

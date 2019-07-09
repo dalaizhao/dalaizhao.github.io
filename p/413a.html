@@ -113,15 +113,15 @@
 <meta property="og:site_name" content="k先生">
 <meta property="og:description" content="Apache Thrift 维基百科Thrift是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务。它被当作一个远程过程调用（RPC）框架来使用，是由Facebook为“大规模跨语言服务开发”而开发的。     最近用 thrift 做微服务 ， 抽空写了通俗易懂 apache thrift 官方java 教程 中文版。    准备 添加依赖      官网有复杂的安装thrift">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/p/413a/thrift.png">
-<meta property="og:image" content="http://yoursite.com/p/413a/project.png">
-<meta property="og:image" content="http://yoursite.com/p/413a/password.png">
-<meta property="og:image" content="http://yoursite.com/p/413a/pass.png">
+<meta property="og:image" content="http://yoursite.com/p/413a.htm/thrift.png">
+<meta property="og:image" content="http://yoursite.com/p/413a.htm/project.png">
+<meta property="og:image" content="http://yoursite.com/p/413a.htm/password.png">
+<meta property="og:image" content="http://yoursite.com/p/413a.htm/pass.png">
 <meta property="og:updated_time" content="2019-04-15T06:52:48.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Apache Thrift 官方 java教程">
 <meta name="twitter:description" content="Apache Thrift 维基百科Thrift是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务。它被当作一个远程过程调用（RPC）框架来使用，是由Facebook为“大规模跨语言服务开发”而开发的。     最近用 thrift 做微服务 ， 抽空写了通俗易懂 apache thrift 官方java 教程 中文版。    准备 添加依赖      官网有复杂的安装thrift">
-<meta name="twitter:image" content="http://yoursite.com/p/413a/thrift.png">
+<meta name="twitter:image" content="http://yoursite.com/p/413a.htm/thrift.png">
 
 
 
@@ -497,7 +497,7 @@
 </ol>
 <p>除了maven依赖，还需要一个从接口描述语言（thrift）转换成 java 的工具，从这里下载.exe文件 <a href="http://thrift.apache.org/download" target="_blank" rel="noopener">http://thrift.apache.org/download</a> 。   </p>
 <p>下载thrift-0.10.0.exe文件，把他移到自己喜欢的目录下<code>D:\code\thrift</code>,并改名 thrift.exe,并且把路径添加到环境变量path。  </p>
-<p>WIN+R , cmd进去输入命令thrift会打印一下则，环境添加成功。<br><img src="/p/413a/thrift.png" alt="thrift"></p>
+<p>WIN+R , cmd进去输入命令thrift会打印一下则，环境添加成功。<br><img src="/p/413a.htm/thrift.png" alt="thrift"></p>
 <h2 id="编写接口"><a href="#编写接口" class="headerlink" title="编写接口"></a>编写接口</h2><p>从 <a href="http://thrift.apache.org/tutorial/java" target="_blank" rel="noopener">http://thrift.apache.org/tutorial/java</a> ， 下载 tutorial.thrift 和 shared.thrift ，控制台 cd 到它俩所在的目录    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thrift -r --gen java tutorial.thrift</span><br></pre></td></tr></table></figure>
 
@@ -509,7 +509,7 @@
 <p>这里可能会出现拷进去的文件的@Override注解报错问题，这是因为什么呢？    </p>
 <p>原因是我用eclipse建的maven 的jre system libraries 默认使用了 jre1.5 。 这是jdk的问题，@Override是JDK5就已经有了，但是不支持对接口的实现，认为这不是Override而报错。JDK6修正了这个Bug，无论是对父类的方法覆盖还是对接口的实现都可以加上@Override。   </p>
 <p>解决问题：我把jre system libraries 1.5 删除，并且新添了 jre1.8 就可以了。   </p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>先贴出项目整个图：<br><img src="/p/413a/project.png" alt="project.png"></p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>先贴出项目整个图：<br><img src="/p/413a.htm/project.png" alt="project.png"></p>
 <p>这里有一个CalculatorHandler.java 文件， 也是可以从官网找到的 <a href="http://thrift.apache.org/" target="_blank" rel="noopener">http://thrift.apache.org/</a> 。   </p>
 <p>其它client 和 server 都可以下载 <a href="http://thrift.apache.org/tutorial/java" target="_blank" rel="noopener">http://thrift.apache.org/tutorial/java</a> 。   </p>
 <p>官方教程中启动服务器提供了两种方式，一般方式(simple)和TSSL方式(secure)。   </p>
@@ -527,14 +527,14 @@
 <p>输入下面的命令生成私钥：  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkeypair -alias certificatekey -keyalg RSA -validity <span class="number">365</span> -keystore .keystore</span><br></pre></td></tr></table></figure>
 
-<p><img src="/p/413a/password.png" alt="password"></p>
+<p><img src="/p/413a.htm/password.png" alt="password"></p>
 <p>输入下面的命令生成server.cer证书：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -export -alias certificatekey -keystore .keystore -rfc -file server.cer</span><br></pre></td></tr></table></figure>
 
 <p>输入下面的命令生成.truststore：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="keyword">import</span> -alias certificatekey -file server.cer -keystore .truststore</span><br></pre></td></tr></table></figure>
 
-<p><img src="/p/413a/pass.png" alt="pass"></p>
+<p><img src="/p/413a.htm/pass.png" alt="pass"></p>
 <p>最后我生成.keystore和.truststore文件放到了项目根目录下，并把client 和 server 路径改了   </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// clinet</span></span><br><span class="line">params.setTrustStore(<span class="string">"./.truststore"</span>, <span class="string">"thrift"</span>, <span class="string">"SunX509"</span>, <span class="string">"JKS"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//server</span></span><br><span class="line">params.setKeyStore(<span class="string">"./.keystore"</span>, <span class="string">"thrift"</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
 
