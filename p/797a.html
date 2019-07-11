@@ -113,12 +113,21 @@
 <meta property="og:site_name" content="k先生">
 <meta property="og:description" content="链接；将不同部分的代码和数据收集和组合成为一个单一文件的过程，这个文件可被加载（或被拷贝）到存储器执行了。链接是由叫链接器（linker）的程序自动执行的。  静态链接 加载时的共享库的动态链接 运行时的共享库的动态链接">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/p/797a/20190704-os%E9%93%BE%E6%8E%A5-1.png">
-<meta property="og:updated_time" content="2019-07-11T02:23:22.736Z">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-1.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-2.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-3.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-4.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-5.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-6.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-7.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-8.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-9.png">
+<meta property="og:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-10.png">
+<meta property="og:updated_time" content="2019-07-11T04:10:44.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="os-链接">
 <meta name="twitter:description" content="链接；将不同部分的代码和数据收集和组合成为一个单一文件的过程，这个文件可被加载（或被拷贝）到存储器执行了。链接是由叫链接器（linker）的程序自动执行的。  静态链接 加载时的共享库的动态链接 运行时的共享库的动态链接">
-<meta name="twitter:image" content="http://yoursite.com/p/797a/20190704-os%E9%93%BE%E6%8E%A5-1.png">
+<meta name="twitter:image" content="http://yoursite.com/p/797a/os-%E9%93%BE%E6%8E%A5-1.png">
 
 
 
@@ -425,7 +434,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-11 02:23:22" itemprop="dateModified" datetime="2019-07-11T02:23:22Z">2019-07-11</time>
+                <time title="修改时间：2019-07-11 04:10:44" itemprop="dateModified" datetime="2019-07-11T04:10:44Z">2019-07-11</time>
               </span>
             
           
@@ -500,11 +509,7 @@
 <li>共享目标文件：一种特殊类型的可重定位目标文件，可以在加载或者运行时，被动态地加载到存储器并链接。</li>
 </ul>
 <p>编译器和汇编器生成可重定位目标文件（包括共享目标文件）；<br>链接器生成可执行目标文件；</p>
-<h3 id="可重定位目标文件"><a href="#可重定位目标文件" class="headerlink" title="可重定位目标文件"></a>可重定位目标文件</h3><div align="center">
-![](20190704-os链接-1.png =600x)
-</div>
-
-<p><img src="/p/797a/20190704-os%E9%93%BE%E6%8E%A5-1.png" alt="20190704-os链接-1.png"></p>
+<h3 id="可重定位目标文件"><a href="#可重定位目标文件" class="headerlink" title="可重定位目标文件"></a>可重定位目标文件</h3><p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-1.png" alt="os-链接-1.png"></p>
 <ul>
 <li>ELF头（ELF header）以一个16字节的序列开始，这个序列描述了字的大小和生成该文件的系统的字节顺序。其中包括ELF头的大小，目标文件类型（比如可重定位、可执行或者共享的），机器类型（IA32），节头部表的文件偏移，以及节头部表中的表目大小和数量。</li>
 <li>.text：已编译程序的机器代码</li>
@@ -519,9 +524,7 @@
 <li>.strtab: 一个字符串表，包括.symtab</li>
 </ul>
 <h3 id="符号和符号表"><a href="#符号和符号表" class="headerlink" title="符号和符号表"></a>符号和符号表</h3><p>C程序员使用static属性在模块内部隐藏变量和函数声明，就像用public 和 private声明一样，使用static属性的全局变量和函数时私有的，反之公共的。</p>
-<div style="width: 60%; margin: auto">![20190705-链接-2.png](20190705-链接-2.png)</div>
-<div style="width: 60%; margin: auto">![20190705-链接-3.png](20190705-链接-3.png)</div>
-
+<p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-2.png" alt="os-链接-2.png"><br><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-3.png" alt="os-链接-3.png"></p>
 <p>GNU READELF 工具展示重复定位目标文件内容</p>
 <h3 id="符号解析"><a href="#符号解析" class="headerlink" title="符号解析"></a>符号解析</h3><p>链接器解析符号引用的方法是将每个引用与它输入的可重定位文件的符号表的一个确定的符号定义联系起来。</p>
 <p>编译器还确保静态本地变量，它们也会有本地链接器符号，拥有唯一的名字。</p>
@@ -534,12 +537,10 @@
 <li>规则2：如果有一个强符号和多个弱符号，那么选择强符号</li>
 <li>规则3:如果有多个弱符号，那么从这些弱符号中任意选择一个</li>
 </ul>
-<div style="width: 60%; margin: auto">![20190704-链接-4.png](20190705-链接-4.png)</div>
-
+<p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-4.png" alt="os-链接-4.png"></p>
 <h4 id="与静态库链接"><a href="#与静态库链接" class="headerlink" title="与静态库链接"></a>与静态库链接</h4><p>在unix系统中，静态库以一种称为存档的特殊文件格式存放在磁盘中。</p>
 <p>AR工具打包成静态库文件</p>
-<div style="width: 60%; margin: auto">![20190705-链接-5.png](20190705-链接-5.png)</div>
-
+<p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-5.png" alt="os-链接-5.png"></p>
 <h4 id="链接器如何使用静态库来解析引用"><a href="#链接器如何使用静态库来解析引用" class="headerlink" title="链接器如何使用静态库来解析引用"></a>链接器如何使用静态库来解析引用</h4><p>如果在命令中，定义一个符号的库出现在引用这个符号的目标文件之前，那么引用就不能被解析，链接会失败。</p>
 <h3 id="重定位"><a href="#重定位" class="headerlink" title="重定位"></a>重定位</h3><p>重定位：合并输入模块，并为每个符号分配运行时地址，分两步</p>
 <ul>
@@ -547,26 +548,17 @@
 <li>重定位节中的符号引用：在这一步中，链接器修改代码节和数据节中对每个符号的引用，使的它们指向正确的运行时地址。依赖于重定位表目的可重定位目标模块中的数据结构。</li>
 </ul>
 <h4 id="重定位表目"><a href="#重定位表目" class="headerlink" title="重定位表目"></a>重定位表目</h4><p>汇编器遇到对最终位置未知的目标引用时就会生成一个重定位表目，告诉链接器在将目标文件合并成可执行文件时如何修改这个引用。代码的重定位表目放在.relo.text中，已初始化数据的重定位表目放在.relo.data中。</p>
-<div style="width: 60%; margin: auto">![20190705-链接-6.png](20190705-链接-6.png)</div>
-
-
-<h3 id="可执行目标文件"><a href="#可执行目标文件" class="headerlink" title="可执行目标文件"></a>可执行目标文件</h3><p>典型的ELF可执行文件的各类信息</p>
-<div style="width: 60%; margin: auto">![20190705-链接-5.png](20190705-链接-7.png)</div>
-
+<p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-6.png" alt="os-链接-6.png"></p>
+<h3 id="可执行目标文件"><a href="#可执行目标文件" class="headerlink" title="可执行目标文件"></a>可执行目标文件</h3><p>典型的ELF可执行文件的各类信息<br><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-7.png" alt="os-链接-7.png"></p>
 <h3 id="加载可执行目标文件"><a href="#加载可执行目标文件" class="headerlink" title="加载可执行目标文件"></a>加载可执行目标文件</h3><p>加载器将可执行目标文件中的代码和数据从磁盘拷贝到存储器中，然后通过跳转到程序的第一条指令，即入口点来运行该程序，这个将程序拷贝到存储器并运行的过程叫做加载。</p>
-<div style="width: 60%; margin: auto">![20190705-链接-5.png](20190705-链接-8.png)</div>
-
-
+<p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-8.png" alt="os-链接-8.png"></p>
 <h3 id="动态链接共享库"><a href="#动态链接共享库" class="headerlink" title="动态链接共享库"></a>动态链接共享库</h3><p>共享库致力于解决静态库缺陷的现代创新产物。共享库是一个目标模块，在运行时，可以加载到任意的存储器地址，并在存储器中和一个程序链接起来。这个过程称为动态链接，是由一个叫动态链接器的程序来执行的。</p>
 <p>微软的操作系统大量地利用了共享库，它们称为DDL（动态链接库）。</p>
-<p>对于一个共享库只有一个.so文件，创建共享库libvector.so：</p>
-<div style="width: 60%; margin: auto">![20190705-链接-5.png](20190705-链接-9.png)</div>
-
+<p>对于一个共享库只有一个.so文件，创建共享库libvector.so：<br><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-9.png" alt="os-链接-5.png"></p>
 <p>-fPIC选项指示编译器生成与位置无关的代码<br>-shared选项指示链接器创建一个共享的目标文件</p>
 <p><code>unix&gt; gcc -o p2 main2.c  ./libvertor.so</code></p>
 <h3 id="从应用程序中加载和链接共享库"><a href="#从应用程序中加载和链接共享库" class="headerlink" title="从应用程序中加载和链接共享库"></a>从应用程序中加载和链接共享库</h3><h3 id="与位置无关的代码（PIC）"><a href="#与位置无关的代码（PIC）" class="headerlink" title="与位置无关的代码（PIC）"></a>与位置无关的代码（PIC）</h3><p>编译库代码，使得不需要链接修改库代码，就可以在任何地址加载和执行这些代码，这样的代码叫做与位置无关的代码（PIC）。</p>
-<h3 id="处理目标文件的工具"><a href="#处理目标文件的工具" class="headerlink" title="处理目标文件的工具"></a>处理目标文件的工具</h3><div style="width: 60%; margin: auto">![20190705-链接-5.png](20190705-链接-10.png)</div>
-
+<h3 id="处理目标文件的工具"><a href="#处理目标文件的工具" class="headerlink" title="处理目标文件的工具"></a>处理目标文件的工具</h3><p><img src="/p/797a/os-%E9%93%BE%E6%8E%A5-10.png" alt="os-链接-5.png"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>链接可以在编译时静态编译器来完成，也可以在加载时和运行时由动态链接器来完成。链接器处理称为目标文件的二进制文件，它有三种不同的形式：可重定位的、可执行的和共享的。可重定位的目标文件由静态链接器组合成一个可执行的目标文件，它可以加载到存储器中并执行。共享目标文件（共享库）是在运行时由动态链接器链接和加载的，或者隐含地调用程序被加载和开始执行时，或者根据需要在程序调用dlopen库的函数时。</p>
 <p>链接器的两个主要任务是符号解析和重定位。符号解析将目标文件中的每个全局符号都绑定到一个唯一的定义，而重定位确定每个符号的最终存储器地址，并修改时对那些目标的引用。</p>
 
@@ -928,7 +920,7 @@
 <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">站点共64.7k字</span>
+  <span class="post-count">站点共64.6k字</span>
 </div>
 </div>
 

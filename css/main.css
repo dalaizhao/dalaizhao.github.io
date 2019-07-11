@@ -1800,7 +1800,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #9d8cbe;
+  background: #1871ff;
 }
 .feed-link,
 .chat {
@@ -2637,7 +2637,9 @@ hr {
 }
 .posts-expand .post-body img {
   margin: 0 auto;
-  width: 600px;
+}
+.posts-expand .post-tags {
+  text-align: center;
 }
 .posts-expand .post-tags a {
   padding: 1px 5px;
