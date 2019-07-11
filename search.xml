@@ -10,8 +10,67 @@
       <tags>
         <tag>os</tag>
         <tag>csapp</tag>
-        <tag>链接</tag>
         <tag>c</tag>
+        <tag>链接</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[os-线程总结]]></title>
+    <url>%2Fp%2Fe68.html</url>
+    <content type="text"></content>
+      <categories>
+        <category>os</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+        <tag>csapp</tag>
+        <tag>进程</tag>
+        <tag>线程</tag>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[os-进程总结]]></title>
+    <url>%2Fp%2F692d.html</url>
+    <content type="text"></content>
+      <categories>
+        <category>os</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+        <tag>csapp</tag>
+        <tag>进程</tag>
+        <tag>线程</tag>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[os-进程线程关系及区别]]></title>
+    <url>%2Fp%2F8e8c.html</url>
+    <content type="text"><![CDATA[关系&amp;区别进程(process)是资源分配的最小单位，有自己独立的地址空间，单个进程的崩溃不会影响其它进程； 线程(thread)是处理器调度的最小单位，共享进程空间，也有自己的独立内存（PC、栈、栈指针等空间），单个线程的崩溃会导致整个进程的崩溃，影响其它的线程； 对于一些要求同时进行且又要共享某些变量的并发操作，只能用线程，不能用进程。 一进程里至少有一个线程。 通俗的讲 “如果进程是工厂，线程就是工人” 优缺点 地址空间和其它资源 进程间相互独立，同一进程的各线程间共享。 某进程内的线程在其它进程不可见。 通信：进程间通信IPC 线程间可以直接读写进程数据段（如全局变量）来进行通信 进程同步和互斥需要辅助，以保证数据的一致性。 调度和切换 线程上下文切换比进程上下文切换要快得多。 多线程OS中 进程不是一个可执行的实体。]]></content>
+      <categories>
+        <category>os</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+        <tag>csapp</tag>
+        <tag>进程</tag>
+        <tag>线程</tag>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[命令-man使用方法]]></title>
+    <url>%2Fp%2Fdaf6.html</url>
+    <content type="text"><![CDATA[linux的man手册共有以下几个章节（参数）: 参数 描述 1 标准命令，用户命令章节，所有用户都可以使用 2 系统调用 3 库函数(c) 4 设备及特殊文件说明 5 配置文件格式及相关参数 6 游戏 7 杂项 8 管理员命令 man手册段落含义： NAME：命令的名称及简要说明 DESCRIPTION:命令功能的详细描述 OPTIONS：所支持的选项的相关说明 SYNOPSIS：使用格式 EXAMPLES：使用示例 NOTES：相关注意事项 FILES：相关的配置文件 SEE ALSO：相关参考]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>man</tag>
+        <tag>命令</tag>
+        <tag>运维</tag>
       </tags>
   </entry>
   <entry>
