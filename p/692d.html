@@ -105,15 +105,21 @@
 
 
 
-  <meta name="keywords" content="os,csapp,进程,线程,c">
+  <meta name="description" content="进程状态进程五态模型状态：新建、运行、就绪、阻塞和终止。">
+<meta name="keywords" content="os,csapp,进程,线程,c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="os-进程总结">
 <meta property="og:url" content="http://yoursite.com/p/692d.html">
 <meta property="og:site_name" content="k先生">
+<meta property="og:description" content="进程状态进程五态模型状态：新建、运行、就绪、阻塞和终止。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-11T10:54:00.027Z">
+<meta property="og:image" content="http://yoursite.com/p/692d/%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="http://yoursite.com/p/692d/%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B-2.png">
+<meta property="og:updated_time" content="2019-07-11T14:31:56.310Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="os-进程总结">
+<meta name="twitter:description" content="进程状态进程五态模型状态：新建、运行、就绪、阻塞和终止。">
+<meta name="twitter:image" content="http://yoursite.com/p/692d/%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
 
 
 
@@ -405,7 +411,7 @@
                 
               
 
-              <time title="创建时间：2019-03-07 18:47:41" itemprop="dateCreated datePublished" datetime="2019-03-07T18:47:41Z">2019-03-07</time>
+              <time title="创建时间：2019-03-07 20:47:41" itemprop="dateCreated datePublished" datetime="2019-03-07T20:47:41Z">2019-03-07</time>
             </span>
           
 
@@ -420,7 +426,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-11 10:54:00" itemprop="dateModified" datetime="2019-07-11T10:54:00Z">2019-07-11</time>
+                <time title="修改时间：2019-07-11 14:31:56" itemprop="dateModified" datetime="2019-07-11T14:31:56Z">2019-07-11</time>
               </span>
             
           
@@ -472,7 +478,152 @@
       
 
       
-        
+        <h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>进程五态模型状态：新建、运行、就绪、阻塞和终止。<br><img src="/p/692d/%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt></p>
+<a id="more"></a>
+
+<p>新建态：</p>
+<ul>
+<li>第一阶段，为一个新进程创建必要的管理系逆袭</li>
+<li>第二阶段，让该进程进入就绪状态</li>
+</ul>
+<p>终止态：</p>
+<ul>
+<li>第一阶段，等待操作系统进行善后处理</li>
+<li>第二阶段，释放主存</li>
+</ul>
+<p>就绪态：</p>
+<ul>
+<li>进程获得了除处理机意外的一切所需资源，一旦获得处理机即可运行</li>
+</ul>
+<p>运行态：</p>
+<ul>
+<li>进程在处理机上运行</li>
+</ul>
+<p>阻塞态：</p>
+<ul>
+<li>进程等待某一时间发生而暂时停止运行</li>
+</ul>
+<p><img src="/p/692d/%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B-2.png" alt></p>
+<p>活跃就绪：</p>
+<ul>
+<li>进程在主存并且可被调度的状态</li>
+</ul>
+<p>静止就绪（挂起就绪）：</p>
+<ul>
+<li>进程被换到辅存的就绪状态，是不能直接调度运行的状态</li>
+</ul>
+<p>活跃阻塞：</p>
+<ul>
+<li>进程已在主存，一旦等待的事件产生了便进入活跃就绪状态</li>
+</ul>
+<p>静止阻塞：</p>
+<ul>
+<li>进程对换到辅存的阻塞状态，一旦等待的事件产生便进入了静止就绪状态</li>
+</ul>
+<p>进程挂起原因可能是系统故障、用户调试程序、或检查问题。</p>
+<p>linux进程状态（STAT）常见参数：</p>
+<ul>
+<li>D 无法中断的休眠状态（通常 IO 的进程）； </li>
+<li>R 正在运行中，在队列中可过行的； </li>
+<li>S 处于休眠状态； </li>
+<li>T 停止或被追踪； </li>
+<li>W 进入内存交换 （从内核2.6开始无效）； </li>
+<li>X 死掉的进程 （基本很少見）； </li>
+<li>Z 僵尸进程； </li>
+<li>&lt; 优先级高的进程 </li>
+<li>N 优先级较低的进程  </li>
+<li>L 有些页被锁进内存；  </li>
+<li>s 进程的领导者（在它之下有子进程，典型的systemd）； </li>
+<li>l 多进程的（使用 CLONE_THREAD, 类似 NPTL pthreads）； </li>
+<li><ul>
+<li>位于后台的进程组；</li>
+</ul>
+</li>
+</ul>
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><h3 id="调度指标"><a href="#调度指标" class="headerlink" title="调度指标"></a>调度指标</h3><p>衡量和比较各种进程调度算法性能的主要因素如下所示：</p>
+<ul>
+<li>CPU利用率：CPU是计算机系统中的稀缺资源，所以应在有具体任务的情况下尽可能使CPU保持忙，从而使得CPU资源利用率最高。</li>
+<li>吞吐量：CPU运行时的工作量大小是以每单位时间所完成的进程数目来描述的，即称为吞吐量。</li>
+<li>周转时间：指从进程创建到作进程结束所经过的时间，这期间包括了由于各种因素（比如等待I/O操作完成）导致的进程阻塞，处于就绪态并在就绪队列中排队，在处理机上运行所花时间的总和。</li>
+<li>等待时间：即进程在就绪队列中等待所花的时间总和。因此衡量一个调度算法的简单方法就是统计进程在就绪队列上的等待时间。</li>
+<li>响应时间：指从事件（比如产生了一次时钟中断事件）产生到进程或系统作出响应所经过的时间。在交互式桌面计算机系统中，用户希望响应时间越快越好，但这常常要以牺牲吞吐量为代价。</li>
+</ul>
+<p>这些指标其实是相互有冲突的，响应时间短也就意味着在相关事件产生后，操作系统需要迅速进行进程切换，让对应的进程尽快响应产生的事件，从而导致进程调度与切换的开销增大，这会降低系统的吞吐量。</p>
+<h3 id="调度方式"><a href="#调度方式" class="headerlink" title="调度方式"></a>调度方式</h3><ul>
+<li>可抢占式，优先级较高的进程可抢占低优先级的进程CPU</li>
+<li>不可抢占式，直到运行结束，或时间片用完</li>
+</ul>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h3><ul>
+<li>先来先服务（FCFS），顺序链来调度，非可抢占式</li>
+<li>短作业优先（SJF），优先照顾短作业，非抢占式</li>
+<li>最短剩余时间优先，可抢占式SJF</li>
+<li>高响应比，非抢占式，响应比 = （等待时间+服务时间）/服务时间</li>
+<li>时间片轮询（RR），限定时间片</li>
+<li>多级反馈队列，设置多个就绪优先级队列，各队列的时间片也不同。当一个就绪进程需要链入就绪队列时，操作系统首先将它放入第一队列的末尾，按FCFS的原则排队等待调度。若轮到该进程执行且在一个时间片结束时尚未完成，则操作系统调度器便将该进程转入第二队列的末尾，再同样按先来先服务原则等待调度执行。</li>
+</ul>
+<h2 id="进程通信方式"><a href="#进程通信方式" class="headerlink" title="进程通信方式"></a>进程通信方式</h2><h3 id="通信目的"><a href="#通信目的" class="headerlink" title="通信目的"></a>通信目的</h3><ul>
+<li>数据传输</li>
+<li>共享数据</li>
+<li>通知事件</li>
+<li>资源共享</li>
+<li>进程控制</li>
+</ul>
+<h3 id="通信方式"><a href="#通信方式" class="headerlink" title="通信方式"></a>通信方式</h3><ol>
+<li>管道（pipe），流管道（s_pipe）和有名管道（FIFO）</li>
+<li>信号（signal）</li>
+<li>消息队列</li>
+<li>共享内存</li>
+<li>信号量</li>
+<li>套接字（socket）</li>
+</ol>
+<h4 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h4><p>常见的符号“|”就是用了管道，tail -f * | grep ERROR 即tail进程通过管道井数据传输给grep进程处理。 </p>
+<p>管道（pipe），流管道（s_pipe）和有名管道（FIFO）</p>
+<ul>
+<li>管道：半双工的通信（单向流动），只能在具有亲缘关系的进程间使用（父子进程）</li>
+<li>流管道：可以双向传输，但是只能父子进程</li>
+<li>有名管道：可以无名字，允许无亲缘关系进程通信</li>
+</ul>
+<p>匿名管道函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pipe</span><span class="params">(<span class="keyword">int</span> file_descriptor[<span class="number">2</span>];</span></span></span><br><span class="line"><span class="function"><span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params"><span class="comment">//更高级函数</span></span></span></span><br><span class="line"><span class="function"><span class="params">#include &lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="params">FILE* popen (<span class="keyword">const</span> <span class="keyword">char</span> *command, <span class="keyword">const</span> <span class="keyword">char</span> *open_mode);</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">int</span> pclose(FILE *stream_to_close);</span></span></span><br></pre></td></tr></table></figure>
+
+<p>有名管道函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;  </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;  </span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkfifo</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">mode_t</span> mode)</span></span>;  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mknod</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filename, <span class="keyword">mode_t</span> mode | S_IFIFO, (<span class="keyword">dev_t</span>)<span class="number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h4><p>信号量是一个特殊的变量，程序对其访问都是原子操作，且只允许对它进行等待（P(信号变量）和发送（V(信号变量)）信息操作。</p>
+<p>信号量的工作原理：<br>P（sv）操作：如果sv的值大于0，就给它减1；如果值为零，就挂起该进程的执行<br>V（sv）操作：如果其它进程因等待sv而被挂起，就让它恢复运行，如果没有进程因等待sv而挂起，就给它加1</p>
+<p>信号量函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ipc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/sem.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个信号量或获取一个现有信号量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> num_sems, <span class="keyword">int</span> sem_flags)</span></span>;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//控制信号量信息，初始值、删除信号量等</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semctl</span><span class="params">(<span class="keyword">int</span> sem_id, <span class="keyword">int</span> sem_num, <span class="keyword">int</span> command, ...)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//改变信号量值，p操作和v操作 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">semop</span><span class="params">(<span class="keyword">int</span> sem_id, struct sembuf *sem_opa, <span class="keyword">size_t</span> num_sem_ops)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h4><p>linux用宏MSGMAX和MSGMNB来限制一条信息的最大长度和一个队列的最大长度。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ipc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/msg.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建和访问一个消息队列</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">int</span> msgflg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向队列添加消息</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgsend</span><span class="params">(<span class="keyword">int</span> msgid, <span class="keyword">const</span> <span class="keyword">void</span> *msg_ptr, <span class="keyword">size_t</span> msg_sz, <span class="keyword">int</span> msgflg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取一个消息</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgrcv</span><span class="params">(<span class="keyword">int</span> msgid, <span class="keyword">void</span> *msg_ptr, <span class="keyword">size_t</span> msg_st, <span class="keyword">long</span> <span class="keyword">int</span> msgtype, <span class="keyword">int</span> msgflg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制消息队列</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">msgctl</span><span class="params">(<span class="keyword">int</span> msgid, <span class="keyword">int</span> command, struct msgid_ds *buf)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h4><p>允许两个不相关进程访问的同一个罗杰杜村，共享内存未提供同步机制，可以采用信号量的方式对共享内存（临界区）进行访问。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/ipc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/shm.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建和访问共享内存</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmget</span><span class="params">(<span class="keyword">key_t</span> key, <span class="keyword">size_t</span> size, <span class="keyword">int</span> shmflg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//启动对该共享内存的访问，把共享内存连接到当前的进程地址空间</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">shmat</span><span class="params">(<span class="keyword">int</span> shm_id, <span class="keyword">const</span> <span class="keyword">void</span> *shm_addr, <span class="keyword">int</span> shmflg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//当前进程不可用，分离出当前进程</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmdt</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *shmaddr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//控制共享变量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shmctl</span><span class="params">(<span class="keyword">int</span> shm_id, <span class="keyword">int</span> command, struct shmid_ds *buf)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h4><p>信号由内核管理，产生方式多种多样，即也可达到进程间通讯：</p>
+<ul>
+<li>可以由内核自身产生，比如出现硬件错误、内存读取错误，分母为0的除法等，内核需要通知相应进程。</li>
+<li>也可以由其他进程产生并发送给内核，再由内核传递给目标进程。</li>
+</ul>
+<p>典型的函数：Linux下的信号处理有 signal() 和 sigaction() 函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//回调函数来处理信号</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*<span class="keyword">sighandler_t</span>)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="keyword">sighandler_t</span> signal(<span class="keyword">int</span> signum, <span class="keyword">sighandler_t</span> handler);</span><br><span class="line"></span><br><span class="line"><span class="comment">//符合POSIX标准的函数</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sigaction</span><span class="params">(<span class="keyword">int</span> signum, <span class="keyword">const</span> struct sigaction *act,struct sigaction *oldact)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>注：POSIX标准，即可移植操作系统接口，是IEEE为要在各种unix操作系统上运行软件而定义的一系列API标准。</p>
+<h4 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h4><p>基于TCP/UDP协议的socket用于端到端网络通讯。</p>
+<h3 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a>优缺点分析</h3><ol>
+<li>管道：速度慢，容量有限，只有父子进程通讯</li>
+<li>有名管道：任何进程间都通讯，但速度慢</li>
+<li>消息队列：容量收到系统的限制，且要注意第一次读的时候，要考虑上一次没有读完数据问题</li>
+<li>信号量：不能传复杂的信息，只能用来同步</li>
+<li>共享内存：能够容易控制，速度快，但要保持同步，非进程安全。</li>
+<li>信号：传递信息少或触发某些行为时可用于进程间通讯</li>
+</ol>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>CSAPP</li>
+<li><a href="https://blog.csdn.net/qicheng777/article/details/77427157" target="_blank" rel="noopener">https://blog.csdn.net/qicheng777/article/details/77427157</a></li>
+<li><a href="https://github.com/chyyuu/simple_os_book/blob/master/zh/chapter-4/process_schedule_principal.md" target="_blank" rel="noopener">https://github.com/chyyuu/simple_os_book/blob/master/zh/chapter-4/process_schedule_principal.md</a></li>
+</ul>
+
       
     </div>
 
@@ -519,8 +670,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/8e8c.html" rel="next" title="os-进程线程关系及区别">
-                <i class="fa fa-chevron-left"></i> os-进程线程关系及区别
+              <a href="/p/daf6.html" rel="next" title="命令-man使用方法">
+                <i class="fa fa-chevron-left"></i> 命令-man使用方法
               </a>
             
           </div>
@@ -575,8 +726,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -786,6 +946,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程状态"><span class="nav-number">1.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程调度"><span class="nav-number">2.</span> <span class="nav-text">进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调度指标"><span class="nav-number">2.1.</span> <span class="nav-text">调度指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度方式"><span class="nav-number">2.2.</span> <span class="nav-text">调度方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度算法"><span class="nav-number">2.3.</span> <span class="nav-text">调度算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程通信方式"><span class="nav-number">3.</span> <span class="nav-text">进程通信方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通信目的"><span class="nav-number">3.1.</span> <span class="nav-text">通信目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通信方式"><span class="nav-number">3.2.</span> <span class="nav-text">通信方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#管道"><span class="nav-number">3.2.1.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号量"><span class="nav-number">3.2.2.</span> <span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列"><span class="nav-number">3.2.3.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享内存"><span class="nav-number">3.2.4.</span> <span class="nav-text">共享内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号"><span class="nav-number">3.2.5.</span> <span class="nav-text">信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#套接字"><span class="nav-number">3.2.6.</span> <span class="nav-text">套接字</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点分析"><span class="nav-number">3.3.</span> <span class="nav-text">优缺点分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -821,7 +998,7 @@
 <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">站点共65.1k字</span>
+  <span class="post-count">站点共70.2k字</span>
 </div>
 </div>
 

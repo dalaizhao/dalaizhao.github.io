@@ -105,15 +105,21 @@
 
 
 
-  <meta name="keywords" content="os,csapp,进程,线程,c">
+  <meta name="description" content="概念现代系统允许一个进程里同时运行多个线程，线程由内核自动调度。每个线程都有它自己的线程上下文，包括一个唯一的整数线程ID、栈、栈指针、程序计数器（PC）、通用目的寄存器和条件码。 共享本进程虚拟地址空间的所有内容，包括它的代码、数据、堆、共享库和打开的文件。 Posix线程（Pthreads）是在C程序中处理线程的标准接口。">
+<meta name="keywords" content="os,csapp,进程,线程,c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="os-线程总结">
 <meta property="og:url" content="http://yoursite.com/p/e68.html">
 <meta property="og:site_name" content="k先生">
+<meta property="og:description" content="概念现代系统允许一个进程里同时运行多个线程，线程由内核自动调度。每个线程都有它自己的线程上下文，包括一个唯一的整数线程ID、栈、栈指针、程序计数器（PC）、通用目的寄存器和条件码。 共享本进程虚拟地址空间的所有内容，包括它的代码、数据、堆、共享库和打开的文件。 Posix线程（Pthreads）是在C程序中处理线程的标准接口。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-11T10:54:32.541Z">
+<meta property="og:image" content="http://yoursite.com/p/e68/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="http://yoursite.com/p/e68/%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8Fwait.png">
+<meta property="og:updated_time" content="2019-07-11T14:29:22.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="os-线程总结">
+<meta name="twitter:description" content="概念现代系统允许一个进程里同时运行多个线程，线程由内核自动调度。每个线程都有它自己的线程上下文，包括一个唯一的整数线程ID、栈、栈指针、程序计数器（PC）、通用目的寄存器和条件码。 共享本进程虚拟地址空间的所有内容，包括它的代码、数据、堆、共享库和打开的文件。 Posix线程（Pthreads）是在C程序中处理线程的标准接口。">
+<meta name="twitter:image" content="http://yoursite.com/p/e68/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png">
 
 
 
@@ -420,7 +426,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-11 10:54:32" itemprop="dateModified" datetime="2019-07-11T10:54:32Z">2019-07-11</time>
+                <time title="修改时间：2019-07-11 14:29:22" itemprop="dateModified" datetime="2019-07-11T14:29:22Z">2019-07-11</time>
               </span>
             
           
@@ -472,7 +478,136 @@
       
 
       
-        
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>现代系统允许一个进程里同时运行多个线程，线程由内核自动调度。每个线程都有它自己的线程上下文，包括一个唯一的整数线程ID、栈、栈指针、程序计数器（PC）、通用目的寄存器和条件码。</p>
+<p>共享本进程虚拟地址空间的所有内容，包括它的代码、数据、堆、共享库和打开的文件。</p>
+<p>Posix线程（Pthreads）是在C程序中处理线程的标准接口。</p>
+<a id="more"></a>
+
+<p>线程上下文模型<br><img src="/p/e68/%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt></p>
+<h2 id="线程库"><a href="#线程库" class="headerlink" title="线程库"></a>线程库</h2><p>linux下提供了多种方式来处理线程同步，最常用的互斥锁、条件变量、信号量和读写锁。</p>
+<h3 id="pthread线程库"><a href="#pthread线程库" class="headerlink" title="pthread线程库"></a>pthread线程库</h3><p>线程基本函数，linux下<code>man pthread.h</code>请查看。</p>
+<p>头文件<code>pthread.h</code>, gcc链接是参数: <code>-lpthread</code> 。</p>
+<p>1.创建线程：<br><code>int pthrad_create(pthread_t *tid, const pthread_attr_t *attr, void *(*func)(void *), void *arg);</code></p>
+<ul>
+<li><code>tid</code>: 输出参数，保存返回的线程ID（与linux系统中的线程ID不一样，这个ID应该理解为一个地址），用无符号长整型表示；</li>
+<li><code>attr</code>: 输入参数，线程的相关属性，如线程优先级、初始栈大小、是否为守护进程等，一般置为NULL，表示使用默认属性；</li>
+<li><code>func</code>: 输入参数，一个函数指针（void <code>*job(void *arg);</code>），线程执行的函数；</li>
+<li><code>arg</code>: 输入参数，函数的参数，如果有多个参数须将其封装为一个结构体；<br>返回值：成功返回0，失败返回errno值（正数）；</li>
+</ul>
+<p>2.退出线程：<br><code>void pthread_exit(void *status);</code></p>
+<ul>
+<li><code>status</code>: 输入状态，退出状态</li>
+</ul>
+<p>3.等待线程退出：<br><code>int pthread_join(pthread_t tid, void **status);</code></p>
+<ul>
+<li><code>tid</code>: 输入参数，指定等待的线程ID;</li>
+<li><code>status</code>: 输出参数，一个二级指针，保存退出值，可为NULL； 返回值：成功返回0，失败返回errno值;</li>
+<li>功能：会阻塞直到线程tid终止，将线程例程返回的通用<code>（void*）</code>指针赋值为thread_return指向的位置，然后回收已终止线程占用的所有资源。</li>
+</ul>
+<p>4.获取当前线程ID ：<br><code>pthread_t pthread_self(void);</code> </p>
+<p>5.分离线程 ：<br><code>int pthread_detach(pthread_t tid);</code></p>
+<ul>
+<li><code>tid</code>：输入参数，指定的线程ID； </li>
+<li>返回值：成功返回0，失败返回errno值；</li>
+</ul>
+<h3 id="结合线程-amp-分离线程"><a href="#结合线程-amp-分离线程" class="headerlink" title="结合线程&amp;分离线程"></a>结合线程&amp;分离线程</h3><p>在任何时间节点上，线程是可结合的或者是分离的。</p>
+<ul>
+<li>结合线程：能够被其他线程回收和杀死，在他被回收之前内存资源不释放的；</li>
+<li>分离线程：不能被其他线程回收或杀死，他的内存资源在它终止时由系统自动释放；</li>
+</ul>
+<h2 id="通信（同步）方式"><a href="#通信（同步）方式" class="headerlink" title="通信（同步）方式"></a>通信（同步）方式</h2><h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><p>互斥锁是同一时刻只允许一个线程执行一个关键部分代码。</p>
+<p>1.静态初始化：<code>static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER</code></p>
+<p>2.动态初始化：<code>int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr);</code>: </p>
+<ul>
+<li><code>mutex</code>：输出参数，互斥变量；</li>
+<li>返回值：成功返回0，失败返回errno值；</li>
+<li><code>attr</code>：输入参数，锁属性，NULL值为默认属性,不同的锁类型在试图对一个已经被锁定的互斥锁加锁时表现不同。当前有四个值可供选择：<ul>
+<li><code>PTHREAD_MUTEX_TIMED_NP</code>: 这是缺省值，也就是普通锁。当一个线程加锁以后，其余请求锁的线程将形成一个等待队列，并在解锁后按优先级获得锁。这种锁策略保证了资源分配的公平性。 </li>
+<li><code>PTHREAD_MUTEX_RECURSIVE_NP</code>: 嵌套锁，允许同一个线程对同一个锁成功获得多次，并通过多次unlock解锁。如果是不同线程请求，则在加锁线程解锁时重新竞争。 </li>
+<li><code>PTHREAD_MUTEX_ERRORCHECK_NP</code>: 检错锁，如果同一个线程请求同一个锁，则返回EDEADLK，否则与PTHREAD_MUTEX_TIMED_NP类型动作相同。这样就保证当不允许多次加锁时不会出现最简单情况下的死锁。 </li>
+<li><code>PTHREAD_MUTEX_ADAPTIVE_NP</code>: 适应锁，动作最简单的锁类型，仅等待解锁后重新竞争。</li>
+</ul>
+</li>
+</ul>
+<p>3.阻塞加锁：<br><code>int pthread_mutex_lock(pthread_mutex *mutex);</code></p>
+<p>4.非阻塞加锁：<br><code>int pthread_mutex_trylock( pthread_mutex_t *mutex);</code><br>不同于阻塞加锁，已经被占用时返回EBUSY而不是挂起等待。</p>
+<p>5.解锁（要求，锁是lock状态，并且由加锁线程解锁）：<br><code>int pthread_mutex_unlock(pthread_mutex *mutex);</code></p>
+<p>6.销毁锁（要求，锁是unlock状态，否则返回EBUSY）：<br><code>int pthread_mutex_destroy(pthread_mutex *mutex);</code></p>
+<h3 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h3><p>条件变量是利用线程间共享全局变量进行的一种机制。条件变量上基本操作有：触发条件（当条件变量为true时）；等待条件，挂起线程直到其他线程出发条件。</p>
+<p>1.静态初始化、动态初始化（和互斥锁相似）：<br><code>static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</code>：静态初始化<br><code>int pthread_cond_init(pthread_cond_t *cond, pthread_condattr_t *cond_attr);</code>：动态初始化</p>
+<p>2.无条件等待：<br><code>int pthread_cond_wait(pthread_cond_t *cond,pthread_mutex_t *mutex);</code></p>
+<p>3.计时等待：<br><code>int pthread_cond_timewait(pthread_cond_t *cond,pthread_mutex *mutex,const timespec *abstime);</code></p>
+<blockquote>
+<p>无条件等待、或计时等待都必须和互斥锁配合以防止多个线程同时请求：</p>
+<ul>
+<li>mutex互斥锁必须是普通锁（PTHREAD_MUTEX_TIMED_NP）或者适应锁（PTHREAD_MUTEX_ADAPTIVE_NP）;</li>
+<li>在调用pthread_cond_wait()前必须由本线程加锁（pthread_mutex_lock()），而在更新条件等待队列以前，mutex保持锁定状态，并在线程挂起进入等待前解锁。</li>
+<li>在条件满足从而离开pthread_cond_wait()之前，mutex将被重新加锁，以与进入pthread_cond_wait()前的加锁动作对应。</li>
+</ul>
+</blockquote>
+<p>4.激发条件，激活一个等待该条件的线程（存在多个等待线程时按入队顺序激活其中一个）：<br><code>int pthread_cond_signal(pthread_cond_t *cond);</code></p>
+<p>5.激活所有等待线程：<br><code>int pthread_cond_broadcast(pthread_cond_t *cond);</code></p>
+<p>6.销毁条件变量：<br><code>int pthread_cond_destroy(pthread_cond_t *cond);</code></p>
+<ul>
+<li>只有在没有线程在该条件变量上等待的时候才能销毁这个条件变量，否则返回EBUSY</li>
+</ul>
+<blockquote>
+<p>说明：</p>
+<ol>
+<li>pthread_cond_wait 自动解锁互斥量(如同执行了pthread_unlock_mutex)，并等待条件变量触发。这时线程挂起，不占用CPU时间，直到条件变量被触发（变量为ture）。在调用 pthread_cond_wait之前，应用程序必须加锁互斥量。pthread_cond_wait函数返回前，自动重新对互斥量加锁(如同执行了pthread_lock_mutex)。</li>
+<li>互斥量的解锁和在条件变量上挂起都是自动进行的。因此，在条件变量被触发前，如果所有的线程都要对互斥量加锁，这种机制可保证在线程加锁互斥量和进入等待条件变量期间，条件变量不被触发。条件变量要和互斥量相联结，以避免出现条件竞争——个线程预备等待一个条件变量，当它在真正进入等待之前，另一个线程恰好触发了该条件（条件满足信号有可能在测试条件和调用pthread_cond_wait函数（block）之间被发出，从而造成无限制的等待）</li>
+<li>条件变量函数不是异步信号安全的，不应当在信号处理程序中进行调用。特别要注意，如果在信号处理程序中调用 pthread_cond_signal 或 pthread_cond_boardcast 函数，可能导致调用线程死锁</li>
+</ol>
+</blockquote>
+<p><img src="/p/e68/%E7%BA%BF%E7%A8%8B%E5%85%B1%E4%BA%AB%E5%8F%98%E9%87%8Fwait.png" alt></p>
+<h4 id="为什么pthread-cond-wait需要的互斥锁不在函数内部定义，而要使用户定义的呢？"><a href="#为什么pthread-cond-wait需要的互斥锁不在函数内部定义，而要使用户定义的呢？" class="headerlink" title="为什么pthread_cond_wait需要的互斥锁不在函数内部定义，而要使用户定义的呢？"></a>为什么pthread_cond_wait需要的互斥锁不在函数内部定义，而要使用户定义的呢？</h4><blockquote>
+<ul>
+<li>pthread_cond_wait 和 pthread_cond_timewait 函数为什么需要互斥锁？因为：条件变量是线程同步的一种方法，这两个函数又是等待信号的函数，函数内部一定有须要同步保护的数据。</li>
+<li>使用用户定义的互斥锁而不在函数内部定义的原因是：无法确定会有多少用户使用条件变量，所以每个互斥锁都须要动态定义，而且管理大量互斥锁的开销太大，使用用户定义的即灵活又方便，符合UNIX哲学的编程风格（随便推荐阅读《UNIX编程哲学》这本好书！）。</li>
+<li>大神推测pthread_cond_wait函数的内部结构时</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_cond_wait</span><span class="params">(<span class="keyword">pthread_cond_t</span> *cond, <span class="keyword">pthread_mutex_t</span> *mutex)</span></span></span><br><span class="line"><span class="function">   </span>&#123;</span><br><span class="line">      <span class="keyword">if</span>（没有条件信号）</span><br><span class="line">      &#123;</span><br><span class="line">         （<span class="number">1</span>）pthread_mutex_unlock (mutex); <span class="comment">// 因为用户在函数外面已经加锁了（这是使用约定），但是在没有信号的情况下为了让其他线程也能等待cond，必须解锁。</span></span><br><span class="line">         （<span class="number">2</span>） 阻塞当前线程，等待条件信号（当然应该是类似于中断触发的方式等待，而不是软件轮询的方式等待）... 有信号就继续执行后面。</span><br><span class="line">         （<span class="number">3</span>） pthread_mutex_lock (mutex); <span class="comment">// 因为用户在函数外面要解锁（这也是使用约定），所以要与1呼应加锁，保证用户感觉依然是自己加锁、自己解锁。</span></span><br><span class="line">      &#125;      </span><br><span class="line">      ...</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>作为有态度的技术人揣测咱们也不能轻易的相信，探究pthread_cond_wait函数的内部结构过程：</p>
+<p>1.从<code>http://ftp.gnu.org/gnu/glibc/</code> 下载最新的<code>glibc-2.29.tar.gz(本人下载)</code>，在nptl目录下的<code>pthread_cond_wait.c</code>文件中</p>
+<p>2.函数实现，整体过程跟大神讲的差不多，不同点在于加锁和解锁在循环外面</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> __always_inline <span class="keyword">int</span></span><br><span class="line">__pthread_cond_wait_common (<span class="keyword">pthread_cond_t</span> *cond, <span class="keyword">pthread_mutex_t</span> *mutex,</span><br><span class="line">    <span class="keyword">const</span> struct timespec *abstime)</span><br><span class="line">&#123;</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 解锁</span></span><br><span class="line">err = __pthread_mutex_unlock_usercnt (mutex, <span class="number">0</span>);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">while</span> (!atomic_compare_exchange_weak_acquire (cond-&gt;__data.__g_signals + g, &amp;signals, signals - <span class="number">2</span>));</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 加锁</span></span><br><span class="line">err = __pthread_mutex_cond_lock (mutex);</span><br></pre></td></tr></table></figure>
+
+<h3 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h3><p>如同进程一样，线程也可以通过信号量来实现通信。</p>
+<p>头文件<code>semaphore.h</code>, 记得<code>man</code>查看详情。</p>
+<p>1.初始化<br><code>int sem_init (sem_t *sem , int pshared, unsigned int value);</code></p>
+<ul>
+<li>sem: 指定要初始化的信号量； </li>
+<li>pshared:  信号量 sem 的共享选项，linux只支持0，表示它是当前进程的局部信号量； </li>
+<li>value: 信号量 sem 的初始值。</li>
+</ul>
+<p>2.信号量值加1<br><code>int sem_post(sem_t *sem);</code></p>
+<p>3.信号量值减1<br><code>int sem_wait(sem_t *sem);</code></p>
+<p>4.销毁信号量<br><code>int sem_destroy(sem_t *sem);</code></p>
+<h3 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h3><p>读锁：一个读锁占用的临界区后来的读锁也可以进入，但是如果是写锁，则阻塞。在写锁阻塞后，后面再来读锁也会阻塞。这样避免读锁长期占用资源，防止写锁饥俄。<br>写锁：写锁占用了临界区，其他的线程（读写锁）都会阻塞。</p>
+<p>1.初始化</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 动态初始化</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_init</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *<span class="keyword">restrict</span> rwlock, <span class="keyword">const</span> <span class="keyword">pthread_rwlockattr_t</span> *<span class="keyword">restrict</span> attr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 静态初始化</span></span><br><span class="line"><span class="keyword">pthread_rwlock_t</span> rwlock = PTHREAD_RWLOCK_INITIALIZER;</span><br></pre></td></tr></table></figure>
+
+<p>2.读写锁</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加锁</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_rdlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_wrlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>; </span><br><span class="line"><span class="comment">// 解锁</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_unlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 试图加锁</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_tryrdlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_trywrlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *rwlock)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 计时加锁</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_timedrdlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *<span class="keyword">restrict</span> rwlock, <span class="keyword">const</span> struct timespec *<span class="keyword">restrict</span> abs_timeout)</span></span>; </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_rwlock_timedwrlock</span><span class="params">(<span class="keyword">pthread_rwlock_t</span> *<span class="keyword">restrict</span> rwlock, <span class="keyword">const</span> struct timespec *<span class="keyword">restrict</span> abs_timeout)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>3.销毁锁<br><code>int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);</code></p>
+<h3 id="并发小示例"><a href="#并发小示例" class="headerlink" title="并发小示例"></a>并发小示例</h3><p>要求：用两个线程分别输出数组的奇数下标和偶数下标的内容;</p>
+<p>实现（忽略捕获异常）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/syscall.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> gettid() syscall(__NR_gettid)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> len = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> arr[<span class="number">5</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> mutex = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOddNumber</span><span class="params">(<span class="keyword">int</span> * arr)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printEvenNumber</span><span class="params">(<span class="keyword">int</span> * arr)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">pthread_t</span> tid1, tid2;</span><br><span class="line">    errno = pthread_create(&amp;tid1 , <span class="literal">NULL</span>, printOddNumber, arr);</span><br><span class="line">    errno = pthread_create(&amp;tid2, <span class="literal">NULL</span>, printEvenNumber, arr);</span><br><span class="line"></span><br><span class="line">    errno = pthread_join(tid1, <span class="literal">NULL</span>);</span><br><span class="line">    errno = pthread_join(tid2, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    pthread_mutex_destroy(&amp;mutex);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"-------leave thread_main (pid: %d, tid: %ld) -------\n"</span>, getpid(), gettid());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOddNumber</span><span class="params">(<span class="keyword">int</span>* arr)</span></span>&#123;</span><br><span class="line">    pthread_mutex_lock(&amp;mutex);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"-------thread odd ( pid: %d , tid: %ld ) \n"</span>, getpid(), gettid());</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">1</span>; i &lt; len ;  )&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"odd number : %d \n"</span>,arr[i]);</span><br><span class="line">        i+=<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printEvenNumber</span><span class="params">(<span class="keyword">int</span>* arr)</span></span>&#123;</span><br><span class="line">    pthread_mutex_lock(&amp;mutex);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"-------thread even ( pid: %d , tid: %ld ) \n"</span>, getpid(), gettid());</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span> ; i &lt; len ; )&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"even number : %d \n"</span> , arr[i]);</span><br><span class="line">        i+=<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_mutex_unlock(&amp;mutex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译：<br><code>gcc  -o  pthread_array pthread-array.c -lpthread</code><br>编译时warn可忽略。。。</p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">./pthread_array</span><br><span class="line"></span><br><span class="line">-------thread odd ( pid: 23672 , tid: 23673 )</span><br><span class="line">odd number : 2</span><br><span class="line">odd number : 4</span><br><span class="line">-------thread even ( pid: 23672 , tid: 23674 )</span><br><span class="line">even number : 1</span><br><span class="line">even number : 3</span><br><span class="line">even number : 5</span><br><span class="line">-------leave thread_main (pid: 23672, tid: 23672) -------</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个进程23672，三个线程（算main线程），即一个程序至少有一个进程,一个进程至少有一个线程 。</strong></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>CASAPP</li>
+<li><a href="https://blog.csdn.net/vertor11/article/details/55657619" target="_blank" rel="noopener">https://blog.csdn.net/vertor11/article/details/55657619</a></li>
+<li><a href="https://www.zfl9.com/c-pthread.html" target="_blank" rel="noopener">https://www.zfl9.com/c-pthread.html</a></li>
+</ul>
+
       
     </div>
 
@@ -529,8 +664,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/p/797a.html" rel="prev" title="os-链接">
-                os-链接 <i class="fa fa-chevron-right"></i>
+              <a href="/p/8e8c.html" rel="prev" title="os-进程线程关系及区别">
+                os-进程线程关系及区别 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -575,8 +710,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -786,6 +930,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程库"><span class="nav-number">2.</span> <span class="nav-text">线程库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pthread线程库"><span class="nav-number">2.1.</span> <span class="nav-text">pthread线程库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结合线程-amp-分离线程"><span class="nav-number">2.2.</span> <span class="nav-text">结合线程&amp;分离线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通信（同步）方式"><span class="nav-number">3.</span> <span class="nav-text">通信（同步）方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥锁"><span class="nav-number">3.1.</span> <span class="nav-text">互斥锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件变量"><span class="nav-number">3.2.</span> <span class="nav-text">条件变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么pthread-cond-wait需要的互斥锁不在函数内部定义，而要使用户定义的呢？"><span class="nav-number">3.2.1.</span> <span class="nav-text">为什么pthread_cond_wait需要的互斥锁不在函数内部定义，而要使用户定义的呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号量"><span class="nav-number">3.3.</span> <span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读写锁"><span class="nav-number">3.4.</span> <span class="nav-text">读写锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发小示例"><span class="nav-number">3.5.</span> <span class="nav-text">并发小示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -821,7 +982,7 @@
 <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">站点共65.1k字</span>
+  <span class="post-count">站点共70.2k字</span>
 </div>
 </div>
 
