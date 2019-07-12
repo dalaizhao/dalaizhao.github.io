@@ -106,7 +106,7 @@
 
 
   <meta name="description" content="JDK源码深揪，JDK1.8版本。    摘要HashMap 经常用到的 java 内置的数据结构，今天就深入源码瞧瞧,刨一刨。    HashMap 是对 Map 接口的一种哈希表的实现，是 key-value（键-值对），通过 key 可以常数时间内找到 value 。它是非线程安全，如果需要满足线程安全，可以用 Collections 的 synchronizedMap 方法使 HashMa">
-<meta name="keywords" content="JDK1.8,源码解析,HashMap">
+<meta name="keywords" content="JDK1.8,HashMap,源码解析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JDK1.8 HashMap源码解析">
 <meta property="og:url" content="http://yoursite.com/p/79a4.html">
@@ -451,9 +451,31 @@
           
             
             
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/p/79a4.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/79a4.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
+          
+            <span id="/p/79a4.html" class="post-meta-item leancloud_visitors" data-flag-title="JDK1.8 HashMap源码解析">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -566,9 +588,9 @@
           
             <a href="/tags/JDK1-8/" rel="tag"><i class="fa fa-tag"></i> JDK1.8</a>
           
-            <a href="/tags/源码解析/" rel="tag"><i class="fa fa-tag"></i> 源码解析</a>
-          
             <a href="/tags/HashMap/" rel="tag"><i class="fa fa-tag"></i> HashMap</a>
+          
+            <a href="/tags/源码解析/" rel="tag"><i class="fa fa-tag"></i> 源码解析</a>
           
         </div>
       
@@ -614,6 +636,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -1031,6 +1057,32 @@
   
 
   
+  
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz',
+    appKey: '4TS0u6RkSOiLLjWegSfGGQLb',
+    placeholder: 'come on , just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
 
 
   
@@ -1362,6 +1414,66 @@
 
 
   
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz',
+                'X-LC-Key': '4TS0u6RkSOiLLjWegSfGGQLb',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
 
   
 

@@ -106,7 +106,7 @@
 
 
   <meta name="description" content="JDK源码深揪，JDK1.8版本。    摘要经常用到的String类，不可变字符串，看看它是如何高效的处理字符串操作的。   == 和 equals()== ，判断的是对象的内存起始地址是否相同；equals ，判断字符串内容是否相同。    常量池">
-<meta name="keywords" content="JDK1.8,String,源码解析">
+<meta name="keywords" content="JDK1.8,源码解析,String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JDK1.8 String源码解析">
 <meta property="og:url" content="http://yoursite.com/p/447c.html">
@@ -450,9 +450,31 @@
           
             
             
+              
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/p/447c.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/p/447c.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
+          
+            <span id="/p/447c.html" class="post-meta-item leancloud_visitors" data-flag-title="JDK1.8 String源码解析">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -616,9 +638,9 @@
           
             <a href="/tags/JDK1-8/" rel="tag"><i class="fa fa-tag"></i> JDK1.8</a>
           
-            <a href="/tags/String/" rel="tag"><i class="fa fa-tag"></i> String</a>
-          
             <a href="/tags/源码解析/" rel="tag"><i class="fa fa-tag"></i> 源码解析</a>
+          
+            <a href="/tags/String/" rel="tag"><i class="fa fa-tag"></i> String</a>
           
         </div>
       
@@ -664,6 +686,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
 
   
 
@@ -1081,6 +1107,32 @@
   
 
   
+  
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz',
+    appKey: '4TS0u6RkSOiLLjWegSfGGQLb',
+    placeholder: 'come on , just go go',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
 
 
   
@@ -1412,6 +1464,66 @@
 
 
   
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.time + 1);
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz',
+                'X-LC-Key': '4TS0u6RkSOiLLjWegSfGGQLb',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+            if (localhost.test(document.URL)) return;
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
 
   
 
