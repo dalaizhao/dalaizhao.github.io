@@ -117,7 +117,14 @@
     <div class="categories-tags">
       <a class="category-link" href="/categories/Apache-Spark/">Apache Spark<span class="category-count">2</span></a> <a class="category-link" href="/categories/JDK-源码解析/">JDK 源码解析<span class="category-count">2</span></a> <a class="category-link" href="/categories/elasticSearch/">elasticSearch<span class="category-count">1</span></a> <a class="category-link" href="/categories/git/">git<span class="category-count">1</span></a> <a class="category-link" href="/categories/java/">java<span class="category-count">7</span></a> <a class="category-link" href="/categories/linux/">linux<span class="category-count">5</span></a> <a class="category-link" href="/categories/os/">os<span class="category-count">4</span></a> <a class="category-link" href="/categories/redis/">redis<span class="category-count">1</span></a> <a class="category-link" href="/categories/solr/">solr<span class="category-count">4</span></a> <a class="category-link" href="/categories/spring-boot/">spring boot<span class="category-count">3</span></a> <a class="category-link" href="/categories/微服务/">微服务<span class="category-count">2</span></a> <a class="category-link" href="/categories/数据结构与算法/">数据结构与算法<span class="category-count">3</span></a> <a class="category-link" href="/categories/环境搭建教程/">环境搭建教程<span class="category-count">2</span></a>
     </div>
-  </div></div><div class="comments" id="comments"></div></div>
+  </div></div>
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+</div>
       </main>
 
       <footer id="footer" class="footer"><div class="social-links"><a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
@@ -144,7 +151,24 @@
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    </div>
+    
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz",
+        app_key: "4TS0u6RkSOiLLjWegSfGGQLb",
+        placeholder: "世界辣么大，留个痕迹哟哦哦～",
+        avatar: 'mm'
+    });
+</script>
+
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
   <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
