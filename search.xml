@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[os-gcc生成so文件及动态链接库使用]]></title>
+    <url>%2Fp%2F8e8c.html</url>
+    <content type="text"><![CDATA[[TOC] gcc如何生成.so文件及使用动态链接库.so文件。 生成.so文件且使用 第一步，写成一个hello.h文件 1234#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;void helloWorld(); 第二步，写成一个hello.c文件 12345#include"hello.h"void helloWorld()&#123; printf("hello coding");&#125; 用这俩文件生成一个.so文件gcc hello.c -shared -fPIC -o libhello.so -shared选项说明编译成的文件为动态链接库，不使用该选项相当于可执行文件 -fPIC 表示编译为位置独立的代码，不用此选项的话编译后的代码是位置相关的。 写一个test.c文件，运用动态链接库libhello.so文件1234567891011include&lt;errno.h&gt;#include&lt;sys/syscall.h&gt;#include"hello.h"#define gettid() syscall(__NR_gettid)int main()&#123; helloWorld(); printf("\n hello world \n"); printf("-------leave thread_main (pid: %d, tid: %ld) -------\n", getpid(), gettid());&#125; 编译test.c文件,运行如下：gcc test.c -L. -lhello -o test -L. 表示链接的文件在当前目录下； -lhello 代表链接的文件名 gcc会自动为其前面添加lib，在其后边添加.so 即libhello.so； 运行之后会报错如下： 1./test: error while loading shared libraries: libhello.so: cannot open shared object file: No such file or directory 因为找不到动态链接库，导入环境变量： 1export LD_LIBRARY_PATH=/data/c:$LD_LIBRARY_PATH; 再./test运行即可。 动态链接库路径问题 引用文章https://blog.csdn.net/zxh2075/article/details/54629318 Linux下的共享库默认搜索路径为/lib和/usr/lib两个目录（不包含子目录）。 加载动态链接库的方法有五种：1，连接时使用静态库（.a文件）。2，使用LD_LIBRARY_PATH环境变量（本文采用的），把需要添加的路径加入到LD＿LIBRARY＿PATH中，注意如果多于一个要用冒号隔开。如：export LD_LIBRARY_PATH=/usr/local/lib/lin3，将动态库文件复制到可以搜索到的路径（一般是系统默认的路径，如/lib、/usr/lib）里面，这样比较狠，但是可能导致一些后即问题。4，编译的时候设定：在编译源码的时候可以用参数：-Wl，-rpath指定动态搜索的路径即可。5，修改系统文件/etc/ld.so.conf，添加路径，运行ldconfig命令。 第五种方法的说明如下：在/etc/ld.so.conf文件中指定了默认的动态链接库查找路径，我的/etc/ld.so.conf文件内容是这样的 12include ld.so.conf.d/*.conf /usr/local/matrix/lib 也是说它间接的指定了定义路径的文件，我们只需要把需要的路径加到/etc/ld.so.conf.d目录下的任何一个文件中，再运行ldconfig就可以了，但为了容易理解，最好是找一个相关的文件，或者重新建立一个文件，把需要添加的路径写入然后运行ldconfig; ldconfig几个需要注意的地方: 往/lib和/usr/lib里面加东西，是不用修改/etc/ld.so.conf的，但是完了之后要调一下ldconfig，不然这个library会找不到； 想往上面两个目录以外加东西的时候，一定要修改/etc/ld.so.conf，然后再调用ldconfig，不然也会找不到(除非添加到环境变量)；]]></content>
+      <categories>
+        <category>os</category>
+      </categories>
+      <tags>
+        <tag>os</tag>
+        <tag>linux</tag>
+        <tag>动态链接库</tag>
+        <tag>链接</tag>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[os-进程线程关系及区别]]></title>
     <url>%2Fp%2F8e8c.html</url>
     <content type="text"><![CDATA[关系&amp;区别进程(process)是资源分配的最小单位，有自己独立的地址空间，单个进程的崩溃不会影响其它进程； 线程(thread)是处理器调度的最小单位，共享进程空间，也有自己的独立内存（PC、栈、栈指针等空间），单个线程的崩溃会导致整个进程的崩溃，影响其它的线程； 对于一些要求同时进行且又要共享某些变量的并发操作，只能用线程，不能用进程。 一进程里至少有一个线程。 通俗的讲 “如果进程是工厂，线程就是工人” 优缺点 地址空间和其它资源 进程间相互独立，同一进程的各线程间共享。 某进程内的线程在其它进程不可见。 通信：进程间通信IPC 线程间可以直接读写进程数据段（如全局变量）来进行通信 进程同步和互斥需要辅助，以保证数据的一致性。 调度和切换 线程上下文切换比进程上下文切换要快得多。 多线程OS中 进程不是一个可执行的实体。]]></content>
@@ -9,10 +24,10 @@
       </categories>
       <tags>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
         <tag>进程</tag>
         <tag>线程</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -24,10 +39,10 @@
       </categories>
       <tags>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
         <tag>进程</tag>
         <tag>线程</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -39,10 +54,10 @@
       </categories>
       <tags>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
         <tag>进程</tag>
         <tag>线程</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -68,9 +83,9 @@
       </categories>
       <tags>
         <tag>os</tag>
-        <tag>csapp</tag>
-        <tag>c</tag>
         <tag>链接</tag>
+        <tag>c</tag>
+        <tag>csapp</tag>
       </tags>
   </entry>
   <entry>
@@ -236,8 +251,8 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>并发</tag>
         <tag>java</tag>
+        <tag>并发</tag>
       </tags>
   </entry>
   <entry>
