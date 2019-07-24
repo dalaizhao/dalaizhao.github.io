@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="并发-互斥锁mutex和条件变量condition运用"><meta name="keywords" content="linux, c, 并发, pthread, k先生"><link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/p/1d75.html">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>并发-互斥锁mutex和条件变量condition运用 - k先生</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">k先生</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">k先生</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            首页
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            归档
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            标签
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            分类
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">并发-互斥锁mutex和条件变量condition运用
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-24
+        </span><span class="post-category">
+            <a href="/categories/c/">c</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#互斥锁（mutex）和条件变量（cond）"><span class="toc-text">互斥锁（mutex）和条件变量（cond）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-text">示例</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>C编程下的并发方式互斥锁和条件变量，以前一直懵懂，通过这个示例代码才真正来了解如何配合使用互斥锁和条件变量。</p>
+<a id="more"></a>
+
+<h2 id="互斥锁（mutex）和条件变量（cond）"><a href="#互斥锁（mutex）和条件变量（cond）" class="headerlink" title="互斥锁（mutex）和条件变量（cond）"></a>互斥锁（mutex）和条件变量（cond）</h2><p>pthread线程创建、互斥锁和条件变量的函数如下图</p>
+<p><img src="/p/1d75/1.png" alt></p>
+<p><a href="http://imdalai.com/p/e68.html" target="_blank" rel="noopener">更多线程间通信，请点击上篇文章</a></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUM_OF_TASKS 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_TASK_QUEUE 11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> tasklist[MAX_TASK_QUEUE]=<span class="string">"ABCDEFGHIJ"</span>;</span><br><span class="line"><span class="keyword">int</span> head = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> tail = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> quit = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> g_task_lock;</span><br><span class="line"><span class="keyword">pthread_cond_t</span> g_task_cv;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">coder</span><span class="params">(<span class="keyword">void</span> *notused)</span></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> tid = pthread_self();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(!quit)&#123;</span><br><span class="line">        pthread_mutex_lock(&amp;g_task_lock);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(tail == head)&#123;</span><br><span class="line">            <span class="keyword">if</span>(quit)&#123;</span><br><span class="line">                pthread_mutex_unlock(&amp;g_task_lock);</span><br><span class="line">                pthread_exit((<span class="keyword">void</span> *)<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"no task now! thread %u is waiting! \n"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)tid);</span><br><span class="line">            pthread_cond_wait(&amp;g_task_cv, &amp;g_task_lock);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"have task now! thread %u is grabing thw task !\n"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)tid);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">char</span> task = tasklist[head++];</span><br><span class="line">        pthread_mutex_unlock(&amp;g_task_lock);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"thread %u has a task %c now! \n"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)tid, task);</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"thread %u finish the task %c ! \n"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)tid, task);</span><br><span class="line">    &#125;</span><br><span class="line">    pthread_exit((<span class="keyword">void</span> *)<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">    <span class="keyword">pthread_t</span> threads[NUM_OF_TASKS];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> rc;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line"></span><br><span class="line">    pthread_mutex_init(&amp;g_task_lock,<span class="literal">NULL</span>);</span><br><span class="line">    pthread_cond_init(&amp;g_task_cv,<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(t =<span class="number">0</span> ; t &lt; NUM_OF_TASKS; t++)&#123;</span><br><span class="line">        rc = pthread_create(&amp;threads[t], <span class="literal">NULL</span>, coder, <span class="literal">NULL</span>);</span><br><span class="line">        <span class="keyword">if</span>(rc)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"ERROR , return from pthread_create %d \n"</span> , rc);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sleep(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (t =<span class="number">1</span> ; t  &lt;= <span class="number">4</span> ; t++)&#123;</span><br><span class="line">        pthread_mutex_lock(&amp;g_task_lock);</span><br><span class="line">        tail += t;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"I am Boss , I assigned %d tasks, I notify all coder! \n"</span>, t);</span><br><span class="line">        pthread_cond_broadcast(&amp;g_task_cv);</span><br><span class="line">        pthread_mutex_unlock(&amp;g_task_lock);</span><br><span class="line">        <span class="comment">// sleep用途：主线程等待其他线程完成的缓冲期，也可以取消不过得加上下面的while循环，不然任务未完成线程就退出了</span></span><br><span class="line">        sleep(<span class="number">20</span>); </span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    for(t = 0 ; t &lt; NUM_OF_TASKS; t++)&#123;</span></span><br><span class="line"><span class="comment">        pthread_join(threads[t], NULL);</span></span><br><span class="line"><span class="comment">        printf("pthread waiting %d finish! ",t);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="comment">// 主线程等待其他线程完成任务</span></span><br><span class="line">    <span class="keyword">while</span>(head != tail )&#123;</span><br><span class="line">        <span class="comment">// waiting finish tasks</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    pthread_mutex_lock(&amp;g_task_lock);</span><br><span class="line">    quit = <span class="number">1</span>;</span><br><span class="line">    pthread_cond_broadcast(&amp;g_task_cv);</span><br><span class="line">    pthread_mutex_unlock(&amp;g_task_lock);</span><br><span class="line"></span><br><span class="line">    pthread_mutex_destroy(&amp;g_task_lock);</span><br><span class="line">    pthread_cond_destroy(&amp;g_task_cv);</span><br><span class="line">    pthread_exit(<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译代码<code>gcc mutex-cond.c -o mutex-cond -lpthread</code></p>
+<p>其示例整个运行过程如图：<br><img src="/p/1d75/2.png" alt></p>
+<p>以下是运行输出内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[root@vm]/data/c<span class="comment"># ./mutex-cond</span></span><br><span class="line">no task now! thread 403633920 is waiting!</span><br><span class="line">no task now! thread 395241216 is waiting!</span><br><span class="line">no task now! thread 412026624 is waiting!</span><br><span class="line">I am Boss , I assigned 1 tasks, I notify all coder!</span><br><span class="line">have task now! thread 403633920 is grabing thw task !</span><br><span class="line">thread 403633920 has a task A now!</span><br><span class="line">have task now! thread 395241216 is grabing thw task !</span><br><span class="line">no task now! thread 395241216 is waiting!</span><br><span class="line">have task now! thread 412026624 is grabing thw task !</span><br><span class="line">no task now! thread 412026624 is waiting!</span><br><span class="line">thread 403633920 finish the task A !</span><br><span class="line">no task now! thread 403633920 is waiting!</span><br><span class="line">I am Boss , I assigned 2 tasks, I notify all coder!</span><br><span class="line">have task now! thread 395241216 is grabing thw task !</span><br><span class="line">thread 395241216 has a task B now!</span><br><span class="line">have task now! thread 412026624 is grabing thw task !</span><br><span class="line">thread 412026624 has a task C now!</span><br><span class="line">have task now! thread 403633920 is grabing thw task !</span><br><span class="line">no task now! thread 403633920 is waiting!</span><br><span class="line">thread 395241216 finish the task B !</span><br><span class="line">no task now! thread 395241216 is waiting!</span><br><span class="line">thread 412026624 finish the task C !</span><br><span class="line">no task now! thread 412026624 is waiting!</span><br><span class="line">I am Boss , I assigned 3 tasks, I notify all coder!</span><br><span class="line">have task now! thread 403633920 is grabing thw task !</span><br><span class="line">thread 403633920 has a task D now!</span><br><span class="line">have task now! thread 395241216 is grabing thw task !</span><br><span class="line">thread 395241216 has a task E now!</span><br><span class="line">have task now! thread 412026624 is grabing thw task !</span><br><span class="line">thread 412026624 has a task F now!</span><br><span class="line">thread 403633920 finish the task D !</span><br><span class="line">no task now! thread 403633920 is waiting!</span><br><span class="line">thread 395241216 finish the task E !</span><br><span class="line">no task now! thread 395241216 is waiting!</span><br><span class="line">thread 412026624 finish the task F !</span><br><span class="line">no task now! thread 412026624 is waiting!</span><br><span class="line">I am Boss , I assigned 4 tasks, I notify all coder!</span><br><span class="line">have task now! thread 403633920 is grabing thw task !</span><br><span class="line">thread 403633920 has a task G now!</span><br><span class="line">have task now! thread 395241216 is grabing thw task !</span><br><span class="line">thread 395241216 has a task H now!</span><br><span class="line">have task now! thread 412026624 is grabing thw task !</span><br><span class="line">thread 412026624 has a task I now!</span><br><span class="line">thread 403633920 finish the task G !</span><br><span class="line">thread 403633920 has a task J now!</span><br><span class="line">thread 395241216 finish the task H !</span><br><span class="line">no task now! thread 395241216 is waiting!</span><br><span class="line">thread 412026624 finish the task I !</span><br><span class="line">no task now! thread 412026624 is waiting!</span><br><span class="line">thread 403633920 finish the task J !</span><br><span class="line">no task now! thread 403633920 is waiting!</span><br><span class="line">have task now! thread 395241216 is grabing thw task !</span><br><span class="line">have task now! thread 412026624 is grabing thw task !</span><br><span class="line">have task now! thread 403633920 is grabing thw task !</span><br></pre></td></tr></table></figure>
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">k先生</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/p/1d75.html">http://yoursite.com/p/1d75.html</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/linux/">linux</a>
+            <a href="/tags/c/">c</a>
+            <a href="/tags/并发/">并发</a>
+            <a href="/tags/pthread/">pthread</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/p/33c5.html">
+        <span class="next-text nav-default">gnu-makefile让编译更容易</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div>
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+</div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:publicreturn@163.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/dalaizhao" class="iconfont icon-github" title="github"></a>
+        </div><div class="copyright">
+  <span class="copyright-year">&copy;2017 - 2019<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">k先生</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz",
+        app_key: "4TS0u6RkSOiLLjWegSfGGQLb",
+        placeholder: "世界辣么大，留个痕迹哟哦哦～",
+        avatar: 'mm'
+    });
+</script>
+
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
