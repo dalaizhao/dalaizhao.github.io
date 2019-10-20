@@ -73,18 +73,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[redis-数据类型]]></title>
-    <url>%2Fp%2Fd66e.html</url>
-    <content type="text"><![CDATA[redis 2.6版本的不同类型和编码的对象 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
-      <categories>
-        <category>redis</category>
-      </categories>
-      <tags>
-        <tag>redis</tag>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[redis-动态字符串]]></title>
     <url>%2Fp%2Fbe3f.html</url>
     <content type="text"><![CDATA[redis简单动态字符串，即sds。 sds定义3.2版本如下面五种类型，以前是只有一种。源码位置sds.h/sdshdr， 1234567891011121314151617181920212223242526272829303132typedef char *sds; // char buf[] 的指针/* Note: sdshdr5 is never used, we just access the flags byte directly. * However is here to document the layout of type 5 SDS strings. */struct __attribute__ ((__packed__)) sdshdr5 &#123; unsigned char flags; /* 3 lsb of type, and 5 msb of string length */ // 标示五种类型的sds对象 char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr8 &#123; uint8_t len; /* used */ uint8_t alloc; /* excluding the header and null terminator */ // 未使用的内存 unsigned char flags; /* 3 lsb of type, 5 unused bits */ // 标示五种类型的sds对象 char buf[]; // 保存字符串数据&#125;;struct __attribute__ ((__packed__)) sdshdr16 &#123; uint16_t len; /* used */ uint16_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr32 &#123; uint32_t len; /* used */ uint32_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr64 &#123; uint64_t len; /* used */ uint64_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;; sds和c字符串的区别redis只使用c字符串为字面值 共同点： 都已\0结尾，表示到达了字符串尾部 sds不同于C字符串： sds常数复杂度获取字符串长度 杜绝缓冲区溢出 减少修改字符串时带来的重新分配内存 空间预分配 惰性空间释放 二进制安全，即buf可存在多个\0 兼容C的部分字符串 重点空间预分配已1MB为界限每次扩容时： 修改后已使用（len）小于1MB，则分配同样大小的未使用空间 修改后已使用（len）大于1MB，则分配1MB未使用空间 惰性空间释放字符串截断或者内容变少时，不会释放空间，只是改变空间大小（len和free）。 多余空间如下步骤释放（robj释放空间原理）： 只针对raw和embstr类型做编码处理，把空闲内存回收 对这俩种类型尝试转long类型 raw类型长度小于44，用embstr表示返回 重新分配空间，并且所有应用指向新的空间 更多源码注释说明见sds.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment]]]></content>
@@ -95,6 +83,18 @@
         <tag>redis</tag>
         <tag>sds</tag>
         <tag>动态字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[redis-数据类型]]></title>
+    <url>%2Fp%2Fd66e.html</url>
+    <content type="text"><![CDATA[redis 2.6版本的不同类型和编码的对象 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -134,10 +134,10 @@
       <tags>
         <tag>linux</tag>
         <tag>c</tag>
+        <tag>进程</tag>
         <tag>用户态</tag>
         <tag>内核态</tag>
         <tag>函数栈</tag>
-        <tag>进程</tag>
         <tag>内核</tag>
       </tags>
   </entry>
@@ -196,8 +196,8 @@
       <tags>
         <tag>c</tag>
         <tag>os</tag>
-        <tag>进程</tag>
         <tag>csapp</tag>
+        <tag>进程</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -211,8 +211,8 @@
       <tags>
         <tag>c</tag>
         <tag>os</tag>
-        <tag>进程</tag>
         <tag>csapp</tag>
+        <tag>进程</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -226,8 +226,8 @@
       <tags>
         <tag>c</tag>
         <tag>os</tag>
-        <tag>进程</tag>
         <tag>csapp</tag>
+        <tag>进程</tag>
         <tag>线程</tag>
       </tags>
   </entry>
