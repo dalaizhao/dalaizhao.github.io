@@ -116,7 +116,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 143
+          字 135
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -129,12 +129,12 @@
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li></ol>
     </div>
-  </div><div class="post-content"><p>更多源码注释说明见<code>adlist.h</code>(<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment]" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment]</a></p>
+  </div><div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>实现很基础，无环双向链表和保存全局的表头；</p>
 <a id="more"></a>
 
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>实现很基础，无环双向链表和保存全局的表头；</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> &#123;</span>       <span class="comment">//  节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="keyword">void</span> *value;</span><br><span class="line">&#125; listNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listIter</span> &#123;</span></span><br><span class="line">    listNode *next;</span><br><span class="line">    <span class="keyword">int</span> direction;</span><br><span class="line">&#125; listIter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span> &#123;</span>       <span class="comment">// 链表，表头</span></span><br><span class="line">    listNode *head;</span><br><span class="line">    listNode *tail;</span><br><span class="line">    <span class="keyword">void</span> *(*dup)(<span class="keyword">void</span> *ptr);		<span class="comment">// 用于复制所节点锁保存的值</span></span><br><span class="line">    <span class="keyword">void</span> (*<span class="built_in">free</span>)(<span class="keyword">void</span> *ptr);		<span class="comment">// 用于释放所节点锁保存的值</span></span><br><span class="line">    <span class="keyword">int</span> (*match)(<span class="keyword">void</span> *ptr, <span class="keyword">void</span> *key);		<span class="comment">//对别节点值和输入的节点值是否相等</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len;  </span><br><span class="line">&#125; <span class="built_in">list</span>;</span><br></pre></td></tr></table></figure>
 
+<p>更多源码注释说明见<code>adlist.h</code><a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
 
       </div>
       <div class="post-copyright">

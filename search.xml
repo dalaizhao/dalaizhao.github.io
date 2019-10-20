@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[redis-对象robj]]></title>
     <url>%2Fp%2Fc707.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见server.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment]]]></content>
+    <content type="text"><![CDATA[更多源码注释说明见server.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -15,7 +15,7 @@
   <entry>
     <title><![CDATA[redis-压缩表]]></title>
     <url>%2Fp%2F176a.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见ziplist.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] 定义!(包含三个节点的压缩表)[redis-zip-1.png] zlbytes, 压缩表表的总字节数 zltail, 表头加上zltail即可指向表尾节点的 zllen, 节点总数 !(说明)[redis-zip-2.png] 节点构成：!(节点构成)[redis-zip-3.png] 添加新节点或删除节点，可能会引发连锁更新操作。]]></content>
+    <content type="text"><![CDATA[定义!(包含三个节点的压缩表)[redis-zip-1.png] zlbytes, 压缩表表的总字节数 zltail, 表头加上zltail即可指向表尾节点的 zllen, 节点总数 节点构成： 添加新节点或删除节点，可能会引发连锁更新操作。 更多源码注释说明见ziplist.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -39,7 +39,7 @@
   <entry>
     <title><![CDATA[redis-跳跃表]]></title>
     <url>%2Fp%2F1ce5.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见server.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] 定义12345678910111213141516/* ZSETs use a specialized version of Skiplists */typedef struct zskiplistNode &#123; // 跳跃表节点 sds ele; // 成员对象，sds double score; // 分值 struct zskiplistNode *backward; struct zskiplistLevel &#123; struct zskiplistNode *forward; // 前进指针 unsigned long span; // 跨度 &#125; level[]; // 层级&#125; zskiplistNode;typedef struct zskiplist &#123; // 跳跃表 struct zskiplistNode *header, *tail; unsigned long length; int level; // 记录跳跃表内，层数最大的那个节点的层数，表头节点不计算在内&#125; zskiplist; !(结构图)[redis-zskiplist-1.png] 跟二叉树很类似的数据结构，平均情况也是O(logN)，最坏O(N); 跳跃表的层高都是1-32之间的随机数； 跳跃表中的节点按照分值大小进行排序，当分值相同时，节点按照成员对象的大小进行排序；]]></content>
+    <content type="text"><![CDATA[定义 12345678910111213141516/* ZSETs use a specialized version of Skiplists */typedef struct zskiplistNode &#123; // 跳跃表节点 sds ele; // 成员对象，sds double score; // 分值 struct zskiplistNode *backward; struct zskiplistLevel &#123; struct zskiplistNode *forward; // 前进指针 unsigned long span; // 跨度 &#125; level[]; // 层级&#125; zskiplistNode;typedef struct zskiplist &#123; // 跳跃表 struct zskiplistNode *header, *tail; unsigned long length; int level; // 记录跳跃表内，层数最大的那个节点的层数，表头节点不计算在内&#125; zskiplist; 跟二叉树很类似的数据结构，平均情况也是O(logN)，最坏O(N); 跳跃表的层高都是1-32之间的随机数； 跳跃表中的节点按照分值大小进行排序，当分值相同时，节点按照成员对象的大小进行排序； 更多源码注释说明见server.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -51,7 +51,7 @@
   <entry>
     <title><![CDATA[redis-字典]]></title>
     <url>%2Fp%2Ff389.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见dict.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] 定义12345678910111213141516171819202122232425typedef struct dictEntry &#123; // 哈希节点 void *key; // 键 union &#123; // 值 void *val; uint64_t u64; int64_t s64; double d; &#125; v; struct dictEntry *next; // 解决键冲突&#125; dictEntry;typedef struct dictht &#123; // 字段所使用的哈希表 dictEntry **table; // 哈希表数组 unsigned long size; // 哈希表大小 unsigned long sizemask; // 哈希表大小掩码，勇于计算索引值 ，总是等于size-1 unsigned long used; // 已有节点数量&#125; dictht;typedef struct dict &#123; // 字典 dictType *type; // 类型特定函数，创建多态字典而设置 void *privdata; // 私有数据，创建多态字典而设置 dictht ht[2]; // 哈希表 long rehashidx; /* rehashing not in progress if rehashidx == -1 */ // rehash索引 unsigned long iterators; /* number of iterators currently running */ // 正在运行中的遍历器数量&#125; dict; 结构图：!(字典结构)[redis-字典-1.png] 字典也是redis键值对的结构，即数据库底层的实现。 哈希算法12345// 定义#define dictHashKey(d, key) (d)-&gt;type-&gt;hashFunction(key)/* Get the index in the new hash table */h = dictHashKey(d, de-&gt;key) &amp; d-&gt;ht[1].sizemask; redis使用MurmurHash2算法来计算键的hash值,这个算法的优点在于即使输入的键有规律，也能给出一个很好的随机分布性；(MurmurHash2算法)[https://zh.wikipedia.org/wiki/Murmur%E5%93%88%E5%B8%8C] 解决冲突redis的哈希表使用链地址法来解决键冲突，新加入的节点会添加到链表的表头，排在其他所有节点的前面。 rehash算法rehash步骤： 使用地点的ht[1]作为备份进行扩容或收缩空间 扩容和收缩时，ht[1]的大小大于等于ht[0].used*2的2^n（2的n次方幂） 1.执行扩容前!(扩容前)[redis-字典-2.png] 2.扩容时分配空间!(扩容前)[redis-dict-3.png] 3.迁移节点!(扩容前)[redis-dict-4.png] 哈希表的扩容与收缩以下条件任意一个被满足，就会执行扩容： 没有执行BGSAVE或BGREWRITEAOF命令，hash表的负载因子大于等于1 正在执行BGSAVE或BGREWRITEAOF命令，hash表的负载因子大于等于5 负载因子计算公式：load_factor = ht[0].used/ht[0].size 即，负载因子 = 哈希表已保存节点数量/哈希表大小； 当哈希表的负载因子小于0.1时，程序自动开始对hash表进行收缩操作； rehash动作并不是一次性、集中式完成的，而分多次、渐进式地完成的。]]></content>
+    <content type="text"><![CDATA[定义 12345678910111213141516171819202122232425typedef struct dictEntry &#123; // 哈希节点 void *key; // 键 union &#123; // 值 void *val; uint64_t u64; int64_t s64; double d; &#125; v; struct dictEntry *next; // 解决键冲突&#125; dictEntry;typedef struct dictht &#123; // 字段所使用的哈希表 dictEntry **table; // 哈希表数组 unsigned long size; // 哈希表大小 unsigned long sizemask; // 哈希表大小掩码，勇于计算索引值 ，总是等于size-1 unsigned long used; // 已有节点数量&#125; dictht;typedef struct dict &#123; // 字典 dictType *type; // 类型特定函数，创建多态字典而设置 void *privdata; // 私有数据，创建多态字典而设置 dictht ht[2]; // 哈希表 long rehashidx; /* rehashing not in progress if rehashidx == -1 */ // rehash索引 unsigned long iterators; /* number of iterators currently running */ // 正在运行中的遍历器数量&#125; dict; 结构图： 字典也是redis键值对的结构，即数据库底层的实现。 哈希算法12345// 定义#define dictHashKey(d, key) (d)-&gt;type-&gt;hashFunction(key)/* Get the index in the new hash table */h = dictHashKey(d, de-&gt;key) &amp; d-&gt;ht[1].sizemask; redis使用MurmurHash2算法来计算键的hash值,这个算法的优点在于即使输入的键有规律，也能给出一个很好的随机分布性；MurmurHash2算法 解决冲突redis的哈希表使用链地址法来解决键冲突，新加入的节点会添加到链表的表头，排在其他所有节点的前面。 rehash算法rehash步骤： 使用地点的ht[1]作为备份进行扩容或收缩空间 扩容和收缩时，ht[1]的大小大于等于ht[0].used*2的2^n（2的n次方幂） 1.执行扩容前 2.扩容时分配空间 3.迁移节点 哈希表的扩容与收缩以下条件任意一个被满足，就会执行扩容： 没有执行BGSAVE或BGREWRITEAOF命令，hash表的负载因子大于等于1 正在执行BGSAVE或BGREWRITEAOF命令，hash表的负载因子大于等于5 负载因子计算公式：load_factor = ht[0].used/ht[0].size 即，负载因子 = 哈希表已保存节点数量/哈希表大小； 当哈希表的负载因子小于0.1时，程序自动开始对hash表进行收缩操作； rehash动作并不是一次性、集中式完成的，而分多次、渐进式地完成的。 更多源码注释说明见dict.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment]]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -63,7 +63,7 @@
   <entry>
     <title><![CDATA[redis-链表]]></title>
     <url>%2Fp%2Fa923.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见adlist.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] 定义实现很基础，无环双向链表和保存全局的表头； 12345678910111213141516171819typedef struct listNode &#123; // 节点 struct listNode *prev; struct listNode *next; void *value;&#125; listNode;typedef struct listIter &#123; listNode *next; int direction;&#125; listIter;typedef struct list &#123; // 链表，表头 listNode *head; listNode *tail; void *(*dup)(void *ptr); // 用于复制所节点锁保存的值 void (*free)(void *ptr); // 用于释放所节点锁保存的值 int (*match)(void *ptr, void *key); //对别节点值和输入的节点值是否相等 unsigned long len; &#125; list;]]></content>
+    <content type="text"><![CDATA[定义实现很基础，无环双向链表和保存全局的表头； 12345678910111213141516171819typedef struct listNode &#123; // 节点 struct listNode *prev; struct listNode *next; void *value;&#125; listNode;typedef struct listIter &#123; listNode *next; int direction;&#125; listIter;typedef struct list &#123; // 链表，表头 listNode *head; listNode *tail; void *(*dup)(void *ptr); // 用于复制所节点锁保存的值 void (*free)(void *ptr); // 用于释放所节点锁保存的值 int (*match)(void *ptr, void *key); //对别节点值和输入的节点值是否相等 unsigned long len; &#125; list; 更多源码注释说明见adlist.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -75,7 +75,7 @@
   <entry>
     <title><![CDATA[redis-动态字符串]]></title>
     <url>%2Fp%2Fbe3f.html</url>
-    <content type="text"><![CDATA[redis简单动态字符串，即sds。 更多源码注释说明见sds.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] sds定义3.2版本如下面五种类型，以前是只有一种。源码位置sds.h/sdshdr， 1234567891011121314151617181920212223242526272829303132typedef char *sds; // char buf[] 的指针/* Note: sdshdr5 is never used, we just access the flags byte directly. * However is here to document the layout of type 5 SDS strings. */struct __attribute__ ((__packed__)) sdshdr5 &#123; unsigned char flags; /* 3 lsb of type, and 5 msb of string length */ // 标示五种类型的sds对象 char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr8 &#123; uint8_t len; /* used */ uint8_t alloc; /* excluding the header and null terminator */ // 未使用的内存 unsigned char flags; /* 3 lsb of type, 5 unused bits */ // 标示五种类型的sds对象 char buf[]; // 保存字符串数据&#125;;struct __attribute__ ((__packed__)) sdshdr16 &#123; uint16_t len; /* used */ uint16_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr32 &#123; uint32_t len; /* used */ uint32_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr64 &#123; uint64_t len; /* used */ uint64_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;; sds和c字符串的区别redis只使用c字符串为字面值 共同点： 都已\0结尾，表示到达了字符串尾部 sds不同于C字符串： sds常数复杂度获取字符串长度 杜绝缓冲区溢出 减少修改字符串时带来的重新分配内存 空间预分配 惰性空间释放 二进制安全，即buf可存在多个\0 兼容C的部分字符串 重点空间预分配已1MB为界限每次扩容时： 修改后已使用（len）小于1MB，则分配同样大小的未使用空间 修改后已使用（len）大于1MB，则分配1MB未使用空间 惰性空间释放字符串截断或者内容变少时，不会释放空间，只是改变空间大小（len和free）。 多余空间如下步骤释放（robj释放空间原理）： 只针对raw和embstr类型做编码处理，把空闲内存回收 对这俩种类型尝试转long类型 raw类型长度小于44，用embstr表示返回 重新分配空间，并且所有应用指向新的空间]]></content>
+    <content type="text"><![CDATA[redis简单动态字符串，即sds。 sds定义3.2版本如下面五种类型，以前是只有一种。源码位置sds.h/sdshdr， 1234567891011121314151617181920212223242526272829303132typedef char *sds; // char buf[] 的指针/* Note: sdshdr5 is never used, we just access the flags byte directly. * However is here to document the layout of type 5 SDS strings. */struct __attribute__ ((__packed__)) sdshdr5 &#123; unsigned char flags; /* 3 lsb of type, and 5 msb of string length */ // 标示五种类型的sds对象 char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr8 &#123; uint8_t len; /* used */ uint8_t alloc; /* excluding the header and null terminator */ // 未使用的内存 unsigned char flags; /* 3 lsb of type, 5 unused bits */ // 标示五种类型的sds对象 char buf[]; // 保存字符串数据&#125;;struct __attribute__ ((__packed__)) sdshdr16 &#123; uint16_t len; /* used */ uint16_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr32 &#123; uint32_t len; /* used */ uint32_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;;struct __attribute__ ((__packed__)) sdshdr64 &#123; uint64_t len; /* used */ uint64_t alloc; /* excluding the header and null terminator */ unsigned char flags; /* 3 lsb of type, 5 unused bits */ char buf[];&#125;; sds和c字符串的区别redis只使用c字符串为字面值 共同点： 都已\0结尾，表示到达了字符串尾部 sds不同于C字符串： sds常数复杂度获取字符串长度 杜绝缓冲区溢出 减少修改字符串时带来的重新分配内存 空间预分配 惰性空间释放 二进制安全，即buf可存在多个\0 兼容C的部分字符串 重点空间预分配已1MB为界限每次扩容时： 修改后已使用（len）小于1MB，则分配同样大小的未使用空间 修改后已使用（len）大于1MB，则分配1MB未使用空间 惰性空间释放字符串截断或者内容变少时，不会释放空间，只是改变空间大小（len和free）。 多余空间如下步骤释放（robj释放空间原理）： 只针对raw和embstr类型做编码处理，把空闲内存回收 对这俩种类型尝试转long类型 raw类型长度小于44，用embstr表示返回 重新分配空间，并且所有应用指向新的空间 更多源码注释说明见sds.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment]]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -88,7 +88,7 @@
   <entry>
     <title><![CDATA[redis-数据类型]]></title>
     <url>%2Fp%2Fd66e.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] redis 2.6版本的不同类型和编码的对象!(对象)[redis-数据类型-1.png]]]></content>
+    <content type="text"><![CDATA[redis 2.6版本的不同类型和编码的对象 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -386,8 +386,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>String</tag>
         <tag>源码解析</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -399,8 +399,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>源码解析</tag>
         <tag>HashMap</tag>
+        <tag>源码解析</tag>
       </tags>
   </entry>
   <entry>
