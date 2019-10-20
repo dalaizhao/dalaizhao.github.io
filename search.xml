@@ -27,7 +27,7 @@
   <entry>
     <title><![CDATA[redis-整数集合]]></title>
     <url>%2Fp%2F8d80.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见intset.h(https://github.com/dalaizhao/redis/tree/feature_code_comment)[https://github.com/dalaizhao/redis/tree/feature_code_comment] 定义12345typedef struct intset &#123; uint32_t encoding; uint32_t length; int8_t contents[]; /** 保存整数集合内容 */&#125; intset; 整数集合的底层实现为数组，数组以有序、无重复的方式保存元素，升级整数类型提升灵活性，尽可能节约空间，只支持升级操作，不支持降级操作。]]></content>
+    <content type="text"><![CDATA[定义12345typedef struct intset &#123; uint32_t encoding; uint32_t length; int8_t contents[]; /** 保存整数集合内容 */&#125; intset; 整数集合的底层实现为数组，数组以有序、无重复的方式保存元素，升级整数类型提升灵活性，尽可能节约空间，只支持升级操作，不支持降级操作。 更多源码注释说明见intset.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
