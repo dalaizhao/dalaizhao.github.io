@@ -106,6 +106,263 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/79a4.html">JDK1.8 HashMap源码解析</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-11-05
+        </span><span class="post-category">
+            <a href="/categories/JDK-源码解析/">JDK 源码解析</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2.4k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 11 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>JDK源码深揪，JDK1.8版本。   </p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>HashMap 经常用到的 java 内置的数据结构，今天就深入源码瞧瞧,刨一刨。   </p>
+<p>HashMap 是对 Map 接口的一种哈希表的实现，是 key-value（键-值对），通过 key 可以<strong>常数时间</strong>内找到 value 。它是非线程安全，如果需要满足线程安全，可以用 Collections 的 synchronizedMap 方法使 HashMap 具有线程安全的能力，或者使用 ConcurrentHashMap。但是 HashMap 不是 Collection 的子集，但是 HashMap 的 key 和value 都可以单独的转换成 Collection子集，比如转换成 Set。HashMap 允许存在 null的，最多只允许一条记录的键为 null，允许多条记录的值为 null。   </p>
+<p>那我就简单的看一看 HashMap 源码，也是我第一次看整个类，以前都是需要哪个方法 就跳进去 看看，过程又惊喜又痛苦。      </p>
+          <div class="read-more">
+            <a href="/p/79a4.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/bc7.html">常用 linux 命令</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-29
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 408
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>个人日常使用linux命令笔记，详情用man 命令 来查看即可。  </p>
+          <div class="read-more">
+            <a href="/p/bc7.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/854d.html">java 多线程 生产者-消费者模式 爬取数据</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-29
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 1.3k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 6 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>最近收集了数据供个人实验使用，后期再展示实验结果。  </p>
+<p>用利用java 多线程，生产者和消费者模式一周爬取了内涵段子1300w+条数据，写了三个文件，每个文件都有1.5G左右。   </p>
+<p>程序的整体思路：  </p>
+<p>一个线程（生产者）爬取json数据并格式化成我想要的json格式（去掉一些无用信息），然后三个线程（消费者）各自写进自己的文件，每行是一条json。还有把所有的任务交给线程池ExecutorService去执行多线程，生产者和消费者的公共容器使用的是LinkedBlockingQueue。  </p>
+<p><strong>这里解释一下，为什么是一个生产者？</strong>   </p>
+<p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
+          <div class="read-more">
+            <a href="/p/854d.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-19
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 526
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 2 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
+<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
+          <div class="read-more">
+            <a href="/p/c94.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/8a28.html">shell脚本 定期删除日志文件</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-17
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 338
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>编写定期删除日志文件的shell脚本程序。  </p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>创建脚本del_log.sh  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim del_log.sh</span><br></pre></td></tr></table></figure>
+
+<p>编写,用find命令简洁    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">location=&quot;/home/dl/code/logs&quot;</span><br><span class="line"></span><br><span class="line">find $location -mtime +4 -type f | xargs rm -f</span><br><span class="line"></span><br><span class="line">#location 是删除文件所在目录</span><br><span class="line">#-mtime +4 是设置删除多少天以前的文件</span><br><span class="line">#-type f 删除的类型为文件</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/p/8a28.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/ab2f.html">spring boot 使用</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-17
+        </span><span class="post-category">
+            <a href="/categories/spring-boot/">spring boot</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 8 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>本节将详细介绍如何使用Spring Boot。 它涵盖了诸如构建系统，自动配置以及如何运行应用程序等主题。 我们还介绍了一些Spring Boot的最佳做法。 虽然Spring Boot没有什么特别的特点（它只是另一个可以消耗的lib），但是有一些建议可以让您的开发过程更容易一些。  </p>
+<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>构建典型的系统，在另一篇 <a href="http://www.jianshu.com/p/959edc9c70d8" target="_blank" rel="noopener">spring boot 快速入门</a>中有maven 和 gradle 配置方式。  </p>
+<p>典型的pom.xml里有这个parent里加了org.springframework.boot,如果pom.xml已经有其它的parent，这里也有不用继承，也能配置maven的方式。</p>
+<p>parent 是 maven 的一个元素，可以继承pom.xml中依赖，不用重复配置pom。  </p>
+          <div class="read-more">
+            <a href="/p/ab2f.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/7dd9.html">spring boot 快速入门</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-17
+        </span><span class="post-category">
+            <a href="/categories/spring-boot/">spring boot</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 1.5k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 6 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="介绍spring-boot"><a href="#介绍spring-boot" class="headerlink" title="介绍spring boot"></a>介绍spring boot</h2><p>spring boot 就是给使用spring的人带来方便，不在需要繁杂的xml配置。</p>
+<p>Spring Boot可以轻松创建可以“运行”的独立的，生产级的基于Spring的应用程序。 大多数Spring Boot应用程序需要很少的Spring配置。 您可以使用Spring Boot创建可以使用java -jar或更多传统war部署启动的Java应用程序。 我们还提供运行“spring script”的命令行工具。<br>spring boot的主要目标是：  </p>
+<ul>
+<li>为所有Spring开发提供一个更快，更广泛的入门体验。 </li>
+<li>被要求开箱即用，但随着需求开始偏离默认值而迅速脱离出来。 </li>
+<li>提供大量项目（例如嵌入式服务器，安全性，指标，运行状况检查，外部化配置）通用的一系列非功能特性。 </li>
+<li>绝对没有代码生成，也不需要XML配置。</li></ul>
+          <div class="read-more">
+            <a href="/p/7dd9.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c697.html">spring boot 完整学习目录</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-17
+        </span><span class="post-category">
+            <a href="/categories/spring-boot/">spring boot</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 309
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>每次必推，官方文档<br><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-documentation-about" target="_blank" rel="noopener">spring boot 官方在线文档</a>   </p>
+<p>以前用spring mvc来搭建web应用程序，每次都要配置好久xml，有时忘了还要查看以前的项目配置。最近使用spring boot 简单实现后<strong>我竟然开心的笑了</strong>，自带servlet容器，直接像java应用程序一样运行，自觉捡到了宝，深入的学习并作笔记来此分享。  </p>
+<p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Boot致力于在蓬勃发展的快速应用开发领域（rapid application development）成为领导者。  </p>
+<p>可以去各大论坛看看，spring boot的优缺点，但是我个人觉得，既然这东西能火起来，必定有他的道理，更何况给我带来方便为什么不用呢！  </p>
+<h2 id="spring-boot-完整学习目录"><a href="#spring-boot-完整学习目录" class="headerlink" title="spring boot 完整学习目录"></a>spring boot 完整学习目录</h2>
+          <div class="read-more">
+            <a href="/p/c697.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c96a.html">shell脚本 快速入门</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-07
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 997
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 4 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>你会linux是吗？一点点。<br>那会shell脚本吗？不会。(就尴尬了不是)  </p>
+<p>所以抽空学习了一波shell脚本，这个语法跟php相似，但是呢有些格式要求，比如if语句，像python一样严谨。所以呢，还是要特别注意一些的。   </p>
+<p>下面就直接附上本人的学习的脚本代码，基本内容都涵盖了，有些细节问题就去查查<a href="http://www.runoob.com/linux/linux-command-manual.html" target="_blank" rel="noopener">linux命令</a>或者看看其它<a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">教程网站</a>都能查到。  </p>
+          <div class="read-more">
+            <a href="/p/c96a.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/ee07.html">配置良好的solr实例</a>
         </h1>
 
@@ -136,282 +393,6 @@
 <h3 id="在Solr配置文件中替换属性"><a href="#在Solr配置文件中替换属性" class="headerlink" title="在Solr配置文件中替换属性"></a>在Solr配置文件中替换属性</h3><p>JVM系统属性</p>
           <div class="read-more">
             <a href="/p/ee07.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/889e.html">solr 文档、字段和schema设计</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 4.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 16 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="概述文档，字段和schema设计"><a href="#概述文档，字段和schema设计" class="headerlink" title="概述文档，字段和schema设计"></a>概述文档，字段和schema设计</h2><p>Solr的基本前提很简单。 你给它很多信息，然后你可以问问题，找到你想要的信息。 您在所有信息中提供的部分称为indexing(索引)或updating(更新)。 当您提出问题时，称为query(查询)。  </p>
-<p>schema是告诉Solr如何从输入文档构建索引的地方。  </p>
-<p>Solr的Schema 文件   </p>
-<p>Solr存储有关在Schema文件中理解的字段类型和字段的详细信息。 此文件的名称和位置可能会有所不同，具体取决于您最初配置Solr的方式或稍后修改它。   </p>
-<ul>
-<li>managed-schema是Solr默认使用的模式文件的名称，用于支持在运行时通过Schema API或Schemaess Mode功能进行Schema更改。 您可以显式配置托管架构功能以使用替代文件名，如果您选择，但文件的内容仍然由Solr自动更新。    </li>
-<li>schema.xml是模式文件的传统名称，可以由使用ClassicIndexSchemaFactory的用户手动编辑。   </li>
-<li>如果使用SolrCloud，您可能无法在本地文件系统上找到这些名称的任何文件。 您只能通过Schema API（如果启用）或通过Solr Admin UI的“云端屏幕”来查看模式。  </li>
-</ul>
-<h2 id="Solr字段类型"><a href="#Solr字段类型" class="headerlink" title="Solr字段类型"></a>Solr字段类型</h2>
-          <div class="read-more">
-            <a href="/p/889e.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/2bc5.html">solr 快速入门</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.1k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 8 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="Solr-简介"><a href="#Solr-简介" class="headerlink" title="Solr 简介"></a>Solr 简介</h2><p>维基百科的简介：  </p>
-<blockquote>
-<p>Solr（读作“solar”）是Apache Lucene项目的开源企业搜索平台。其主要功能包括全文检索、命中标示、分面搜索、动态聚类、数据库集成，以及富文本（如Word、PDF）的处理。Solr是高度可扩展的，并提供了分布式搜索和索引复制。Solr是最流行的企业级搜索引擎，Solr 4还增加了NoSQL支持。<br>Solr是用Java编写、运行在Servlet容器（如Apache Tomcat或Jetty）的一个独立的全文搜索服务器。 Solr采用了Lucene Java搜索库为核心的全文索引和搜索，并具有类似REST的HTTP/XML和JSON的API。 Solr强大的外部配置功能使得无需进行Java编码，便可对其进行调整以适应多种类型的应用程序。Solr有一个插件架构，以支持更多的高级定制。<br>因为2010年Apache Lucene和Apache Solr项目合并，两个项目是由同一个Apache软件基金会开发团队制作实现的。提到技术或产品时，Lucene/Solr或Solr/Lucene是一样的。   </p>
-</blockquote>
-<p>其实说白了，Solr跟数据库服务器真的很像。  </p>
-<p>以下是Solr可能集成到应用服务器的示例(来自官网)<br><img src="/p/2bc5/solr.PNG" alt>  </p>
-<p>在上述情况下，Solr沿其他服务器应用程序运行。 例如，在线商店应用将提供用户界面，购物车以及为最终用户购买的方式; 而库存管理应用程序将允许商店员工编辑产品信息。 产品元数据将保存在某种数据库以及Solr中。  </p>
-          <div class="read-more">
-            <a href="/p/2bc5.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/96dd.html">solr 完整学习目录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 211
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="http://lucene.apache.org/solr/guide/" target="_blank" rel="noopener">Apache Solr Reference Guide</a><br>看他人多少博客都不如看官方文档。  </p>
-<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>本人搭建用到了两种环境(在快速入门中介绍)：  </p>
-<ul>
-<li>windows10 + solr6.6.0</li>
-<li>centos7.2 + solr6.6.0</li>
-</ul>
-<h2 id="Solr6-6-0-学习目录"><a href="#Solr6-6-0-学习目录" class="headerlink" title="Solr6.6.0 学习目录"></a>Solr6.6.0 学习目录</h2><ol>
-<li><p><a href>快速入门</a>  </p></li></ol>
-          <div class="read-more">
-            <a href="/p/96dd.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/5875.html">es java client 教程</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/elasticSearch/">elasticSearch</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 743
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 3 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>个人学习elasticSearch 5 的过程分享，至于实现代码后期有空再整理，很多东西可以从文档中找到的，拿过来用即可。  </p>
-<h2 id="学习elasticSearch官方文档"><a href="#学习elasticSearch官方文档" class="headerlink" title="学习elasticSearch官方文档"></a>学习elasticSearch官方文档</h2><p><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/foreword_id.html" target="_blank" rel="noopener">elasticSearch权威指南 中文版</a>  </p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/5.0/java-api.html" target="_blank" rel="noopener">elasticSearch java客户端</a>  </p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/getting-started.html" target="_blank" rel="noopener">elasticSearch英文文档</a>   </p>
-<p>说明：<br>我用的是ES 5.0.0版本，以上文档除了权威指南，其它是ES 5.0.0版本，但是进去后可以选择切换成其它版本。elasticSearch权威指南(中文版)是1.4.X版本的，读着了解基本流程、操作很有用，有什么疑惑就查看对应的英文版。还有1.4.X、2.X和5.X的连接方式都不同，查看对应的版本文档，并最好使用对应的jar包。  </p>
-<p><strong>特别声明</strong>  </p>
-          <div class="read-more">
-            <a href="/p/5875.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/591c.html">JUnit 单元测试</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-04
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.8k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 12 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>所有代码上线之前开发人员都要做单元测试的，很重要！！！<br>本文就来学习学习使用JUnit编写单元测试。  </p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>文中例子用的是Eclipse，对于IntelliJ IDEA也一样，万变不离其宗。  </p>
-<p><a href="https://github.com/junit-team/junit4/wiki/Download-and-Install" target="_blank" rel="noopener">JUnit下载</a>  </p>
-<p>JUnit 是一个 Java 编程语言的单元测试框架。JUnit 在测试驱动的开发方面有很重要的发展，是起源于 JUnit 的一个统称为 xUnit 的单元测试框架之一。  </p>
-<p>JUnit 促进了“先测试后编码”的理念，强调建立测试数据的一段代码，可以先测试，然后再应用。  </p>
-          <div class="read-more">
-            <a href="/p/591c.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/279d.html">剑指offer java实现</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-14
-        </span><span class="post-category">
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 636
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="剑指offer-66道题"><a href="#剑指offer-66道题" class="headerlink" title="剑指offer  66道题"></a>剑指offer  66道题</h1><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><a href="https://github.com/dalaizhao/Algorithm/tree/master/剑指offer-java" target="_blank" rel="noopener">全部代码地址</a>   </p>
-<h2 id="涉及到的数据结构与算法"><a href="#涉及到的数据结构与算法" class="headerlink" title="涉及到的数据结构与算法"></a>涉及到的数据结构与算法</h2><p>数据结构：数组、字符串、哈希表、二叉树、栈、队列、链表、堆    </p>
-<p>算法：归并、动态规划、深度优先搜索（DFS）、广度优先搜索（BFS）、回溯、递归、二分查找</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2>
-          <div class="read-more">
-            <a href="/p/279d.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/468a.html">算法设计技巧</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-29
-        </span><span class="post-category">
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 5 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><strong>五大常用算法</strong>  </p>
-<h2 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h2><p>分治法是把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。这个技巧是很多算法的基础，比如排序算法(快排，归并排序)……  </p>
-<p>适用情况：  </p>
-<p>分治法所能解决的问题一般具有一些几个特征：  </p>
-<p>（1）该问题的规模缩小到一定程度就可以容易地解决。  </p>
-<p>（2）该问题可以分解成为若干个规模较小的相同问题，即该问题具备最优子结构性质。  </p>
-<p>（3）利用该问题分解出的子问题的解可以合并为该问题的解。  </p>
-          <div class="read-more">
-            <a href="/p/468a.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/7710.html">centos7+php7.1.4+mysql5.7+swoole搭建记录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-22
-        </span><span class="post-category">
-            <a href="/categories/环境搭建教程/">环境搭建教程</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 800
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 3 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="安装php7-1-4"><a href="#安装php7-1-4" class="headerlink" title="安装php7.1.4"></a>安装php7.1.4</h2><p>查看 centos 版本（我的是centos72）  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/centos-release</span><br></pre></td></tr></table></figure>
-
-<p>删除之前的 php 版本  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove php* php-common</span><br></pre></td></tr></table></figure>
-
-<p>rpm安装php7.1相应的yum源   </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br><span class="line"></span><br><span class="line">rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/p/7710.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/1c09.html">海量数据处理算法</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-15
-        </span><span class="post-category">
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 5.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 20 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="基本方法"><a href="#基本方法" class="headerlink" title="基本方法"></a>基本方法</h2><h3 id="hash法"><a href="#hash法" class="headerlink" title="hash法"></a>hash法</h3><p>前言  </p>
-<p>适用于在处理海量数据的过程中，使用hash方法一般可以快速存取、统计某些数据，将大量数据进行分类，例如提取某日访问网站次数最多的ip地址。  </p>
-<p>简介  </p>
-<p>hash主要用来进行“快速存取”，在O(1)时间复杂度里就可以找到目标元素，或者判断是否存在。hash一般被称为散列，给定关键字key，按一个确定的散列函数计算出hash(key),把hash(key)作为关键字key对应元素的存储地址（或者称散列地址）。散列函数就是一种将任意长度的消息压缩到某一固定长度的消息摘要的函数。散列函数是用于关键字与存储地址之间的一种映射关系。散列表是具有固定大小的数组，其中，表长（数组的大小）应该为质数。但是不能保证每个关键字与函数值一一对应，就是有可能存在冲突。所以确定一个好的散列函数至关重要。  </p>
-<p>常用<strong>散列函数</strong>的构建方法一般有以下几种：  </p>
-          <div class="read-more">
-            <a href="/p/1c09.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">

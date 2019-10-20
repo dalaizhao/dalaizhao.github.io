@@ -106,6 +106,284 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/56c8.html">Jedis API 详细示例</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-16
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 4.6k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 21 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="Redis-简介"><a href="#Redis-简介" class="headerlink" title="Redis 简介"></a>Redis 简介</h2><p>Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。  </p>
+<p>Redis 与其他 key - value 缓存产品有以下三个特点：  </p>
+<ul>
+<li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。  </li>
+<li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。  </li>
+<li>Redis支持数据的备份，即master-slave模式的数据备份。  </li>
+</ul>
+<h2 id="Redis-优势"><a href="#Redis-优势" class="headerlink" title="Redis 优势"></a>Redis 优势</h2><ul>
+<li>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。</li>
+<li>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。    </li>
+<li>原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。</li>
+<li>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。</li></ul>
+          <div class="read-more">
+            <a href="/p/56c8.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/91ef.html">Apache Spark LDA 官方文档</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/Apache-Spark/">Apache Spark</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2.1k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 9 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>学习[spark lda]<a href="https://spark.apache.org/docs/latest/mllib-clustering.html#latent-dirichlet-allocation-lda()" target="_blank" rel="noopener">https://spark.apache.org/docs/latest/mllib-clustering.html#latent-dirichlet-allocation-lda()</a> 英文文档,为了学习方便顺便翻译了。   </p>
+<h2 id="理论参数"><a href="#理论参数" class="headerlink" title="理论参数"></a>理论参数</h2><p>狄利克雷分配（Latent Dirichlet allocation LDA）是一个从文本文献集合中推断主题的主题模型。   </p>
+<p>LDA可以被认为是如下的聚类算法：</p>
+<ul>
+<li>主题对应于聚类中心，文档对应于数据集中的示例（数据行）。 </li>
+<li>主题和文档都存在于特征空间中，其中特征向量是词计数的向量（词袋）。 </li>
+<li>LDA不是使用传统距离来估计聚类，而是使用基于文本文档如何生成的统计模型的函数。</li>
+</ul>
+<p>LDA通过setOptimizer函数支持不同的推理算法。 EMLDAOptimizer利用似然函数的期望最大化来学习聚类，并产生综合结果，而OnlineLDAOptimizer使用迭代小批量采样进行在线变分推理，并且通常是内存友好的。  </p>
+<p>LDA将文档集合作为词计数的向量和以下参数（使用构建器模式进行设置）：    </p>
+          <div class="read-more">
+            <a href="/p/91ef.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c3f7.html">Apache Spark 官方文档 编程指南</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/Apache-Spark/">Apache Spark</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 9.5k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 34 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>最近用Apache Spark 处理一些大数据，学了spark官方英文文档，顺便翻译了方便学习。   </p>
+<p>spark 版本 2.2.0.   </p>
+<p>翻译官方文档原地址：<br><a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/rdd-programming-guide.html</a>    </p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在较高层次上，每个Spark应用程序都包含一个驱动程序，该程序运行用户的<code>main</code>方法，并在集群上执行各种并行操作。 Spark提供的主要抽象是一个弹性分布式数据集（RDD），它是在集群节点间进行分区的元素集合，可以并行操作。 RDD是通过从Hadoop文件系统（或任何其他Hadoop支持的文件系统）中的文件或驱动程序中现有的Scala集合开始创建的，并对其进行转换。用户也可以要求Spark将RDD保存在内存中，以便在并行操作中有效地重用它。最后，RDD自动从节点故障中恢复。    </p>
+<p>Spark中的第二个抽象是可用于并行操作的共享变量。默认情况下，Spark在不同节点上并行执行一组任务时，会将该函数中使用的每个变量的副本传送给每个任务。有时候，变量需要在任务之间，或任务与驱动程序之间共享。   </p>
+<p>Spark支持两种类型的共享变量：广播变量，可用于在所有节点上缓存内存中的值，以及累加器，这些变量只是“添加”到的变量，如计数器和总和。    </p>
+          <div class="read-more">
+            <a href="/p/c3f7.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/a947.html">thrift 服务端返回null</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/微服务/">微服务</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 247
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>强大、牛X的RPC框架 - thrift，就没怂过！   </p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在用thrift做RPC框架存在服务端有时需要返回null 的情况，这时客户端就报 org.apache.thrift.TApplicationException: detectEvent failed: unknown result 异常。    </p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>点击去，查看service类时发现thrift 服务端返回null时，会抛出异常，也就是不接受null的情况。   </p>
+          <div class="read-more">
+            <a href="/p/a947.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/314b.html">jar包详情</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 7 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>java jar包 常用来运行java程序的压缩包。今天就来看看内幕。       </p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>维基百科</p>
+<blockquote>
+<p>在软件领域，JAR文件（Java归档，英语：Java ARchive）是一种软件包文件格式，通常用于聚合大量的Java类文件、相关的元数据和资源（文本、图片等）文件到一个文件，以便分发Java平台应用软件或库。<br>JAR文件是一种归档文件，以ZIP格式构建，以.jar为文件扩展名。用户可以使用JDK自带的jar命令创建或提取JAR文件。也可以使用其他zip压缩工具，不过压缩时zip文件头里的条目顺序很重要，因为Manifest资源配置文件常需放在首位。JAR文件内的文件名是Unicode文本。  </p>
+</blockquote>
+<p>JAR 文件可以用于：  </p>
+<ul>
+<li>用于发布和使用类库</li>
+<li>作为应用程序和扩展的构建单元</li>
+<li>作为组件、applet或者插件程序的部署单位</li>
+<li>用于打包与组件有关联的辅助资源</li></ul>
+          <div class="read-more">
+            <a href="/p/314b.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/f2d.html">关于SimpleDateFormat 线程不安全</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 519
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 2 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>java 程序都常用SimpleDateFormat 和 DateFormat 工具类，用来字符串和时间对象的相互转换，多线程环境下共享使用SimpleDateFormat 时，format() 和 parese() 方法会出下面出错。<br>实际开发中遇到的错误：  </p>
+          <div class="read-more">
+            <a href="/p/f2d.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/413a.html">Apache Thrift 官方 java教程</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/微服务/">微服务</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 988
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 4 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="Apache-Thrift"><a href="#Apache-Thrift" class="headerlink" title="Apache Thrift"></a>Apache Thrift</h2><blockquote>
+<p>维基百科<br>Thrift是一种接口描述语言和二进制通讯协议，它被用来定义和创建跨语言的服务。它被当作一个远程过程调用（RPC）框架来使用，是由Facebook为“大规模跨语言服务开发”而开发的。   </p>
+</blockquote>
+<p>最近用 thrift 做微服务 ， 抽空写了通俗易懂 apache thrift 官方java 教程 中文版。   </p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ol>
+<li>添加依赖    </li>
+</ol>
+<p>官网有复杂的安装thrift和编译的过程，复杂多余，最终目的还是要转成jar包，添加maven依赖。不过现在已经有maven依赖的，省去了编译打包jar包过程。一个maven依赖就可以加载进来所有需要的jar包。    </p>
+          <div class="read-more">
+            <a href="/p/413a.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/7dd5.html">统计日志里某时间段内访问最的ip</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 207
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天某时间段服务出现异常，需要统计某段时间内请求最多的ip，查看是否有人添加了服务，学习了运维大牛，并且在此记录分享。    </p>
+<p>命令：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#按时间段统计</span><br><span class="line">sed -n &apos;/10:35:00/,/11:11:00/p&apos; access.log | awk &apos;&#123;print $1&#125;&apos;|sort|uniq -c|sort -n -r |head -n 20</span><br></pre></td></tr></table></figure>
+
+<p>日志格式：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.90.11.10 - 5000 - [27/Nov/2017:17:45:55 +0800]</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/p/7dd5.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/cd69.html">java 内存模型</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-11-09
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 3.1k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 11 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>学习程晓明的《深入理解Java内存模型》。   </p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>文章内容有并发、内存模型、重排序、内存屏障、happens-before规则、as-if-serial语义、顺序一致性内存模型、volatile、锁、final。</p>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>并发需要处理的两个关键问题：线程之间通信和同步</p>
+<p>通信：是指线程之间以何种机制来交换信息；在命令式编程中，通信机制有两种，共享内存和消息传递。   </p>
+<p>同步：是指程序用于控制不同线程之间操作发生相对顺序的机制。  </p>
+          <div class="read-more">
+            <a href="/p/cd69.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/447c.html">JDK1.8 String源码解析</a>
         </h1>
 
@@ -130,263 +408,6 @@
 <h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2>
           <div class="read-more">
             <a href="/p/447c.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/79a4.html">JDK1.8 HashMap源码解析</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-11-05
-        </span><span class="post-category">
-            <a href="/categories/JDK-源码解析/">JDK 源码解析</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.4k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 11 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>JDK源码深揪，JDK1.8版本。   </p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>HashMap 经常用到的 java 内置的数据结构，今天就深入源码瞧瞧,刨一刨。   </p>
-<p>HashMap 是对 Map 接口的一种哈希表的实现，是 key-value（键-值对），通过 key 可以<strong>常数时间</strong>内找到 value 。它是非线程安全，如果需要满足线程安全，可以用 Collections 的 synchronizedMap 方法使 HashMap 具有线程安全的能力，或者使用 ConcurrentHashMap。但是 HashMap 不是 Collection 的子集，但是 HashMap 的 key 和value 都可以单独的转换成 Collection子集，比如转换成 Set。HashMap 允许存在 null的，最多只允许一条记录的键为 null，允许多条记录的值为 null。   </p>
-<p>那我就简单的看一看 HashMap 源码，也是我第一次看整个类，以前都是需要哪个方法 就跳进去 看看，过程又惊喜又痛苦。      </p>
-          <div class="read-more">
-            <a href="/p/79a4.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/bc7.html">常用 linux 命令</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-29
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 408
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>个人日常使用linux命令笔记，详情用man 命令 来查看即可。  </p>
-          <div class="read-more">
-            <a href="/p/bc7.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/854d.html">java 多线程 生产者-消费者模式 爬取数据</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-29
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.3k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 6 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>最近收集了数据供个人实验使用，后期再展示实验结果。  </p>
-<p>用利用java 多线程，生产者和消费者模式一周爬取了内涵段子1300w+条数据，写了三个文件，每个文件都有1.5G左右。   </p>
-<p>程序的整体思路：  </p>
-<p>一个线程（生产者）爬取json数据并格式化成我想要的json格式（去掉一些无用信息），然后三个线程（消费者）各自写进自己的文件，每行是一条json。还有把所有的任务交给线程池ExecutorService去执行多线程，生产者和消费者的公共容器使用的是LinkedBlockingQueue。  </p>
-<p><strong>这里解释一下，为什么是一个生产者？</strong>   </p>
-<p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
-          <div class="read-more">
-            <a href="/p/854d.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-19
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 526
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
-<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
-          <div class="read-more">
-            <a href="/p/c94.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/8a28.html">shell脚本 定期删除日志文件</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 338
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>编写定期删除日志文件的shell脚本程序。  </p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>创建脚本del_log.sh  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim del_log.sh</span><br></pre></td></tr></table></figure>
-
-<p>编写,用find命令简洁    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">location=&quot;/home/dl/code/logs&quot;</span><br><span class="line"></span><br><span class="line">find $location -mtime +4 -type f | xargs rm -f</span><br><span class="line"></span><br><span class="line">#location 是删除文件所在目录</span><br><span class="line">#-mtime +4 是设置删除多少天以前的文件</span><br><span class="line">#-type f 删除的类型为文件</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/p/8a28.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/ab2f.html">spring boot 使用</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/spring-boot/">spring boot</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 8 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>本节将详细介绍如何使用Spring Boot。 它涵盖了诸如构建系统，自动配置以及如何运行应用程序等主题。 我们还介绍了一些Spring Boot的最佳做法。 虽然Spring Boot没有什么特别的特点（它只是另一个可以消耗的lib），但是有一些建议可以让您的开发过程更容易一些。  </p>
-<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>构建典型的系统，在另一篇 <a href="http://www.jianshu.com/p/959edc9c70d8" target="_blank" rel="noopener">spring boot 快速入门</a>中有maven 和 gradle 配置方式。  </p>
-<p>典型的pom.xml里有这个parent里加了org.springframework.boot,如果pom.xml已经有其它的parent，这里也有不用继承，也能配置maven的方式。</p>
-<p>parent 是 maven 的一个元素，可以继承pom.xml中依赖，不用重复配置pom。  </p>
-          <div class="read-more">
-            <a href="/p/ab2f.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/7dd9.html">spring boot 快速入门</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/spring-boot/">spring boot</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 6 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="介绍spring-boot"><a href="#介绍spring-boot" class="headerlink" title="介绍spring boot"></a>介绍spring boot</h2><p>spring boot 就是给使用spring的人带来方便，不在需要繁杂的xml配置。</p>
-<p>Spring Boot可以轻松创建可以“运行”的独立的，生产级的基于Spring的应用程序。 大多数Spring Boot应用程序需要很少的Spring配置。 您可以使用Spring Boot创建可以使用java -jar或更多传统war部署启动的Java应用程序。 我们还提供运行“spring script”的命令行工具。<br>spring boot的主要目标是：  </p>
-<ul>
-<li>为所有Spring开发提供一个更快，更广泛的入门体验。 </li>
-<li>被要求开箱即用，但随着需求开始偏离默认值而迅速脱离出来。 </li>
-<li>提供大量项目（例如嵌入式服务器，安全性，指标，运行状况检查，外部化配置）通用的一系列非功能特性。 </li>
-<li>绝对没有代码生成，也不需要XML配置。</li></ul>
-          <div class="read-more">
-            <a href="/p/7dd9.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c697.html">spring boot 完整学习目录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/spring-boot/">spring boot</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 309
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>每次必推，官方文档<br><a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-documentation-about" target="_blank" rel="noopener">spring boot 官方在线文档</a>   </p>
-<p>以前用spring mvc来搭建web应用程序，每次都要配置好久xml，有时忘了还要查看以前的项目配置。最近使用spring boot 简单实现后<strong>我竟然开心的笑了</strong>，自带servlet容器，直接像java应用程序一样运行，自觉捡到了宝，深入的学习并作笔记来此分享。  </p>
-<p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Boot致力于在蓬勃发展的快速应用开发领域（rapid application development）成为领导者。  </p>
-<p>可以去各大论坛看看，spring boot的优缺点，但是我个人觉得，既然这东西能火起来，必定有他的道理，更何况给我带来方便为什么不用呢！  </p>
-<h2 id="spring-boot-完整学习目录"><a href="#spring-boot-完整学习目录" class="headerlink" title="spring boot 完整学习目录"></a>spring boot 完整学习目录</h2>
-          <div class="read-more">
-            <a href="/p/c697.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c96a.html">shell脚本 快速入门</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-07
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 997
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 4 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>你会linux是吗？一点点。<br>那会shell脚本吗？不会。(就尴尬了不是)  </p>
-<p>所以抽空学习了一波shell脚本，这个语法跟php相似，但是呢有些格式要求，比如if语句，像python一样严谨。所以呢，还是要特别注意一些的。   </p>
-<p>下面就直接附上本人的学习的脚本代码，基本内容都涵盖了，有些细节问题就去查查<a href="http://www.runoob.com/linux/linux-command-manual.html" target="_blank" rel="noopener">linux命令</a>或者看看其它<a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">教程网站</a>都能查到。  </p>
-          <div class="read-more">
-            <a href="/p/c96a.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/2/">
