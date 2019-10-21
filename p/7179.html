@@ -116,7 +116,7 @@
             <a href="/categories/服务/">服务</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 392
+          字 401
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -146,7 +146,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$lock = $redis-&gt;setnx($redis_key . $this-&gt;id, time());</span><br><span class="line">if (!$lock) &#123;</span><br><span class="line">    // 其他请求在占用锁</span><br><span class="line">    return false;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	// 加超时</span><br><span class="line">    $redis-&gt;expire(redis_key . $this-&gt;id, 1);</span><br><span class="line">&#125;</span><br><span class="line">// 做后面的处理</span><br></pre></td></tr></table></figure>
 
 <p>优点:对于Redis实现简单，性能对比ZK和Mysql较好。如果不需要特别复杂的要求，那么自己就可以利用setNx进行实现，如果自己需要复杂的需求的话那么可以利用或者借鉴Redission。对于一些要求比较严格的场景来说的话可以使用RedLock。<br>缺点:需要维护Redis集群，如果要实现RedLock那么需要维护更多的集群。</p>
-<p>分布式锁有很深的研究意义，更多查看<br><a href="https://juejin.im/entry/5a502ac2518825732b19a595" target="_blank" rel="noopener">https://juejin.im/entry/5a502ac2518825732b19a595</a><br><a href="https://juejin.im/post/5bbb0d8df265da0abd3533a5" target="_blank" rel="noopener">https://juejin.im/post/5bbb0d8df265da0abd3533a5</a></p>
+<p>分布式锁有很深的研究意义，看这个三个就够了<br><a href="https://juejin.im/entry/5a502ac2518825732b19a595" target="_blank" rel="noopener">https://juejin.im/entry/5a502ac2518825732b19a595</a><br><a href="https://juejin.im/post/5bbb0d8df265da0abd3533a5" target="_blank" rel="noopener">https://juejin.im/post/5bbb0d8df265da0abd3533a5</a><br><a href="https://zhuanlan.zhihu.com/p/42056183" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/42056183</a></p>
 
       </div>
       <div class="post-copyright">

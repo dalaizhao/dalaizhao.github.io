@@ -100,7 +100,7 @@
   <entry>
     <title><![CDATA[服务-分布式锁的实现]]></title>
     <url>%2Fp%2F7179.html</url>
-    <content type="text"><![CDATA[分布式锁的背景用途：分布式环境下保证数据一致性，常见场景秒杀抢单。 常见的锁方案如下： 基于数据库实现分布式锁 基于缓存，实现分布式锁，如redis 基于Zookeeper实现分布式锁 实现方式（三种）mysql实现基于MySQL的行锁（悲观锁）实现，查询语句加上for update； 1select * from order_table where id = 'xxx' for update 优点:理解起来简单，不需要维护额外的第三方中间件(比如Redis,Zk)。缺点:虽然容易理解但是实现起来较为繁琐，需要自己考虑锁超时，加事务等等。性能局限于数据库，一般对比缓存来说性能较低。对于高并发的场景并不是很适合。 redis实现分布式锁基于setnx实现 123456789$lock = $redis-&gt;setnx($redis_key . $this-&gt;id, time());if (!$lock) &#123; // 其他请求在占用锁 return false;&#125; else &#123; // 加超时 $redis-&gt;expire(redis_key . $this-&gt;id, 1);&#125;// 做后面的处理 优点:对于Redis实现简单，性能对比ZK和Mysql较好。如果不需要特别复杂的要求，那么自己就可以利用setNx进行实现，如果自己需要复杂的需求的话那么可以利用或者借鉴Redission。对于一些要求比较严格的场景来说的话可以使用RedLock。缺点:需要维护Redis集群，如果要实现RedLock那么需要维护更多的集群。 分布式锁有很深的研究意义，更多查看https://juejin.im/entry/5a502ac2518825732b19a595https://juejin.im/post/5bbb0d8df265da0abd3533a5]]></content>
+    <content type="text"><![CDATA[分布式锁的背景用途：分布式环境下保证数据一致性，常见场景秒杀抢单。 常见的锁方案如下： 基于数据库实现分布式锁 基于缓存，实现分布式锁，如redis 基于Zookeeper实现分布式锁 实现方式（三种）mysql实现基于MySQL的行锁（悲观锁）实现，查询语句加上for update； 1select * from order_table where id = 'xxx' for update 优点:理解起来简单，不需要维护额外的第三方中间件(比如Redis,Zk)。缺点:虽然容易理解但是实现起来较为繁琐，需要自己考虑锁超时，加事务等等。性能局限于数据库，一般对比缓存来说性能较低。对于高并发的场景并不是很适合。 redis实现分布式锁基于setnx实现 123456789$lock = $redis-&gt;setnx($redis_key . $this-&gt;id, time());if (!$lock) &#123; // 其他请求在占用锁 return false;&#125; else &#123; // 加超时 $redis-&gt;expire(redis_key . $this-&gt;id, 1);&#125;// 做后面的处理 优点:对于Redis实现简单，性能对比ZK和Mysql较好。如果不需要特别复杂的要求，那么自己就可以利用setNx进行实现，如果自己需要复杂的需求的话那么可以利用或者借鉴Redission。对于一些要求比较严格的场景来说的话可以使用RedLock。缺点:需要维护Redis集群，如果要实现RedLock那么需要维护更多的集群。 分布式锁有很深的研究意义，看这个三个就够了https://juejin.im/entry/5a502ac2518825732b19a595https://juejin.im/post/5bbb0d8df265da0abd3533a5https://zhuanlan.zhihu.com/p/42056183]]></content>
       <categories>
         <category>服务</category>
       </categories>
@@ -386,8 +386,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>String</tag>
         <tag>源码解析</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -399,8 +399,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>源码解析</tag>
         <tag>HashMap</tag>
+        <tag>源码解析</tag>
       </tags>
   </entry>
   <entry>
