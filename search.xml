@@ -15,7 +15,7 @@
   <entry>
     <title><![CDATA[redis-压缩表]]></title>
     <url>%2Fp%2F176a.html</url>
-    <content type="text"><![CDATA[定义!(包含三个节点的压缩表)[redis-zip-1.png] zlbytes, 压缩表表的总字节数 zltail, 表头加上zltail即可指向表尾节点的 zllen, 节点总数 节点构成： 添加新节点或删除节点，可能会引发连锁更新操作。 更多源码注释说明见ziplist.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+    <content type="text"><![CDATA[定义 zlbytes, 压缩表表的总字节数 zltail, 表头加上zltail即可指向表尾节点的 zllen, 节点总数 节点构成： 添加新节点或删除节点，可能会引发连锁更新操作。 更多源码注释说明见ziplist.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -134,10 +134,10 @@
       <tags>
         <tag>linux</tag>
         <tag>c</tag>
-        <tag>进程</tag>
         <tag>用户态</tag>
         <tag>内核态</tag>
         <tag>函数栈</tag>
+        <tag>进程</tag>
         <tag>内核</tag>
       </tags>
   </entry>
@@ -196,8 +196,8 @@
       <tags>
         <tag>c</tag>
         <tag>os</tag>
-        <tag>csapp</tag>
         <tag>进程</tag>
+        <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -211,8 +211,8 @@
       <tags>
         <tag>c</tag>
         <tag>os</tag>
-        <tag>csapp</tag>
         <tag>进程</tag>
+        <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -226,8 +226,8 @@
       <tags>
         <tag>c</tag>
         <tag>os</tag>
-        <tag>csapp</tag>
         <tag>进程</tag>
+        <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -386,8 +386,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>源码解析</tag>
         <tag>String</tag>
+        <tag>源码解析</tag>
       </tags>
   </entry>
   <entry>
@@ -399,8 +399,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>HashMap</tag>
         <tag>源码解析</tag>
+        <tag>HashMap</tag>
       </tags>
   </entry>
   <entry>
