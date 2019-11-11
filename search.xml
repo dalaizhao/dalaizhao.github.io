@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[redis-对象robj]]></title>
     <url>%2Fp%2Fc707.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见server.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+    <content type="text"><![CDATA[对象的类型与编码 更多源码注释说明见server.hhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -315,8 +315,8 @@
         <category>微服务</category>
       </categories>
       <tags>
-        <tag>Apache Thrift</tag>
         <tag>官方文档</tag>
+        <tag>Apache Thrift</tag>
       </tags>
   </entry>
   <entry>
@@ -349,8 +349,8 @@
         <category>微服务</category>
       </categories>
       <tags>
-        <tag>Apache Thrift</tag>
         <tag>官方文档</tag>
+        <tag>Apache Thrift</tag>
       </tags>
   </entry>
   <entry>
@@ -552,9 +552,9 @@
         <category>elasticSearch</category>
       </categories>
       <tags>
-        <tag>官方文档</tag>
         <tag>java client</tag>
         <tag>elasticSearch</tag>
+        <tag>官方文档</tag>
       </tags>
   </entry>
   <entry>
