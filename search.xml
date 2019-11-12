@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[设计-reactore模式]]></title>
+    <title><![CDATA[redis-持久化]]></title>
+    <url>%2Fp%2Fde9c.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[设计-reactor模式]]></title>
     <url>%2Fp%2F3461.html</url>
     <content type="text"><![CDATA[reactor模式在redis中采用的高性能IO，多路复用IO处理多个客户端请求。 它解决什么问题呢？在传统的每次请求链接时（Thread-Per-Connection的应用场景），线程在真正处理请求之前首先从socket中读取网络请求，而在读取完之前，线程会被阻塞，不做任何事情。 而reactor模式指出，在等待IO时，线程可以先退出，先处理别的事情，并且在线程退出前向event loop注册回调函数，这样IO完成时回调处理剩余操作。 redis基于单线程Reactor模式开发了自己的网络事件处理，即文件事件处理器，使用IO多路复用，同时监听多个socket，并为socket关联不同的事件处理器。 多线程reactor模式跟master&amp;worker线程（进程）很类似，一个任务负责接收客户端连接，多个任务处理请求与客户端的通信。 reactor的优缺点：优点： 大多数设计模式的共性：解耦、提升复用性、模块化、可移植性、事件驱动、细力度的并发控制等。 更为显著的是对性能的提升，即不需要每个 Client 对应一个线程，减少线程的使用。 缺点： 相比传统的简单模型，有一定的复杂性，不易调式 需要底层事件处理器支持，像redis的ae_event库 IO读写均在同一个=线程实现的，有时不如传统的Thread-Per-Connection好。 参考文章：简单易懂，漫画式：https://lotabout.me/2018/reactor-pattern/单线程模式&amp;多线程模式更多：https://juejin.im/post/5bbd9b546fb9a05d2068651c]]></content>
       <categories>
@@ -161,9 +166,9 @@
         <category>c</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>linux</tag>
         <tag>c</tag>
+        <tag>os</tag>
         <tag>并发</tag>
         <tag>pthread</tag>
       </tags>
@@ -176,11 +181,11 @@
         <category>gnu</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>c</tag>
         <tag>项目构建工具</tag>
+        <tag>linux</tag>
         <tag>makefile</tag>
         <tag>gnu</tag>
+        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -191,11 +196,11 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>linux</tag>
+        <tag>c</tag>
+        <tag>os</tag>
         <tag>动态链接库</tag>
         <tag>链接</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -206,8 +211,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
+        <tag>os</tag>
         <tag>进程</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
@@ -221,8 +226,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
+        <tag>os</tag>
         <tag>进程</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
@@ -236,8 +241,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
+        <tag>os</tag>
         <tag>进程</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
@@ -265,9 +270,9 @@
         <category>os</category>
       </categories>
       <tags>
+        <tag>c</tag>
         <tag>os</tag>
         <tag>链接</tag>
-        <tag>c</tag>
         <tag>csapp</tag>
       </tags>
   </entry>
