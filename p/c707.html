@@ -116,10 +116,10 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 25
+          字 565
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
+          阅读时长 2 min
         </span>
         </div>
     </header>
@@ -127,12 +127,40 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的类型与编码"><span class="toc-text">对象的类型与编码</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的类型与编码"><span class="toc-text">对象的类型与编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存回收"><span class="toc-text">内存回收</span></a></li></ol>
     </div>
-  </div><div class="post-content"><h2 id="对象的类型与编码"><a href="#对象的类型与编码" class="headerlink" title="对象的类型与编码"></a>对象的类型与编码</h2><p><img src="http://imdalai.com/bed//img/20191111225250.png" alt></p>
-<p><img src="http://imdalai.com/bed/img/20191111225722.png" alt></p>
-<a id="more"></a>
+  </div><div class="post-content"><h2 id="对象的类型与编码"><a href="#对象的类型与编码" class="headerlink" title="对象的类型与编码"></a>对象的类型与编码</h2><a id="more"></a>
 
+<p>版本是2.6<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191111231931.png" alt="对象的编码"><br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191111231931.png" alt="不同类型的编码对象"></p>
+<p>版本3.2及以上5.06中：</p>
+<ul>
+<li>OBJ_ENCODING_RAW: <strong>string</strong>类型内部结构，最原生的表示方式。其实只有string类型才会用这个encoding值（表示成sds）。</li>
+<li>OBJ_ENCODING_INT: <strong>string</strong>类型内部结构，表示成数字。实际用long表示。</li>
+<li>OBJ_ENCODING_HT: <strong>hash&amp;set</strong>内部类型，表示成dict。</li>
+<li>OBJ_ENCODING_ZIPMAP: 是个<strong>旧的</strong>表示方式，已不再用。在小于Redis 2.6的版本中才有。</li>
+<li>OBJ_ENCODING_LINKEDLIST: <strong>list</strong>类型内部结构，也是个<strong>旧的</strong>表示方式，已不再用。</li>
+<li>OBJ_ENCODING_ZIPLIST: <strong>list&amp;hash&amp;zset</strong>类型内部结构，表示成ziplist。</li>
+<li>OBJ_ENCODING_INTSET: 整数<strong>set</strong>内部类型，表示成intset。用于set数据结构。</li>
+<li>OBJ_ENCODING_SKIPLIST: <strong>zset</strong>内部类型，表示成skiplist。用于sorted set数据结构。</li>
+<li>OBJ_ENCODING_EMBSTR: <strong>string</strong>类型内部结构，表示成一种特殊的嵌入式的sds。</li>
+<li>OBJ_ENCODING_QUICKLIST: <strong>list</strong>类型内部结构，表示成quicklist。用于list数据结构。</li>
+<li>OBJ_ENCODING_STREAM: <strong>list</strong>类型内部结构，编码为列表包的基数树<br>更多string多余空间回收等查看详解版：<a href="http://zhangtielei.com/posts/blog-redis-robj.html" target="_blank" rel="noopener">http://zhangtielei.com/posts/blog-redis-robj.html</a></li>
+</ul>
+<h2 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h2><p>redis采用引用计数技术和LRU算法实现内存回收，详情<a href="https://www.cnblogs.com/WJ5888/p/4371647.html；" target="_blank" rel="noopener">https://www.cnblogs.com/WJ5888/p/4371647.html；</a></p>
+<p>对象共享不单单字符串建使用，那些在数据结构潜逃了字符串对象的对象（linkedlist、hashtable、zset、）都可以使用这些共享对象。</p>
+<p>对象空转时长<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191112213026.png" alt="对象空转时长"></p>
+<p><strong>最大内存淘汰策略</strong>：</p>
+<p>线上最大内存淘汰策略（maxmemory_policy）默认为volatile-lru。<br>Redis共提供8种数据淘汰策略：</p>
+<ul>
+<li>volatile-lru: 从设置过期时间的key中挑选最近最少使用的key淘汰；</li>
+<li>volatile-ttl: 从设置过期时间的key中挑选即将过期的key淘汰；</li>
+<li>volatile-random: 从设置过期时间的key中任意挑选key淘汰；</li>
+<li>volatile-lfu: 从设置过期时间的key中挑选使用频率最低的key淘汰；</li>
+<li>allkeys-lru: 从所有key中挑选最近最少使用的数据淘汰；</li>
+<li>allkeys-lfu: 从所有key中挑选使用频率最低的键淘汰；</li>
+<li>allkeys-random: 从所有key中任意挑选key淘汰；</li>
+<li>no-enviction: 禁止驱逐数据，当redis内存使用打到maxmemory，在该策略下，直接返回错误；</li>
+</ul>
 <p>更多源码注释说明见<code>server.h</code><a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
 
       </div>
@@ -155,7 +183,12 @@
             <a href="/tags/robj/">robj</a>
             </div>
         
-        <nav class="post-nav"><a class="next" href="/p/176a.html">
+        <nav class="post-nav"><a class="prev" href="/p/3461.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">设计-reactore模式</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    <a class="next" href="/p/176a.html">
         <span class="next-text nav-default">redis-压缩表</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
