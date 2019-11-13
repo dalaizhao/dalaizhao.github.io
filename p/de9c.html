@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="redis-持久化"><link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
+<meta name="description" content="redis-持久化"><meta name="keywords" content="redis, k先生"><link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
 <link rel="canonical" href="http://yoursite.com/p/de9c.html">
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
@@ -112,16 +112,74 @@
       <div class="post-meta">
         <span class="post-time">
           2019-11-12
-        </span><span class="post-visits" title="post.wordcount">
-          字 0
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 778
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
+          阅读时长 2 min
         </span>
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis持久化"><span class="toc-text">redis持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RDB持久化"><span class="toc-text">RDB持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AOF持久化"><span class="toc-text">AOF持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优缺点"><span class="toc-text">优缺点</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><h2 id="redis持久化"><a href="#redis持久化" class="headerlink" title="redis持久化"></a>redis持久化</h2><p>不同于memcached，redis支持数据本地持久化。</p>
+<p>redis支持两种持久化方式：</p>
+<ul>
+<li>RDB持久化，可以在指定时间内生成数据快照，持久化当前状态，命令有SAVE和BGSAVE</li>
+<li>AOF持久化，保存数据库所执行的写命令来记录数据库状态</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="RDB持久化"><a href="#RDB持久化" class="headerlink" title="RDB持久化"></a>RDB持久化</h2><p>两个命令用于生成RDB文件，SAVE和BGSAVE：</p>
+<ul>
+<li>SAVE，直接阻塞服务器进程生成RDB文件，客户端的所有命令请求都会被拒绝</li>
+<li>BGSAVE，派生出一个子进程，子进程负责创建RDB文件，服务器继续处理其他命令</li>
+</ul>
+<p>RDB文件载入在服务器启动时自动载入，没有专门用于载入RDB文件的命令。</p>
+<p>命令执行期间：</p>
+<ul>
+<li>GSAVE命令和执行期间，服务器拒绝执行SAVE命令</li>
+<li>GSAVE命令和执行期间，客户端的BGREWRITEAOF命令会被延迟到BGSAVE执行完毕后执行</li>
+<li>BGREWRITEAOF命令期间，BGSAVE命令会被服务器拒绝</li>
+</ul>
+<p>自动间隔保存：save 9 1</p>
+<p>RDB文件时一个压缩过的二进制文件，对不同的类型使用不同凡事保存，RDB文件结构如下：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191113203035.png" alt></p>
+<h2 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h2><p>持久化配置通过appendfsync选项的值来决定吗，默认everysec：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191113203507.png" alt></p>
+<p>BGREWRITEAOF命令：AOF重写，AOF文件越来越大，会进行重写，节省空间。</p>
+<p>创建一个子进程会进行AOF重写，服务器继续处理其他命令。在执行BGREWRITEAOF命令时服务器会维护一个AOF重写缓冲区，该缓冲区会记录子进程创建新AOF文件期间所执行所有写命令，当子进程完成后追加到新AOF文件末尾，使旧新文件保持一致，最后用原子操作心得替换旧的AOF文件。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><p>RDB的优点：</p>
+<ol>
+<li>RDB时非常紧凑的文件，保存了某个时间点的所有数据，非常适合备份以及备份恢复。</li>
+<li>适用于灾难恢复，只是一个文件可以到别的redis数据库恢复数据</li>
+<li>RDB最大化服务器性能，用子进程处理RDB文件，服务器无需IO处理</li>
+<li>恢复大数据集会比AOF速度要快</li>
+</ol>
+<p>RDB的缺点：</p>
+<ol>
+<li>时间点保存RDB文件，会有时间间隙，不适合不能接受丢失数据场景</li>
+<li>fork子进程，当数据集庞大时非常耗时</li>
+</ol>
+<p>AOF的优点：</p>
+<ol>
+<li>AOF文件只是追加命令，不需要文件定位，很快</li>
+<li>当AOF文件体积较大时重写AOF，保存所有命令的最小集</li>
+<li>AOF有序的保存了执行的所有命令</li>
+</ol>
+<p>AOF的缺点：</p>
+<ol>
+<li>对于相同的数据集，AOF文件要大于RDB文件</li>
+<li>AOF的速度相比RDB会慢，服务器主进程追加命令，重写是才会fork子进程，服务器响应会受影响</li>
+</ol>
+<p><strong>redis可以同时使用RDB持久化和AOF持久化，重启时优先使用AOF文件来还原数据，因为AOF文件相比RDB更完整保存数据集</strong></p>
+<p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
+
       </div>
       <div class="post-copyright">
     <p class="copyright-item">
@@ -137,6 +195,9 @@
     </p>
   </div>
       <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/redis/">redis</a>
+            </div>
         
         <nav class="post-nav"><a class="next" href="/p/3461.html">
         <span class="next-text nav-default">设计-reactor模式</span>

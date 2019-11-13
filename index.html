@@ -112,16 +112,27 @@
       <div class="post-meta">
         <span class="post-time">
           2019-11-12
-        </span><span class="post-visits" title="post.wordcount">
-          字 0
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 778
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
+          阅读时长 2 min
         </span>
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-content"><h2 id="redis持久化"><a href="#redis持久化" class="headerlink" title="redis持久化"></a>redis持久化</h2><p>不同于memcached，redis支持数据本地持久化。</p>
+<p>redis支持两种持久化方式：</p>
+<ul>
+<li>RDB持久化，可以在指定时间内生成数据快照，持久化当前状态，命令有SAVE和BGSAVE</li>
+<li>AOF持久化，保存数据库所执行的写命令来记录数据库状态</li>
+</ul>
+          <div class="read-more">
+            <a href="/p/de9c.html" class="read-more-link">阅读更多</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">
