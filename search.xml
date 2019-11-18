@@ -219,7 +219,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[gnu-makefile让编译更容易]]></title>
+    <title><![CDATA[os-gnu makefile让编译更容易]]></title>
     <url>%2Fp%2F33c5.html</url>
     <content type="text"><![CDATA[编译C项目的好帮手makefile，当然其它编程语言也依然好用。 make只是一个根据指定的Shell命令进行构建的工具。它的规则很简单，你规定要构建哪个文件、它依赖哪些源文件，当那些文件有变动时，如何重新构建它。 编写的小示例： 12345678910PHONY: cleanclean: rm *.txtresult.txt: source.txt cp source.txt result.txtsource.txt: echo "this is the source" &gt; source.txt make result.txt运行即可。 官方手册阮一峰-Make 命令教程]]></content>
       <categories>
@@ -448,8 +448,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>String</tag>
         <tag>源码解析</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -461,8 +461,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>源码解析</tag>
         <tag>HashMap</tag>
+        <tag>源码解析</tag>
       </tags>
   </entry>
   <entry>
