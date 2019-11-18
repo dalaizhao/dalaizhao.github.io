@@ -106,6 +106,36 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c3f7.html">Apache Spark 官方文档 编程指南</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/Apache-Spark/">Apache Spark</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 9.5k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 34 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>最近用Apache Spark 处理一些大数据，学了spark官方英文文档，顺便翻译了方便学习。   </p>
+<p>spark 版本 2.2.0.   </p>
+<p>翻译官方文档原地址：<br><a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/rdd-programming-guide.html</a>    </p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在较高层次上，每个Spark应用程序都包含一个驱动程序，该程序运行用户的<code>main</code>方法，并在集群上执行各种并行操作。 Spark提供的主要抽象是一个弹性分布式数据集（RDD），它是在集群节点间进行分区的元素集合，可以并行操作。 RDD是通过从Hadoop文件系统（或任何其他Hadoop支持的文件系统）中的文件或驱动程序中现有的Scala集合开始创建的，并对其进行转换。用户也可以要求Spark将RDD保存在内存中，以便在并行操作中有效地重用它。最后，RDD自动从节点故障中恢复。    </p>
+<p>Spark中的第二个抽象是可用于并行操作的共享变量。默认情况下，Spark在不同节点上并行执行一组任务时，会将该函数中使用的每个变量的副本传送给每个任务。有时候，变量需要在任务之间，或任务与驱动程序之间共享。   </p>
+<p>Spark支持两种类型的共享变量：广播变量，可用于在所有节点上缓存内存中的值，以及累加器，这些变量只是“添加”到的变量，如计数器和总和。    </p>
+          <div class="read-more">
+            <a href="/p/c3f7.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/a947.html">thrift 服务端返回null</a>
         </h1>
 
@@ -361,36 +391,6 @@
     <div class="post-content"><p>个人日常使用linux命令笔记，详情用man 命令 来查看即可。  </p>
           <div class="read-more">
             <a href="/p/bc7.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/854d.html">java 多线程 生产者-消费者模式 爬取数据</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-29
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.3k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 6 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>最近收集了数据供个人实验使用，后期再展示实验结果。  </p>
-<p>用利用java 多线程，生产者和消费者模式一周爬取了内涵段子1300w+条数据，写了三个文件，每个文件都有1.5G左右。   </p>
-<p>程序的整体思路：  </p>
-<p>一个线程（生产者）爬取json数据并格式化成我想要的json格式（去掉一些无用信息），然后三个线程（消费者）各自写进自己的文件，每行是一条json。还有把所有的任务交给线程池ExecutorService去执行多线程，生产者和消费者的公共容器使用的是LinkedBlockingQueue。  </p>
-<p><strong>这里解释一下，为什么是一个生产者？</strong>   </p>
-<p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
-          <div class="read-more">
-            <a href="/p/854d.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">

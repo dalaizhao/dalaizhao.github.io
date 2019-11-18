@@ -106,6 +106,32 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/33c5.html">gnu-makefile让编译更容易</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-23
+        </span><span class="post-category">
+            <a href="/categories/gnu/">gnu</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 128
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>编译C项目的好帮手makefile，当然其它编程语言也依然好用。</p>
+<p>make只是一个根据指定的Shell命令进行构建的工具。它的规则很简单，你规定要构建哪个文件、它依赖哪些源文件，当那些文件有变动时，如何重新构建它。</p>
+          <div class="read-more">
+            <a href="/p/33c5.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/df10.html">os-gcc生成so文件及动态链接使用</a>
         </h1>
 
@@ -363,36 +389,6 @@
 <p>LDA将文档集合作为词计数的向量和以下参数（使用构建器模式进行设置）：    </p>
           <div class="read-more">
             <a href="/p/91ef.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c3f7.html">Apache Spark 官方文档 编程指南</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-03
-        </span><span class="post-category">
-            <a href="/categories/Apache-Spark/">Apache Spark</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 9.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 34 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>最近用Apache Spark 处理一些大数据，学了spark官方英文文档，顺便翻译了方便学习。   </p>
-<p>spark 版本 2.2.0.   </p>
-<p>翻译官方文档原地址：<br><a href="http://spark.apache.org/docs/latest/rdd-programming-guide.html" target="_blank" rel="noopener">http://spark.apache.org/docs/latest/rdd-programming-guide.html</a>    </p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>在较高层次上，每个Spark应用程序都包含一个驱动程序，该程序运行用户的<code>main</code>方法，并在集群上执行各种并行操作。 Spark提供的主要抽象是一个弹性分布式数据集（RDD），它是在集群节点间进行分区的元素集合，可以并行操作。 RDD是通过从Hadoop文件系统（或任何其他Hadoop支持的文件系统）中的文件或驱动程序中现有的Scala集合开始创建的，并对其进行转换。用户也可以要求Spark将RDD保存在内存中，以便在并行操作中有效地重用它。最后，RDD自动从节点故障中恢复。    </p>
-<p>Spark中的第二个抽象是可用于并行操作的共享变量。默认情况下，Spark在不同节点上并行执行一组任务时，会将该函数中使用的每个变量的副本传送给每个任务。有时候，变量需要在任务之间，或任务与驱动程序之间共享。   </p>
-<p>Spark支持两种类型的共享变量：广播变量，可用于在所有节点上缓存内存中的值，以及累加器，这些变量只是“添加”到的变量，如计数器和总和。    </p>
-          <div class="read-more">
-            <a href="/p/c3f7.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/2/">

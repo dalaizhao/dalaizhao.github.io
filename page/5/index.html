@@ -106,6 +106,36 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/854d.html">java 多线程 生产者-消费者模式 爬取数据</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-29
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 1.3k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 6 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>最近收集了数据供个人实验使用，后期再展示实验结果。  </p>
+<p>用利用java 多线程，生产者和消费者模式一周爬取了内涵段子1300w+条数据，写了三个文件，每个文件都有1.5G左右。   </p>
+<p>程序的整体思路：  </p>
+<p>一个线程（生产者）爬取json数据并格式化成我想要的json格式（去掉一些无用信息），然后三个线程（消费者）各自写进自己的文件，每行是一条json。还有把所有的任务交给线程池ExecutorService去执行多线程，生产者和消费者的公共容器使用的是LinkedBlockingQueue。  </p>
+<p><strong>这里解释一下，为什么是一个生产者？</strong>   </p>
+<p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
+          <div class="read-more">
+            <a href="/p/854d.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
         </h1>
 
@@ -375,38 +405,6 @@
 <p>在上述情况下，Solr沿其他服务器应用程序运行。 例如，在线商店应用将提供用户界面，购物车以及为最终用户购买的方式; 而库存管理应用程序将允许商店员工编辑产品信息。 产品元数据将保存在某种数据库以及Solr中。  </p>
           <div class="read-more">
             <a href="/p/2bc5.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/96dd.html">solr 完整学习目录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 211
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="http://lucene.apache.org/solr/guide/" target="_blank" rel="noopener">Apache Solr Reference Guide</a><br>看他人多少博客都不如看官方文档。  </p>
-<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>本人搭建用到了两种环境(在快速入门中介绍)：  </p>
-<ul>
-<li>windows10 + solr6.6.0</li>
-<li>centos7.2 + solr6.6.0</li>
-</ul>
-<h2 id="Solr6-6-0-学习目录"><a href="#Solr6-6-0-学习目录" class="headerlink" title="Solr6.6.0 学习目录"></a>Solr6.6.0 学习目录</h2><ol>
-<li><p><a href>快速入门</a>  </p></li></ol>
-          <div class="read-more">
-            <a href="/p/96dd.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/4/">
