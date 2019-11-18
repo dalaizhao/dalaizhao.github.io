@@ -106,6 +106,85 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/df10.html">os-gcc生成so文件及动态链接使用</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-07-22
+        </span><span class="post-category">
+            <a href="/categories/os/">os</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 799
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 3 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>linux下gcc如何生成.so文件及使用动态链接库.so文件。</p>
+<h2 id="生成-so文件且使用"><a href="#生成-so文件且使用" class="headerlink" title="生成.so文件且使用"></a>生成.so文件且使用</h2>
+          <div class="read-more">
+            <a href="/p/df10.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/8e8c.html">os-进程线程关系及区别</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-17
+        </span><span class="post-category">
+            <a href="/categories/os/">os</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 304
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="关系-amp-区别"><a href="#关系-amp-区别" class="headerlink" title="关系&amp;区别"></a>关系&amp;区别</h2><p>进程(process)是资源分配的最小单位，有自己独立的地址空间，单个进程的崩溃不会影响其它进程；</p>
+<p>线程(thread)是处理器调度的最小单位，共享进程空间，也有自己的独立内存（PC、栈、栈指针等空间），单个线程的崩溃会导致整个进程的崩溃，影响其它的线程；</p>
+          <div class="read-more">
+            <a href="/p/8e8c.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/e68.html">os-线程总结</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-15
+        </span><span class="post-category">
+            <a href="/categories/os/">os</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2.9k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 11 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>现代系统允许一个进程里同时运行多个线程，线程由内核自动调度。每个线程都有它自己的线程上下文，包括一个唯一的整数线程ID、栈、栈指针、程序计数器（PC）、通用目的寄存器和条件码。</p>
+<p>共享本进程虚拟地址空间的所有内容，包括它的代码、数据、堆、共享库和打开的文件。</p>
+<p>Posix线程（Pthreads）是在C程序中处理线程的标准接口。</p>
+          <div class="read-more">
+            <a href="/p/e68.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/692d.html">os-进程总结</a>
         </h1>
 
@@ -314,93 +393,6 @@
 <p>Spark支持两种类型的共享变量：广播变量，可用于在所有节点上缓存内存中的值，以及累加器，这些变量只是“添加”到的变量，如计数器和总和。    </p>
           <div class="read-more">
             <a href="/p/c3f7.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/a947.html">thrift 服务端返回null</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-03
-        </span><span class="post-category">
-            <a href="/categories/微服务/">微服务</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 247
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>强大、牛X的RPC框架 - thrift，就没怂过！   </p>
-<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在用thrift做RPC框架存在服务端有时需要返回null 的情况，这时客户端就报 org.apache.thrift.TApplicationException: detectEvent failed: unknown result 异常。    </p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>点击去，查看service类时发现thrift 服务端返回null时，会抛出异常，也就是不接受null的情况。   </p>
-          <div class="read-more">
-            <a href="/p/a947.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/314b.html">jar包详情</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-03
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 7 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>java jar包 常用来运行java程序的压缩包。今天就来看看内幕。       </p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>维基百科</p>
-<blockquote>
-<p>在软件领域，JAR文件（Java归档，英语：Java ARchive）是一种软件包文件格式，通常用于聚合大量的Java类文件、相关的元数据和资源（文本、图片等）文件到一个文件，以便分发Java平台应用软件或库。<br>JAR文件是一种归档文件，以ZIP格式构建，以.jar为文件扩展名。用户可以使用JDK自带的jar命令创建或提取JAR文件。也可以使用其他zip压缩工具，不过压缩时zip文件头里的条目顺序很重要，因为Manifest资源配置文件常需放在首位。JAR文件内的文件名是Unicode文本。  </p>
-</blockquote>
-<p>JAR 文件可以用于：  </p>
-<ul>
-<li>用于发布和使用类库</li>
-<li>作为应用程序和扩展的构建单元</li>
-<li>作为组件、applet或者插件程序的部署单位</li>
-<li>用于打包与组件有关联的辅助资源</li></ul>
-          <div class="read-more">
-            <a href="/p/314b.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/f2d.html">关于SimpleDateFormat 线程不安全</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-03
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 519
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>java 程序都常用SimpleDateFormat 和 DateFormat 工具类，用来字符串和时间对象的相互转换，多线程环境下共享使用SimpleDateFormat 时，format() 和 parese() 方法会出下面出错。<br>实际开发中遇到的错误：  </p>
-          <div class="read-more">
-            <a href="/p/f2d.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/2/">

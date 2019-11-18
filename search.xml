@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[redis-集群模式]]></title>
+    <url>%2Fp%2F3348.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[redis-sentinel哨兵模式]]></title>
+    <url>%2Fp%2F8721.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[redis-主从模式]]></title>
+    <url>%2Fp%2F6ccf.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[redis-事件驱动]]></title>
     <url>%2Fp%2Fad13.html</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[要理解redis事件驱动模型需要具备linux五大IO模型基础知识，欠缺着请移步（https://blog.csdn.net/qq_34802511/article/details/81543817） redis服务器是事件驱动程序，处理两类事件，文件事件和时间事件，基于reactor模式开发了自己的ae-event网络事件处理器，reactor可以参考这个（http://imdalai.com/p/3461.html） 基于reactor模式IO多路复用会监听多个文件描述符，并传给事件处理器，而分发处理器派给给特定的事件处理器。redis单进程单线程主要体现在调用linux 的select、epoll、evport、kqueue等系统调用，以及后面的事件处理都是单进程单线程，但是网络的处理是IO多路复用。事件处理程序也是看了redis才深刻的体会理解，以前一直猛朦胧哦。类似网络应用程序有php的swoole框架 、go的gnet框架、java的netty、c的libevent等等。 文件事件文件处理器的四个组成部分： IO多路复用程序将产生的事件套接字都放在一个队列里面，然后通过这个队列，有序（FIFO）、同步、每次一个套机子的方式向文件事件分配器传送套接字，处理完一个在派送下一个，单线程没有办法。 事件的类型： AE_READABLE，当客户端执行写操作、关闭操作，对服务端来讲就是可读状态 AE_WRITABLE，当客户端读操作，对服务端来讲就是写操作 时间事件分类： 定时事件 周期性事件 都在serverCron函数中实现。 更多源码注释说明见ae_eventhttps://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[redis-数据库原理]]></title>
     <url>%2Fp%2Fca56.html</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。 服务器中的数据库 select 1切换数据库时从db0指向db1 数据库键空间redisDB姐哦股的dict字典中保存了数据库中的所有键值对，统称键空间 键空间的键也就是数据库的键，每个键都是一个字符串对象 键空间的值也就是数据库的值，每个值可以是五种类型的任意一种redis对象 对键的增删改查都是在该字典上面操作。 设置键的生存时间或过期时间设置过期时间，有四个命令可用于设置生存时间 EXPIRE key seconds PEXPIRE key milliseconds EXPIREAT key timestamp PEXPIREAT key milliseconds-timestamp（上面三个命令的内部实现均用此命令） persist 命令可以移除一个键的过期时间。 过期键删除策略： 定时删除 惰性删除 定期删除 redis服务器实际使用惰性删除和定期删除。 主从模式下，从数据库不会键过期也不会删除，等待主数据库的del命令到来。 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -234,8 +252,8 @@
       </categories>
       <tags>
         <tag>c</tag>
-        <tag>os</tag>
         <tag>进程</tag>
+        <tag>os</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
@@ -249,8 +267,8 @@
       </categories>
       <tags>
         <tag>c</tag>
-        <tag>os</tag>
         <tag>进程</tag>
+        <tag>os</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
@@ -264,8 +282,8 @@
       </categories>
       <tags>
         <tag>c</tag>
-        <tag>os</tag>
         <tag>进程</tag>
+        <tag>os</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
       </tags>

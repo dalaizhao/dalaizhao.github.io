@@ -106,6 +106,93 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/a947.html">thrift 服务端返回null</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/微服务/">微服务</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 247
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>强大、牛X的RPC框架 - thrift，就没怂过！   </p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>在用thrift做RPC框架存在服务端有时需要返回null 的情况，这时客户端就报 org.apache.thrift.TApplicationException: detectEvent failed: unknown result 异常。    </p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>点击去，查看service类时发现thrift 服务端返回null时，会抛出异常，也就是不接受null的情况。   </p>
+          <div class="read-more">
+            <a href="/p/a947.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/314b.html">jar包详情</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 7 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>java jar包 常用来运行java程序的压缩包。今天就来看看内幕。       </p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>维基百科</p>
+<blockquote>
+<p>在软件领域，JAR文件（Java归档，英语：Java ARchive）是一种软件包文件格式，通常用于聚合大量的Java类文件、相关的元数据和资源（文本、图片等）文件到一个文件，以便分发Java平台应用软件或库。<br>JAR文件是一种归档文件，以ZIP格式构建，以.jar为文件扩展名。用户可以使用JDK自带的jar命令创建或提取JAR文件。也可以使用其他zip压缩工具，不过压缩时zip文件头里的条目顺序很重要，因为Manifest资源配置文件常需放在首位。JAR文件内的文件名是Unicode文本。  </p>
+</blockquote>
+<p>JAR 文件可以用于：  </p>
+<ul>
+<li>用于发布和使用类库</li>
+<li>作为应用程序和扩展的构建单元</li>
+<li>作为组件、applet或者插件程序的部署单位</li>
+<li>用于打包与组件有关联的辅助资源</li></ul>
+          <div class="read-more">
+            <a href="/p/314b.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/f2d.html">关于SimpleDateFormat 线程不安全</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 519
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 2 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>java 程序都常用SimpleDateFormat 和 DateFormat 工具类，用来字符串和时间对象的相互转换，多线程环境下共享使用SimpleDateFormat 时，format() 和 parese() 方法会出下面出错。<br>实际开发中遇到的错误：  </p>
+          <div class="read-more">
+            <a href="/p/f2d.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/413a.html">Apache Thrift 官方 java教程</a>
         </h1>
 
@@ -304,93 +391,6 @@
 <p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
           <div class="read-more">
             <a href="/p/854d.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-19
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 526
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
-<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
-          <div class="read-more">
-            <a href="/p/c94.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/8a28.html">shell脚本 定期删除日志文件</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 338
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>编写定期删除日志文件的shell脚本程序。  </p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>创建脚本del_log.sh  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim del_log.sh</span><br></pre></td></tr></table></figure>
-
-<p>编写,用find命令简洁    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">location=&quot;/home/dl/code/logs&quot;</span><br><span class="line"></span><br><span class="line">find $location -mtime +4 -type f | xargs rm -f</span><br><span class="line"></span><br><span class="line">#location 是删除文件所在目录</span><br><span class="line">#-mtime +4 是设置删除多少天以前的文件</span><br><span class="line">#-type f 删除的类型为文件</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/p/8a28.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/ab2f.html">spring boot 使用</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/spring-boot/">spring boot</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 8 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>本节将详细介绍如何使用Spring Boot。 它涵盖了诸如构建系统，自动配置以及如何运行应用程序等主题。 我们还介绍了一些Spring Boot的最佳做法。 虽然Spring Boot没有什么特别的特点（它只是另一个可以消耗的lib），但是有一些建议可以让您的开发过程更容易一些。  </p>
-<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>构建典型的系统，在另一篇 <a href="http://www.jianshu.com/p/959edc9c70d8" target="_blank" rel="noopener">spring boot 快速入门</a>中有maven 和 gradle 配置方式。  </p>
-<p>典型的pom.xml里有这个parent里加了org.springframework.boot,如果pom.xml已经有其它的parent，这里也有不用继承，也能配置maven的方式。</p>
-<p>parent 是 maven 的一个元素，可以继承pom.xml中依赖，不用重复配置pom。  </p>
-          <div class="read-more">
-            <a href="/p/ab2f.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">

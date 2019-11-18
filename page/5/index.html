@@ -106,6 +106,93 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-19
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 526
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 2 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
+<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
+          <div class="read-more">
+            <a href="/p/c94.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/8a28.html">shell脚本 定期删除日志文件</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-17
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 338
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>编写定期删除日志文件的shell脚本程序。  </p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>创建脚本del_log.sh  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim del_log.sh</span><br></pre></td></tr></table></figure>
+
+<p>编写,用find命令简洁    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">location=&quot;/home/dl/code/logs&quot;</span><br><span class="line"></span><br><span class="line">find $location -mtime +4 -type f | xargs rm -f</span><br><span class="line"></span><br><span class="line">#location 是删除文件所在目录</span><br><span class="line">#-mtime +4 是设置删除多少天以前的文件</span><br><span class="line">#-type f 删除的类型为文件</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/p/8a28.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/ab2f.html">spring boot 使用</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-17
+        </span><span class="post-category">
+            <a href="/categories/spring-boot/">spring boot</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 8 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>本节将详细介绍如何使用Spring Boot。 它涵盖了诸如构建系统，自动配置以及如何运行应用程序等主题。 我们还介绍了一些Spring Boot的最佳做法。 虽然Spring Boot没有什么特别的特点（它只是另一个可以消耗的lib），但是有一些建议可以让您的开发过程更容易一些。  </p>
+<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>构建典型的系统，在另一篇 <a href="http://www.jianshu.com/p/959edc9c70d8" target="_blank" rel="noopener">spring boot 快速入门</a>中有maven 和 gradle 配置方式。  </p>
+<p>典型的pom.xml里有这个parent里加了org.springframework.boot,如果pom.xml已经有其它的parent，这里也有不用继承，也能配置maven的方式。</p>
+<p>parent 是 maven 的一个元素，可以继承pom.xml中依赖，不用重复配置pom。  </p>
+          <div class="read-more">
+            <a href="/p/ab2f.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/7dd9.html">spring boot 快速入门</a>
         </h1>
 
@@ -320,93 +407,6 @@
 <li><p><a href>快速入门</a>  </p></li></ol>
           <div class="read-more">
             <a href="/p/96dd.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/5875.html">es java client 教程</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/elasticSearch/">elasticSearch</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 743
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 3 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>个人学习elasticSearch 5 的过程分享，至于实现代码后期有空再整理，很多东西可以从文档中找到的，拿过来用即可。  </p>
-<h2 id="学习elasticSearch官方文档"><a href="#学习elasticSearch官方文档" class="headerlink" title="学习elasticSearch官方文档"></a>学习elasticSearch官方文档</h2><p><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/foreword_id.html" target="_blank" rel="noopener">elasticSearch权威指南 中文版</a>  </p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/5.0/java-api.html" target="_blank" rel="noopener">elasticSearch java客户端</a>  </p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/getting-started.html" target="_blank" rel="noopener">elasticSearch英文文档</a>   </p>
-<p>说明：<br>我用的是ES 5.0.0版本，以上文档除了权威指南，其它是ES 5.0.0版本，但是进去后可以选择切换成其它版本。elasticSearch权威指南(中文版)是1.4.X版本的，读着了解基本流程、操作很有用，有什么疑惑就查看对应的英文版。还有1.4.X、2.X和5.X的连接方式都不同，查看对应的版本文档，并最好使用对应的jar包。  </p>
-<p><strong>特别声明</strong>  </p>
-          <div class="read-more">
-            <a href="/p/5875.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/591c.html">JUnit 单元测试</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-04
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.8k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 12 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>所有代码上线之前开发人员都要做单元测试的，很重要！！！<br>本文就来学习学习使用JUnit编写单元测试。  </p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>文中例子用的是Eclipse，对于IntelliJ IDEA也一样，万变不离其宗。  </p>
-<p><a href="https://github.com/junit-team/junit4/wiki/Download-and-Install" target="_blank" rel="noopener">JUnit下载</a>  </p>
-<p>JUnit 是一个 Java 编程语言的单元测试框架。JUnit 在测试驱动的开发方面有很重要的发展，是起源于 JUnit 的一个统称为 xUnit 的单元测试框架之一。  </p>
-<p>JUnit 促进了“先测试后编码”的理念，强调建立测试数据的一段代码，可以先测试，然后再应用。  </p>
-          <div class="read-more">
-            <a href="/p/591c.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/279d.html">剑指offer java实现</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-14
-        </span><span class="post-category">
-            <a href="/categories/数据结构与算法/">数据结构与算法</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 636
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="剑指offer-66道题"><a href="#剑指offer-66道题" class="headerlink" title="剑指offer  66道题"></a>剑指offer  66道题</h1><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><a href="https://github.com/dalaizhao/Algorithm/tree/master/剑指offer-java" target="_blank" rel="noopener">全部代码地址</a>   </p>
-<h2 id="涉及到的数据结构与算法"><a href="#涉及到的数据结构与算法" class="headerlink" title="涉及到的数据结构与算法"></a>涉及到的数据结构与算法</h2><p>数据结构：数组、字符串、哈希表、二叉树、栈、队列、链表、堆    </p>
-<p>算法：归并、动态规划、深度优先搜索（DFS）、广度优先搜索（BFS）、回溯、递归、二分查找</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2>
-          <div class="read-more">
-            <a href="/p/279d.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/4/">

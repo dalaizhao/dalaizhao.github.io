@@ -106,12 +106,12 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/ad13.html">redis-事件驱动</a>
+      <h1 class="post-title"><a class="post-link" href="/p/3348.html">redis-集群模式</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-11-17
+          2019-11-18
         </span><span class="post-visits" title="post.wordcount">
           字 0
         </span>
@@ -125,6 +125,70 @@
         </div></article>
       <article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/8721.html">redis-sentinel哨兵模式</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-18
+        </span><span class="post-visits" title="post.wordcount">
+          字 0
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/6ccf.html">redis-主从模式</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-18
+        </span><span class="post-visits" title="post.wordcount">
+          字 0
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/ad13.html">redis-事件驱动</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-18
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 426
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>要理解redis事件驱动模型需要具备linux五大IO模型基础知识，欠缺着请移步（<a href="https://blog.csdn.net/qq_34802511/article/details/81543817）" target="_blank" rel="noopener">https://blog.csdn.net/qq_34802511/article/details/81543817）</a></p>
+<p>redis服务器是事件驱动程序，处理两类事件，文件事件和时间事件，基于reactor模式开发了自己的ae-event网络事件处理器，reactor可以参考这个（<a href="http://imdalai.com/p/3461.html）" target="_blank" rel="noopener">http://imdalai.com/p/3461.html）</a></p>
+          <div class="read-more">
+            <a href="/p/ad13.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/ca56.html">redis-数据库原理</a>
         </h1>
 
@@ -135,7 +199,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 0
+          字 315
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -143,7 +207,10 @@
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-content"><p>redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。</p>
+          <div class="read-more">
+            <a href="/p/ca56.html" class="read-more-link">阅读更多</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">
@@ -283,81 +350,6 @@
 <p>整数集合的底层实现为数组，数组以有序、无重复的方式保存元素，升级整数类型提升灵活性，尽可能节约空间，只支持升级操作，不支持降级操作。</p>
 <p>更多源码注释说明见<code>intset.h</code><a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
 
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/1ce5.html">redis-跳跃表</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-12
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 194
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2>
-          <div class="read-more">
-            <a href="/p/1ce5.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/f389.html">redis-字典</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-08
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 577
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2>
-          <div class="read-more">
-            <a href="/p/f389.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/a923.html">redis-链表</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-07
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 135
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>实现很基础，无环双向链表和保存全局的表头；</p>
-          <div class="read-more">
-            <a href="/p/a923.html" class="read-more-link">阅读更多</a>
-          </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/page/2/">
         <span class="next-text">下一页</span>

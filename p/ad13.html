@@ -111,9 +111,12 @@
 
       <div class="post-meta">
         <span class="post-time">
-          2019-11-17
-        </span><span class="post-visits" title="post.wordcount">
-          字 0
+          2019-11-18
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 426
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -121,7 +124,32 @@
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#文件事件"><span class="toc-text">文件事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间事件"><span class="toc-text">时间事件</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>要理解redis事件驱动模型需要具备linux五大IO模型基础知识，欠缺着请移步（<a href="https://blog.csdn.net/qq_34802511/article/details/81543817）" target="_blank" rel="noopener">https://blog.csdn.net/qq_34802511/article/details/81543817）</a></p>
+<p>redis服务器是事件驱动程序，处理两类事件，文件事件和时间事件，基于reactor模式开发了自己的ae-event网络事件处理器，reactor可以参考这个（<a href="http://imdalai.com/p/3461.html）" target="_blank" rel="noopener">http://imdalai.com/p/3461.html）</a></p>
+<a id="more"></a>
+
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191118212901.png" alt></p>
+<p>基于reactor模式IO多路复用会监听多个文件描述符，并传给事件处理器，而分发处理器派给给特定的事件处理器。redis单进程单线程主要体现在调用linux 的select、epoll、evport、kqueue等系统调用，以及后面的事件处理都是单进程单线程，但是网络的处理是IO多路复用。事件处理程序也是看了redis才深刻的体会理解，以前一直猛朦胧哦。类似网络应用程序有php的swoole框架 、go的gnet框架、java的netty、c的libevent等等。</p>
+<h2 id="文件事件"><a href="#文件事件" class="headerlink" title="文件事件"></a>文件事件</h2><p>文件处理器的四个组成部分：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191118213435.png" alt></p>
+<p>IO多路复用程序将产生的事件套接字都放在一个队列里面，然后通过这个队列，有序（FIFO）、同步、每次一个套机子的方式向文件事件分配器传送套接字，处理完一个在派送下一个，单线程没有办法。</p>
+<p>事件的类型：</p>
+<ul>
+<li>AE_READABLE，当客户端执行写操作、关闭操作，对服务端来讲就是可读状态</li>
+<li>AE_WRITABLE，当客户端读操作，对服务端来讲就是写操作</li>
+</ul>
+<h2 id="时间事件"><a href="#时间事件" class="headerlink" title="时间事件"></a>时间事件</h2><p>分类：</p>
+<ul>
+<li>定时事件</li>
+<li>周期性事件</li>
+</ul>
+<p>都在serverCron函数中实现。</p>
+<p>更多源码注释说明见ae_event<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
+
       </div>
       <div class="post-copyright">
     <p class="copyright-item">
@@ -138,7 +166,12 @@
   </div>
       <footer class="post-footer">
         
-        <nav class="post-nav"><a class="next" href="/p/ca56.html">
+        <nav class="post-nav"><a class="prev" href="/p/6ccf.html">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">redis-主从模式</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    <a class="next" href="/p/ca56.html">
         <span class="next-text nav-default">redis-数据库原理</span>
         <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>

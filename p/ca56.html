@@ -116,7 +116,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 0
+          字 315
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,7 +124,42 @@
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器中的数据库"><span class="toc-text">服务器中的数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库键空间"><span class="toc-text">数据库键空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置键的生存时间或过期时间"><span class="toc-text">设置键的生存时间或过期时间</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。</p>
+<a id="more"></a>
+
+<h2 id="服务器中的数据库"><a href="#服务器中的数据库" class="headerlink" title="服务器中的数据库"></a>服务器中的数据库</h2><p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191118203536.png" alt="服务器数据库示例"></p>
+<p><code>select 1</code>切换数据库时从db0指向db1<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191118203646.png" alt></p>
+<h2 id="数据库键空间"><a href="#数据库键空间" class="headerlink" title="数据库键空间"></a>数据库键空间</h2><p>redisDB姐哦股的dict字典中保存了数据库中的所有键值对，统称键空间</p>
+<ul>
+<li>键空间的键也就是数据库的键，每个键都是一个字符串对象</li>
+<li>键空间的值也就是数据库的值，每个值可以是五种类型的任意一种redis对象</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191118204022.png" alt="数据库键空间示例"></p>
+<p>对键的增删改查都是在该字典上面操作。</p>
+<h2 id="设置键的生存时间或过期时间"><a href="#设置键的生存时间或过期时间" class="headerlink" title="设置键的生存时间或过期时间"></a>设置键的生存时间或过期时间</h2><p>设置过期时间，有四个命令可用于设置生存时间</p>
+<ul>
+<li>EXPIRE key seconds</li>
+<li>PEXPIRE key milliseconds</li>
+<li>EXPIREAT key timestamp</li>
+<li>PEXPIREAT key milliseconds-timestamp（上面三个命令的内部实现均用此命令）</li>
+</ul>
+<p>persist 命令可以移除一个键的过期时间。</p>
+<p>过期键删除策略：</p>
+<ul>
+<li>定时删除</li>
+<li>惰性删除</li>
+<li>定期删除</li>
+</ul>
+<p>redis服务器实际使用惰性删除和定期删除。</p>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191118204734.png" alt="带有过期字典的数据库示例"></p>
+<p>主从模式下，从数据库不会键过期也不会删除，等待主数据库的del命令到来。</p>
+<p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
+
       </div>
       <div class="post-copyright">
     <p class="copyright-item">
