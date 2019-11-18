@@ -294,7 +294,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[命令-man使用方法]]></title>
+    <title><![CDATA[cmd-man使用方法]]></title>
     <url>%2Fp%2Fdaf6.html</url>
     <content type="text"><![CDATA[linux的man手册共有以下几个章节（参数）: 参数 描述 1 标准命令，用户命令章节，所有用户都可以使用 2 系统调用 3 库函数(c) 4 设备及特殊文件说明 5 配置文件格式及相关参数 6 游戏 7 杂项 8 管理员命令 man手册段落含义： NAME：命令的名称及简要说明 DESCRIPTION:命令功能的详细描述 OPTIONS：所支持的选项的相关说明 SYNOPSIS：使用格式 EXAMPLES：使用示例 NOTES：相关注意事项 FILES：相关的配置文件 SEE ALSO：相关参考]]></content>
       <categories>
