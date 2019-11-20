@@ -145,7 +145,7 @@
   <entry>
     <title><![CDATA[redis-数据类型]]></title>
     <url>%2Fp%2Fd66e.html</url>
-    <content type="text"><![CDATA[redis 2.6版本的不同类型和编码的对象 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+    <content type="text"><![CDATA[redis 2.6版本的不同类型和编码的对象 3.2以上版本： 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
