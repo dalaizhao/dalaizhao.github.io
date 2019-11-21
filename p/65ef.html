@@ -116,7 +116,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 0
+          字 360
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,7 +124,36 @@
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务器"><span class="toc-text">服务器</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>了解一波redis服务器与客户端交互过程。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><a id="more"></a>
+
+<p>多个客户端链接服务器会被顺序放到链表（list）当中，<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191121200234.png" alt></p>
+<p>输入缓冲区：<br>输入缓冲区（sds结构）的大小会根据输入内容动态缩小或者扩大，但它的最大大小不能超过1GB，否则服务器将关闭这个客户端，请求命令都会首先都会保存到缓冲区。</p>
+<p>输出缓冲区：<br>执行命令所得的命令回复会被保存在客户端的输出缓冲区里面，每个客户端有两个缓冲区：</p>
+<ul>
+<li>固定大小的缓冲区用于保存哪些长度较小的回复，默认值16KB</li>
+<li>可变大小保存哪些长度较大的回复</li>
+</ul>
+<h2 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h2><p>分析程序会对输入缓冲区进行分析出命令，再通过命令执行器查找命令。</p>
+<p>命令执行器：</p>
+<ul>
+<li>在命令表（redisCommandTable）中查找所指定的命令，并保存到客户端状态的cmd属性里面</li>
+<li>执行预备处理操作（权限、各种预处理）</li>
+<li>调用命令的实现函数<code>void appendCommand(client *c);</code></li>
+<li>执行后续工作</li>
+<li>返回给客户端</li>
+</ul>
+<p>serverCron函数：</p>
+<ul>
+<li>每个redis对象都会有一个lru属性，保存了对象的最后一次被命令访问的时间，10秒一次的频率更新</li>
+</ul>
+<p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
+
       </div>
       <div class="post-copyright">
     <p class="copyright-item">

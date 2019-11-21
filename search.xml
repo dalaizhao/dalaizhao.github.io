@@ -13,7 +13,13 @@
   <entry>
     <title><![CDATA[redis-主从模式]]></title>
     <url>%2Fp%2F6ccf.html</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[redis-事件驱动]]></title>
@@ -26,7 +32,7 @@
   <entry>
     <title><![CDATA[redis-客户端和服务端]]></title>
     <url>%2Fp%2F65ef.html</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[了解一波redis服务器与客户端交互过程。 客户端 多个客户端链接服务器会被顺序放到链表（list）当中， 输入缓冲区：输入缓冲区（sds结构）的大小会根据输入内容动态缩小或者扩大，但它的最大大小不能超过1GB，否则服务器将关闭这个客户端，请求命令都会首先都会保存到缓冲区。 输出缓冲区：执行命令所得的命令回复会被保存在客户端的输出缓冲区里面，每个客户端有两个缓冲区： 固定大小的缓冲区用于保存哪些长度较小的回复，默认值16KB 可变大小保存哪些长度较大的回复 服务器分析程序会对输入缓冲区进行分析出命令，再通过命令执行器查找命令。 命令执行器： 在命令表（redisCommandTable）中查找所指定的命令，并保存到客户端状态的cmd属性里面 执行预备处理操作（权限、各种预处理） 调用命令的实现函数void appendCommand(client *c); 执行后续工作 返回给客户端 serverCron函数： 每个redis对象都会有一个lru属性，保存了对象的最后一次被命令访问的时间，10秒一次的频率更新 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -207,10 +213,10 @@
       <tags>
         <tag>linux</tag>
         <tag>c</tag>
-        <tag>进程</tag>
         <tag>用户态</tag>
         <tag>内核态</tag>
         <tag>函数栈</tag>
+        <tag>进程</tag>
         <tag>内核</tag>
       </tags>
   </entry>
@@ -222,11 +228,11 @@
         <category>c</category>
       </categories>
       <tags>
-        <tag>并发</tag>
         <tag>linux</tag>
-        <tag>pthread</tag>
-        <tag>os</tag>
         <tag>c</tag>
+        <tag>os</tag>
+        <tag>并发</tag>
+        <tag>pthread</tag>
       </tags>
   </entry>
   <entry>
@@ -237,11 +243,11 @@
         <category>gnu</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>c</tag>
         <tag>项目构建工具</tag>
+        <tag>linux</tag>
         <tag>makefile</tag>
         <tag>gnu</tag>
+        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -253,8 +259,8 @@
       </categories>
       <tags>
         <tag>linux</tag>
-        <tag>os</tag>
         <tag>c</tag>
+        <tag>os</tag>
         <tag>动态链接库</tag>
         <tag>链接</tag>
       </tags>
@@ -267,10 +273,10 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
-        <tag>csapp</tag>
+        <tag>os</tag>
         <tag>进程</tag>
+        <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -282,10 +288,10 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
-        <tag>csapp</tag>
+        <tag>os</tag>
         <tag>进程</tag>
+        <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -297,10 +303,10 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
-        <tag>csapp</tag>
+        <tag>os</tag>
         <tag>进程</tag>
+        <tag>csapp</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -326,8 +332,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>os</tag>
         <tag>c</tag>
+        <tag>os</tag>
         <tag>链接</tag>
         <tag>csapp</tag>
       </tags>
@@ -459,8 +465,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>源码解析</tag>
         <tag>String</tag>
+        <tag>源码解析</tag>
       </tags>
   </entry>
   <entry>
@@ -472,8 +478,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>HashMap</tag>
         <tag>源码解析</tag>
+        <tag>HashMap</tag>
       </tags>
   </entry>
   <entry>
