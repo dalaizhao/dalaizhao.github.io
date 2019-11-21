@@ -24,6 +24,17 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[redis-客户端和服务端]]></title>
+    <url>%2Fp%2F65ef.html</url>
+    <content type="text"></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[redis-数据库原理]]></title>
     <url>%2Fp%2Fca56.html</url>
     <content type="text"><![CDATA[redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。 服务器中的数据库 select 1切换数据库时从db0指向db1 数据库键空间redisDB姐哦股的dict字典中保存了数据库中的所有键值对，统称键空间 键空间的键也就是数据库的键，每个键都是一个字符串对象 键空间的值也就是数据库的值，每个值可以是五种类型的任意一种redis对象 对键的增删改查都是在该字典上面操作。 设置键的生存时间或过期时间设置过期时间，有四个命令可用于设置生存时间 EXPIRE key seconds PEXPIRE key milliseconds EXPIREAT key timestamp PEXPIREAT key milliseconds-timestamp（上面三个命令的内部实现均用此命令） persist 命令可以移除一个键的过期时间。 过期键删除策略： 定时删除 惰性删除 定期删除 redis服务器实际使用惰性删除和定期删除。 主从模式下，从数据库不会键过期也不会删除，等待主数据库的del命令到来。 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
@@ -196,10 +207,10 @@
       <tags>
         <tag>linux</tag>
         <tag>c</tag>
+        <tag>进程</tag>
         <tag>用户态</tag>
         <tag>内核态</tag>
         <tag>函数栈</tag>
-        <tag>进程</tag>
         <tag>内核</tag>
       </tags>
   </entry>
@@ -211,11 +222,11 @@
         <category>c</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>c</tag>
-        <tag>os</tag>
         <tag>并发</tag>
+        <tag>linux</tag>
         <tag>pthread</tag>
+        <tag>os</tag>
+        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -226,11 +237,11 @@
         <category>gnu</category>
       </categories>
       <tags>
-        <tag>项目构建工具</tag>
         <tag>linux</tag>
+        <tag>c</tag>
+        <tag>项目构建工具</tag>
         <tag>makefile</tag>
         <tag>gnu</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -242,8 +253,8 @@
       </categories>
       <tags>
         <tag>linux</tag>
-        <tag>c</tag>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>动态链接库</tag>
         <tag>链接</tag>
       </tags>
@@ -256,10 +267,10 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
-        <tag>进程</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
+        <tag>进程</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -271,10 +282,10 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
-        <tag>进程</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
+        <tag>进程</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -286,10 +297,10 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
-        <tag>进程</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
+        <tag>进程</tag>
         <tag>线程</tag>
       </tags>
   </entry>
@@ -315,8 +326,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>链接</tag>
         <tag>csapp</tag>
       </tags>
