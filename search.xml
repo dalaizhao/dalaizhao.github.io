@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[redis-set命令完整执行之旅]]></title>
+    <url>%2Fp%2F6b99.html</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[redis-集群模式]]></title>
     <url>%2Fp%2F3348.html</url>
     <content type="text"></content>
@@ -9,11 +14,17 @@
     <title><![CDATA[redis-sentinel哨兵模式]]></title>
     <url>%2Fp%2F8721.html</url>
     <content type="text"></content>
+      <categories>
+        <category>redis</category>
+      </categories>
+      <tags>
+        <tag>redis</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[redis-主从模式]]></title>
     <url>%2Fp%2F6ccf.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+    <content type="text"><![CDATA[主从架构很常见，一主一从。有时候也会有主备架构，一主一备。要看业务场景选择。 复制成为从服务器：slaveof 127.0.0.1 6379 旧版复制功能实现： 同步操作，将从服务器的数据库状态更新至主服务器当前所在数据库状态 命令传播操作，主服务器数据库状态被修改，主从不一致时重新回到一致状态 同步操作旧版缺点：断线后重复复制，需要重头开始复制，效率非常低。 新版复制功能实现（从2.8版本开始）： 使用psync命令代替sync命令执行同步操作，psync有完整重同步和部分同步模式 完整同步，跟sync命令的执行步骤基本一样，主服务器创建并发送RDB文件，以及向从服务器发送保存在缓冲区里面的写命令来进行同步 部分重同步，断开出开始写。 部分重同步的实现部分重同步功能由三部分构成： 主从服务器偏移量 主服务器的复制积压缓冲区 服务器的运行ID 复制偏移量：主从服务器各自维护一个偏移量，主发送一波就记录自己偏移量，从收到就更新自己的偏移量 复制积压缓冲区：由主服务器维护的一个固定长度先进先出队列，默认大小为1MB；当主服务器进行命令传播时，不仅发送给所有从服务器，还要写入命令入队到复制积压缓冲区，如果从的偏移量在缓冲区则部分同步，否则完整同步。 服务器ID：每个服务器都有id，保证可以区分不同服务器 PSYNC命令执行情况： 命令操作命令传播，从服务器会以每秒一次的频率，向主服务器发送命令：replcconf ack &lt;从服务器偏移量&gt;，作用如下： 检测主服务器的网络连接状态 辅助实现min-slaves选项 检测命令丢失 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -228,9 +239,9 @@
         <category>c</category>
       </categories>
       <tags>
+        <tag>os</tag>
         <tag>linux</tag>
         <tag>c</tag>
-        <tag>os</tag>
         <tag>并发</tag>
         <tag>pthread</tag>
       </tags>
@@ -243,11 +254,11 @@
         <category>gnu</category>
       </categories>
       <tags>
-        <tag>项目构建工具</tag>
         <tag>linux</tag>
+        <tag>c</tag>
+        <tag>项目构建工具</tag>
         <tag>makefile</tag>
         <tag>gnu</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -258,11 +269,11 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>linux</tag>
-        <tag>c</tag>
         <tag>os</tag>
+        <tag>linux</tag>
         <tag>动态链接库</tag>
         <tag>链接</tag>
+        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -273,8 +284,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>进程</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
@@ -288,8 +299,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>进程</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
@@ -303,8 +314,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
+        <tag>c</tag>
         <tag>进程</tag>
         <tag>csapp</tag>
         <tag>线程</tag>
@@ -332,9 +343,9 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>c</tag>
         <tag>os</tag>
         <tag>链接</tag>
+        <tag>c</tag>
         <tag>csapp</tag>
       </tags>
   </entry>
@@ -465,8 +476,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>String</tag>
         <tag>源码解析</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -478,8 +489,8 @@
       </categories>
       <tags>
         <tag>JDK1.8</tag>
-        <tag>源码解析</tag>
         <tag>HashMap</tag>
+        <tag>源码解析</tag>
       </tags>
   </entry>
   <entry>

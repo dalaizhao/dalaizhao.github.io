@@ -106,6 +106,40 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/889e.html">solr 文档、字段和schema设计</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-09-26
+        </span><span class="post-category">
+            <a href="/categories/solr/">solr</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 4.5k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 16 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="概述文档，字段和schema设计"><a href="#概述文档，字段和schema设计" class="headerlink" title="概述文档，字段和schema设计"></a>概述文档，字段和schema设计</h2><p>Solr的基本前提很简单。 你给它很多信息，然后你可以问问题，找到你想要的信息。 您在所有信息中提供的部分称为indexing(索引)或updating(更新)。 当您提出问题时，称为query(查询)。  </p>
+<p>schema是告诉Solr如何从输入文档构建索引的地方。  </p>
+<p>Solr的Schema 文件   </p>
+<p>Solr存储有关在Schema文件中理解的字段类型和字段的详细信息。 此文件的名称和位置可能会有所不同，具体取决于您最初配置Solr的方式或稍后修改它。   </p>
+<ul>
+<li>managed-schema是Solr默认使用的模式文件的名称，用于支持在运行时通过Schema API或Schemaess Mode功能进行Schema更改。 您可以显式配置托管架构功能以使用替代文件名，如果您选择，但文件的内容仍然由Solr自动更新。    </li>
+<li>schema.xml是模式文件的传统名称，可以由使用ClassicIndexSchemaFactory的用户手动编辑。   </li>
+<li>如果使用SolrCloud，您可能无法在本地文件系统上找到这些名称的任何文件。 您只能通过Schema API（如果启用）或通过Solr Admin UI的“云端屏幕”来查看模式。  </li>
+</ul>
+<h2 id="Solr字段类型"><a href="#Solr字段类型" class="headerlink" title="Solr字段类型"></a>Solr字段类型</h2>
+          <div class="read-more">
+            <a href="/p/889e.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/2bc5.html">solr 快速入门</a>
         </h1>
 
@@ -375,38 +409,13 @@
             <a href="/p/504f.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/3393.html">java8学习笔记(1)</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-05-12
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.4k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 5 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p><strong>Java 8新特性之Java语言新特性</strong></p>
-<h2 id="Lambda表达式和函数式接口"><a href="#Lambda表达式和函数式接口" class="headerlink" title="Lambda表达式和函数式接口"></a>Lambda表达式和函数式接口</h2><p>Lambda表达式(也称为闭包)，它允许我们将函数当成参数传递给某个方法，或者把代码本身当作数据处理。Java8以前，java开发者只能使用匿名类来代替Lambda表达式。  </p>
-<p><a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="noopener">官方文档</a>   </p>
-<h3 id="匿名类和Lambda表达式"><a href="#匿名类和Lambda表达式" class="headerlink" title="匿名类和Lambda表达式"></a>匿名类和Lambda表达式</h3><p>相比于匿名类，Lambda表达式更加的简洁。</p>
-<p>代码如下：    </p>
-          <div class="read-more">
-            <a href="/p/3393.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
       <nav class="pagination"><a class="prev" href="/page/5/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text">上一页</span>
+      </a>
+    <a class="next" href="/page/7/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
       </a>
     </nav></section></div>
 </div>

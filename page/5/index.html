@@ -106,6 +106,34 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/79a4.html">JDK1.8 HashMap源码解析</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-11-05
+        </span><span class="post-category">
+            <a href="/categories/JDK-源码解析/">JDK 源码解析</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2.4k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 11 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>JDK源码深揪，JDK1.8版本。   </p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>HashMap 经常用到的 java 内置的数据结构，今天就深入源码瞧瞧,刨一刨。   </p>
+<p>HashMap 是对 Map 接口的一种哈希表的实现，是 key-value（键-值对），通过 key 可以<strong>常数时间</strong>内找到 value 。它是非线程安全，如果需要满足线程安全，可以用 Collections 的 synchronizedMap 方法使 HashMap 具有线程安全的能力，或者使用 ConcurrentHashMap。但是 HashMap 不是 Collection 的子集，但是 HashMap 的 key 和value 都可以单独的转换成 Collection子集，比如转换成 Set。HashMap 允许存在 null的，最多只允许一条记录的键为 null，允许多条记录的值为 null。   </p>
+<p>那我就简单的看一看 HashMap 源码，也是我第一次看整个类，以前都是需要哪个方法 就跳进去 看看，过程又惊喜又痛苦。      </p>
+          <div class="read-more">
+            <a href="/p/79a4.html" class="read-more-link">阅读更多</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/bc7.html">常用 linux 命令</a>
         </h1>
 
@@ -365,40 +393,6 @@
 <h3 id="在Solr配置文件中替换属性"><a href="#在Solr配置文件中替换属性" class="headerlink" title="在Solr配置文件中替换属性"></a>在Solr配置文件中替换属性</h3><p>JVM系统属性</p>
           <div class="read-more">
             <a href="/p/ee07.html" class="read-more-link">阅读更多</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/889e.html">solr 文档、字段和schema设计</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 4.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 16 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="概述文档，字段和schema设计"><a href="#概述文档，字段和schema设计" class="headerlink" title="概述文档，字段和schema设计"></a>概述文档，字段和schema设计</h2><p>Solr的基本前提很简单。 你给它很多信息，然后你可以问问题，找到你想要的信息。 您在所有信息中提供的部分称为indexing(索引)或updating(更新)。 当您提出问题时，称为query(查询)。  </p>
-<p>schema是告诉Solr如何从输入文档构建索引的地方。  </p>
-<p>Solr的Schema 文件   </p>
-<p>Solr存储有关在Schema文件中理解的字段类型和字段的详细信息。 此文件的名称和位置可能会有所不同，具体取决于您最初配置Solr的方式或稍后修改它。   </p>
-<ul>
-<li>managed-schema是Solr默认使用的模式文件的名称，用于支持在运行时通过Schema API或Schemaess Mode功能进行Schema更改。 您可以显式配置托管架构功能以使用替代文件名，如果您选择，但文件的内容仍然由Solr自动更新。    </li>
-<li>schema.xml是模式文件的传统名称，可以由使用ClassicIndexSchemaFactory的用户手动编辑。   </li>
-<li>如果使用SolrCloud，您可能无法在本地文件系统上找到这些名称的任何文件。 您只能通过Schema API（如果启用）或通过Solr Admin UI的“云端屏幕”来查看模式。  </li>
-</ul>
-<h2 id="Solr字段类型"><a href="#Solr字段类型" class="headerlink" title="Solr字段类型"></a>Solr字段类型</h2>
-          <div class="read-more">
-            <a href="/p/889e.html" class="read-more-link">阅读更多</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/4/">

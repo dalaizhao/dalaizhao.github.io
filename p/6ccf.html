@@ -116,7 +116,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 16
+          字 560
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,7 +124,48 @@
         </div>
     </header>
 
-    <div class="post-content"><p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#复制"><span class="toc-text">复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步操作"><span class="toc-text">同步操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#部分重同步的实现"><span class="toc-text">部分重同步的实现</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令操作"><span class="toc-text">命令操作</span></a></li></ol></li></ol>
+    </div>
+  </div><div class="post-content"><p>主从架构很常见，一主一从。有时候也会有主备架构，一主一备。要看业务场景选择。</p>
+<a id="more"></a>
+
+<h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><p>成为从服务器：<code>slaveof 127.0.0.1 6379</code></p>
+<p>旧版复制功能实现：</p>
+<ul>
+<li>同步操作，将从服务器的数据库状态更新至主服务器当前所在数据库状态</li>
+<li>命令传播操作，主服务器数据库状态被修改，主从不一致时重新回到一致状态</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191126231010.png" alt></p>
+<h3 id="同步操作"><a href="#同步操作" class="headerlink" title="同步操作"></a>同步操作</h3><p>旧版缺点：断线后重复复制，需要重头开始复制，效率非常低。</p>
+<p>新版复制功能实现（从2.8版本开始）：</p>
+<ul>
+<li>使用psync命令代替sync命令执行同步操作，psync有完整重同步和部分同步模式<ul>
+<li>完整同步，跟sync命令的执行步骤基本一样，主服务器创建并发送RDB文件，以及向从服务器发送保存在缓冲区里面的写命令来进行同步</li>
+<li>部分重同步，断开出开始写。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191126231347.png" alt></p>
+<h4 id="部分重同步的实现"><a href="#部分重同步的实现" class="headerlink" title="部分重同步的实现"></a>部分重同步的实现</h4><p>部分重同步功能由三部分构成：</p>
+<ul>
+<li>主从服务器偏移量</li>
+<li>主服务器的复制积压缓冲区</li>
+<li>服务器的运行ID</li>
+</ul>
+<p>复制偏移量：主从服务器各自维护一个偏移量，主发送一波就记录自己偏移量，从收到就更新自己的偏移量</p>
+<p>复制积压缓冲区：由主服务器维护的一个固定长度先进先出队列，默认大小为1MB；当主服务器进行命令传播时，不仅发送给所有从服务器，还要写入命令入队到复制积压缓冲区，如果从的偏移量在缓冲区则部分同步，否则完整同步。</p>
+<p>服务器ID：每个服务器都有id，保证可以区分不同服务器</p>
+<p>PSYNC命令执行情况：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191126233257.png" alt></p>
+<h3 id="命令操作"><a href="#命令操作" class="headerlink" title="命令操作"></a>命令操作</h3><p>命令传播，从服务器会以每秒一次的频率，向主服务器发送命令：<code>replcconf ack &lt;从服务器偏移量&gt;</code>，作用如下：</p>
+<ul>
+<li>检测主服务器的网络连接状态</li>
+<li>辅助实现min-slaves选项</li>
+<li>检测命令丢失</li>
+</ul>
+<p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
 
       </div>
       <div class="post-copyright">
