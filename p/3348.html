@@ -116,7 +116,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 117
+          字 307
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -127,14 +127,24 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#节点"><span class="toc-text">节点</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#节点"><span class="toc-text">节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#槽指派"><span class="toc-text">槽指派</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在集群中执行命令"><span class="toc-text">在集群中执行命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重新分片"><span class="toc-text">重新分片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制与故障转移"><span class="toc-text">复制与故障转移</span></a></li></ol>
     </div>
   </div><div class="post-content"><p>redis集群时redis提供的分布式数据库方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。主备模式和集群模式在生产环境中还是很常见的。</p>
 <a id="more"></a>
 
 <h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>连接各个节点的命令：<br><code>cluster meet &lt;ip&gt; &lt;port&gt;</code></p>
 <p>启动时是否开启集群模式，<code>cluster-enabled : yes | no</code></p>
-<p>集群数据结构：</p>
+<p>集群数据结构：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191201211246.png" alt></p>
+<h2 id="槽指派"><a href="#槽指派" class="headerlink" title="槽指派"></a>槽指派</h2><p>redis集群通过分片方式来保存数据库中的键值对，集群的整个数据库被分为16384个槽（16MB）。<br>指派槽的命令：<code>cluster addslotes 0 1 2 ... 5000</code></p>
+<h2 id="在集群中执行命令"><a href="#在集群中执行命令" class="headerlink" title="在集群中执行命令"></a>在集群中执行命令</h2><p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191201212723.png" alt></p>
+<p>计算键属于哪个槽：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CRC16(key) &amp; 16383</span><br></pre></td></tr></table></figure>
+
+<p>集群的键值对抱在数据库的redisDB的dict中之外，节点还会用clusterState结构中的slots_to_keys跳跃表来保存槽和键之间的关系。<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191201215413.png" alt></p>
+<h2 id="重新分片"><a href="#重新分片" class="headerlink" title="重新分片"></a>重新分片</h2><p>重新分片可以在线进行，集群不需要下线，并接续处理命令。redis集群的重新分片是通过集群的管理软件redis-trib负责执行的</p>
+<p>ASK错误：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191201221225.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191201222917.png" alt></p>
+<h2 id="复制与故障转移"><a href="#复制与故障转移" class="headerlink" title="复制与故障转移"></a>复制与故障转移</h2><p>主挂了从服务器中选举出一个主服务器。</p>
 <p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
 
       </div>

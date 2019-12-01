@@ -25,7 +25,7 @@
   <entry>
     <title><![CDATA[redis-集群模式]]></title>
     <url>%2Fp%2F3348.html</url>
-    <content type="text"><![CDATA[redis集群时redis提供的分布式数据库方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。主备模式和集群模式在生产环境中还是很常见的。 节点连接各个节点的命令：cluster meet &lt;ip&gt; &lt;port&gt; 启动时是否开启集群模式，cluster-enabled : yes | no 集群数据结构： 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+    <content type="text"><![CDATA[redis集群时redis提供的分布式数据库方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。主备模式和集群模式在生产环境中还是很常见的。 节点连接各个节点的命令：cluster meet &lt;ip&gt; &lt;port&gt; 启动时是否开启集群模式，cluster-enabled : yes | no 集群数据结构： 槽指派redis集群通过分片方式来保存数据库中的键值对，集群的整个数据库被分为16384个槽（16MB）。指派槽的命令：cluster addslotes 0 1 2 ... 5000 在集群中执行命令 计算键属于哪个槽： 1CRC16(key) &amp; 16383 集群的键值对抱在数据库的redisDB的dict中之外，节点还会用clusterState结构中的slots_to_keys跳跃表来保存槽和键之间的关系。 重新分片重新分片可以在线进行，集群不需要下线，并接续处理命令。redis集群的重新分片是通过集群的管理软件redis-trib负责执行的 ASK错误： 复制与故障转移主挂了从服务器中选举出一个主服务器。 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
