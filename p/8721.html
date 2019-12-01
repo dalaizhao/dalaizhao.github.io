@@ -116,7 +116,7 @@
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 0
+          字 283
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,7 +124,20 @@
         </div>
     </header>
 
-    <div class="post-content">
+    <div class="post-content"><p>sentinel（哨兵、哨岗）是redis的高可用性解决方案，由一个或多个sentinel实例组成的sentinel系统可以监控任意多个服务器，以及这些服务器属下的所有从服务器，主要解决了主从模式下主挂了，整个服务挂掉的情况，sentinel模式在主服务器挂掉的情况下从从服务器选举出新的主服务器，继续处理命令。</p>
+<a id="more"></a>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191128233533.png" alt></p>
+<p>sentinel模式下功能有所限制：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20191128233723.png" alt></p>
+<p>sentinel创建连向主服务器的网络连接：</p>
+<ul>
+<li>命令连接，专门用于向主服务器发送命令，并接受回复，每10s发送info命令获取主机当前信息</li>
+<li>订阅链接，专门用于订阅主服务器的<strong>sentinel</strong>:hello频道</li>
+</ul>
+<p>sentinel用info命令获取主服务器信息</p>
+<p>sentinel跟主从服务器用命令和订阅链接，但是跟sentinel相互之间用命令链接。</p>
+<p>各个sentinel通过命令连接进行信息交换，命令连接也用于主管下线检测和客观下线检测。</p>
+<p>更多源码注释说明见<a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
+
       </div>
       <div class="post-copyright">
     <p class="copyright-item">
