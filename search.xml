@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[mysql-gone away详解]]></title>
+    <url>%2Fp%2Fa8da.html</url>
+    <content type="text"></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[redis-一个set命令执行之旅]]></title>
     <url>%2Fp%2F6b99.html</url>
     <content type="text"><![CDATA[更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
@@ -14,7 +25,7 @@
   <entry>
     <title><![CDATA[redis-集群模式]]></title>
     <url>%2Fp%2F3348.html</url>
-    <content type="text"><![CDATA[更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
+    <content type="text"><![CDATA[redis集群时redis提供的分布式数据库方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。主备模式和集群模式在生产环境中还是很常见的。 节点连接各个节点的命令：cluster meet &lt;ip&gt; &lt;port&gt; 启动时是否开启集群模式，cluster-enabled : yes | no 集群数据结构： 更多源码注释说明见https://github.com/dalaizhao/redis/tree/feature_code_comment]]></content>
       <categories>
         <category>redis</category>
       </categories>
@@ -202,10 +213,10 @@
         <category>服务</category>
       </categories>
       <tags>
+        <tag>mysql</tag>
         <tag>redis</tag>
         <tag>微服务</tag>
         <tag>分布式锁</tag>
-        <tag>mysql</tag>
       </tags>
   </entry>
   <entry>
