@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[go-搭建webcron过程记录]]></title>
+    <url>%2Fp%2Fbccb.html</url>
+    <content type="text"><![CDATA[可用于定时任务，基本所有的服务都存在定时任务场景，所以还蛮实用的。项目源代码较好的能阅读，基于go和beego框架实现，beego框架也是很容易上手。 采用github开源框架搭建，webcron github地址 步骤： 系统需要安装Go环境和MySQL。 获取源码 go get github.com/lisijie/webcron 打开配置文件 conf/app.conf，修改相关配置，端口、数据库，邮件等配置。 创建数据库webcron，再导入install.sql mysql -u username -p -D webcron &lt; install.sql build项目，cd到webcron目录下go bnuild,会在本目录（或者在bin目录下）下生成webcron 运行1234./webcron或nohup ./webcron 2&gt;&amp;1 &gt; error.log &amp;设为后台运行 然后可以web访问：http://localhost:8000 帐号：admin密码：admin888]]></content>
+      <categories>
+        <category>go</category>
+      </categories>
+      <tags>
+        <tag>go</tag>
+        <tag>webcron</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[mysql-gone away详解]]></title>
     <url>%2Fp%2Fa8da.html</url>
     <content type="text"></content>
