@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-<meta name="description" content="服务-分布式锁的实现"><meta name="keywords" content="mysql, redis, 微服务, 分布式锁, k先生"><link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
+<meta name="description" content="service-分布式锁的实现"><meta name="keywords" content="mysql, redis, 微服务, 分布式锁, k先生"><link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
 <link rel="canonical" href="http://yoursite.com/p/7179.html">
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
@@ -37,7 +37,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title>服务-分布式锁的实现 - k先生</title>
+    <title>service-分布式锁的实现 - k先生</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -106,7 +106,7 @@
         <div class="content-wrapper">
           <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">服务-分布式锁的实现
+      <h1 class="post-title">service-分布式锁的实现
         </h1>
 
       <div class="post-meta">
@@ -116,10 +116,10 @@
             <a href="/categories/服务/">服务</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 401
+          字 525
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
+          阅读时长 2 min
         </span>
         </div>
     </header>
@@ -127,7 +127,7 @@
     <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式锁的背景"><span class="toc-text">分布式锁的背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式（三种）"><span class="toc-text">实现方式（三种）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql实现"><span class="toc-text">mysql实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis实现分布式锁"><span class="toc-text">redis实现分布式锁</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式锁的背景"><span class="toc-text">分布式锁的背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式（三种）"><span class="toc-text">实现方式（三种）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql实现"><span class="toc-text">mysql实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis实现分布式锁"><span class="toc-text">redis实现分布式锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新日志"><span class="toc-text">更新日志</span></a></li></ol>
     </div>
   </div><div class="post-content"><h2 id="分布式锁的背景"><a href="#分布式锁的背景" class="headerlink" title="分布式锁的背景"></a>分布式锁的背景</h2><p>用途：分布式环境下保证数据一致性，常见场景秒杀抢单。</p>
 <a id="more"></a>
@@ -143,10 +143,15 @@
 
 <p>优点:理解起来简单，不需要维护额外的第三方中间件(比如Redis,Zk)。<br>缺点:虽然容易理解但是实现起来较为繁琐，需要自己考虑锁超时，加事务等等。性能局限于数据库，一般对比缓存来说性能较低。对于高并发的场景并不是很适合。</p>
 <h3 id="redis实现分布式锁"><a href="#redis实现分布式锁" class="headerlink" title="redis实现分布式锁"></a>redis实现分布式锁</h3><p>基于<code>setnx</code>实现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$lock = $redis-&gt;setnx($redis_key . $this-&gt;id, time());</span><br><span class="line">if (!$lock) &#123;</span><br><span class="line">    // 其他请求在占用锁</span><br><span class="line">    return false;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">	// 加超时</span><br><span class="line">    $redis-&gt;expire(redis_key . $this-&gt;id, 1);</span><br><span class="line">&#125;</span><br><span class="line">// 做后面的处理</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$lock = $redis-&gt;setnx($redis_key . <span class="keyword">$this</span>-&gt;id, time());</span><br><span class="line"><span class="keyword">if</span> (!$lock) &#123;</span><br><span class="line">    <span class="comment">// 其他请求在占用锁</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">// 加超时</span></span><br><span class="line">    $redis-&gt;expire(redis_key . <span class="keyword">$this</span>-&gt;id, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 做后面的处理</span></span><br></pre></td></tr></table></figure>
 
+<p>这个实现存在两个步骤，非原子性，很是问题。</p>
+<p>基于nx和ex实现，对于单点redis是最完美的实现方式了，但是无法避免redis机器挂掉特殊情况。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$lock = <span class="keyword">$this</span>-&gt;redis_cli-&gt;set($key, <span class="string">"value"</span>, [<span class="string">'nx'</span>, <span class="string">'ex'</span> =&gt; <span class="number">100</span>]);</span><br><span class="line"><span class="comment">// 对应的redis命令：set key value ex 100 nx</span></span><br><span class="line"></span><br><span class="line">$script = <span class="string">'</span></span><br><span class="line"><span class="string">         if redis.call("get",KEYS[1]) == ARGV[1]</span></span><br><span class="line"><span class="string">         then</span></span><br><span class="line"><span class="string">             return redis.call("del",KEYS[1])</span></span><br><span class="line"><span class="string">         else</span></span><br><span class="line"><span class="string">             return 0</span></span><br><span class="line"><span class="string">        end'</span>;</span><br><span class="line"><span class="keyword">return</span> $redis-&gt;eval($script, $key, $value);</span><br></pre></td></tr></table></figure>
+
+<p>解决单点问题可使用redis的redlock锁，可详看这两篇（多看几遍）：<br><a href="http://zhangtielei.com/posts/blog-redlock-reasoning.html" target="_blank" rel="noopener">http://zhangtielei.com/posts/blog-redlock-reasoning.html</a> ，<br><a href="http://zhangtielei.com/posts/blog-redlock-reasoning-part2.html" target="_blank" rel="noopener">http://zhangtielei.com/posts/blog-redlock-reasoning-part2.html</a></p>
 <p>优点:对于Redis实现简单，性能对比ZK和Mysql较好。如果不需要特别复杂的要求，那么自己就可以利用setNx进行实现，如果自己需要复杂的需求的话那么可以利用或者借鉴Redission。对于一些要求比较严格的场景来说的话可以使用RedLock。<br>缺点:需要维护Redis集群，如果要实现RedLock那么需要维护更多的集群。</p>
-<p>分布式锁有很深的研究意义，看这个三个就够了<br><a href="https://juejin.im/entry/5a502ac2518825732b19a595" target="_blank" rel="noopener">https://juejin.im/entry/5a502ac2518825732b19a595</a><br><a href="https://juejin.im/post/5bbb0d8df265da0abd3533a5" target="_blank" rel="noopener">https://juejin.im/post/5bbb0d8df265da0abd3533a5</a><br><a href="https://zhuanlan.zhihu.com/p/42056183" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/42056183</a></p>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>20191225更新，圣诞节快乐，@all</p>
 
       </div>
       <div class="post-copyright">
