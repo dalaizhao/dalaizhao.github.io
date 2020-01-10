@@ -116,7 +116,7 @@
             <a href="/categories/os/">os</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 493
+          字 492
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 2 min
@@ -138,7 +138,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getopt</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * <span class="keyword">const</span> argv[],<span class="keyword">const</span> <span class="keyword">char</span> *optstring)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getopt_long</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * <span class="keyword">const</span> argv[],<span class="keyword">const</span> <span class="keyword">char</span> *optstring,<span class="keyword">const</span> struct option *longopts, <span class="keyword">int</span> *longindex)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getopt_long_only</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * <span class="keyword">const</span> argv[],<span class="keyword">const</span> <span class="keyword">char</span> *optstring,<span class="keyword">const</span> struct option *longopts, <span class="keyword">int</span> *longindex)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>三者的区别是getopt()只支持短格式选项，而getopt_long()既支持短格式选项，又支持长格式选项，getopt_long_only()用法和getopt_long()完全一样，唯一的区别在输入长选项的时候可以不用输入–而使用-。一般情况下，使用getopt_long()来完成命令行选项以及参数的获取。</p>
+<p>三者的区别是getopt()只支持短格式选项，而getopt_long()既支持短格式选项，又支持长格式选项，getopt_long_only()用法和getopt_long()完全一样，唯一的区别在输入长选项的时候可以不用输–而使用-。一般情况下，使用getopt_long()来完成命令行选项以及参数的获取。</p>
 </blockquote>
 <p>更多详情可以参考文章<a href="https://cloud.tencent.com/developer/article/1176216" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1176216</a></p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>下面的示例，其中消息队列的代码可忽略，<strong>重点关注如何使用getopt_long函数</strong>。</p>
