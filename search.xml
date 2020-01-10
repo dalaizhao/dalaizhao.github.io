@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[c-解析getopt、getopt_long和getopt_long_only]]></title>
+    <url>%2Fp%2F2fb3.html</url>
+    <content type="text"><![CDATA[在C程序的主函数有两个参数。第一个参数是整型，可以获得包括程序名字的参数个数，第二个参数是字符数组指针或字符指针的指针，可以按顺序获得命令行上各个字符串参数。其原形是： 123int main(int argc, char *argv[]);//或者int main(int argc, char **argv); 那如何解析命令行参数呢？可以用下面三个glibc库函数来实现： 12345int getopt(int argc, char * const argv[],const char *optstring)int getopt_long(int argc, char * const argv[],const char *optstring,const struct option *longopts, int *longindex);int getopt_long_only(int argc, char * const argv[],const char *optstring,const struct option *longopts, int *longindex); 三者的区别是getopt()只支持短格式选项，而getopt_long()既支持短格式选项，又支持长格式选项，getopt_long_only()用法和getopt_long()完全一样，唯一的区别在输入长选项的时候可以不用输入–而使用-。一般情况下，使用getopt_long()来完成命令行选项以及参数的获取。 更多详情可以参考文章https://cloud.tencent.com/developer/article/1176216 示例下面的示例，其中消息队列的代码可忽略，重点关注如何使用getopt_long函数。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;sys/msg.h&gt;#include &lt;getopt.h&gt;#include &lt;string.h&gt;struct msg_buffer &#123; long mtype; char mtext[1024];&#125;;int main(int argc, char *argv[]) &#123; int next_option; const char* const short_options = "i:t:m:"; const struct option long_options[] = &#123; &#123; "id", 1, NULL, 'i'&#125;, &#123; "type", 1, NULL, 't'&#125;, &#123; "message", 1, NULL, 'm'&#125;, &#123; NULL, 0, NULL, 0 &#125; &#125;; int messagequeueid = -1; struct msg_buffer buffer; buffer.mtype = -1; int len = -1; char * message = NULL; do &#123; next_option = getopt_long (argc, argv, short_options, long_options, NULL); switch (next_option) &#123; case 'i': messagequeueid = atoi(optarg); break; case 't': buffer.mtype = atol(optarg); break; case 'm': message = optarg; len = strlen(message) + 1; if (len &gt; 1024) &#123; perror("message too long."); exit(1); &#125; memcpy(buffer.mtext, message, len); break; default: break; &#125; &#125;while(next_option != -1); if(messagequeueid != -1 &amp;&amp; buffer.mtype != -1 &amp;&amp; len != -1 &amp;&amp; message != NULL)&#123; if(msgsnd(messagequeueid, &amp;buffer, len, IPC_NOWAIT) == -1)&#123; perror("fail to send message."); exit(1); &#125; &#125; else &#123; perror("arguments error"); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>os</category>
+      </categories>
+      <tags>
+        <tag>c</tag>
+        <tag>os</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[go-搭建webcron过程记录]]></title>
     <url>%2Fp%2Fbccb.html</url>
     <content type="text"><![CDATA[可用于定时任务，基本所有的服务都存在定时任务场景，所以还蛮实用的。项目源代码较好的能阅读，基于go和beego框架实现，beego框架也是很容易上手。 采用github开源框架搭建，webcron github地址 步骤： 系统需要安装Go环境和MySQL。 获取源码 go get github.com/lisijie/webcron 打开配置文件 conf/app.conf，修改相关配置，端口、数据库，邮件等配置。 创建数据库webcron，再导入install.sql mysql -u username -p -D webcron &lt; install.sql build项目，cd到webcron目录下go bnuild,会在本目录（或者在bin目录下）下生成webcron 运行1234./webcron或nohup ./webcron 2&gt;&amp;1 &gt; error.log &amp;设为后台运行 然后可以web访问：http://localhost:8000 帐号：admin密码：admin888]]></content>
@@ -257,8 +269,8 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>c</tag>
+        <tag>linux</tag>
         <tag>用户态</tag>
         <tag>内核态</tag>
         <tag>函数栈</tag>
@@ -274,9 +286,9 @@
         <category>c</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>c</tag>
         <tag>os</tag>
+        <tag>linux</tag>
         <tag>并发</tag>
         <tag>pthread</tag>
       </tags>
@@ -289,11 +301,11 @@
         <category>gnu</category>
       </categories>
       <tags>
+        <tag>c</tag>
         <tag>项目构建工具</tag>
         <tag>linux</tag>
         <tag>makefile</tag>
         <tag>gnu</tag>
-        <tag>c</tag>
       </tags>
   </entry>
   <entry>
@@ -304,9 +316,9 @@
         <category>os</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>c</tag>
         <tag>os</tag>
+        <tag>linux</tag>
         <tag>动态链接库</tag>
         <tag>链接</tag>
       </tags>
