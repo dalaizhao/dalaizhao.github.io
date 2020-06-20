@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
   <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -53,19 +53,19 @@
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list"><a href="/">
-        <li class="mobile-menu-item">首页
+        <li class="mobile-menu-item">Home
           </li>
       </a><a href="/archives/">
-        <li class="mobile-menu-item">归档
+        <li class="mobile-menu-item">Archives
           </li>
       </a><a href="/tags/">
-        <li class="mobile-menu-item">标签
+        <li class="mobile-menu-item">Tags
           </li>
       </a><a href="/categories/">
-        <li class="mobile-menu-item">分类
+        <li class="mobile-menu-item">Categories
           </li>
       </a><a href="/about/">
-        <li class="mobile-menu-item">关于
+        <li class="mobile-menu-item">About
           </li>
       </a></ul>
 </nav>
@@ -76,27 +76,27 @@
 
 <nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            首页
+            Home
             </a>
         </li>
       <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            归档
+            Archives
             </a>
         </li>
       <li class="menu-item">
           <a class="menu-item-link" href="/tags/">
-            标签
+            Tags
             </a>
         </li>
       <li class="menu-item">
           <a class="menu-item-link" href="/categories/">
-            分类
+            Categories
             </a>
         </li>
       <li class="menu-item">
           <a class="menu-item-link" href="/about/">
-            关于
+            About
             </a>
         </li>
       </ul></nav>
@@ -127,7 +127,7 @@
     <div class="post-content"><p>在C程序的主函数有两个参数。第一个参数是整型，可以获得包括程序名字的参数个数，第二个参数是字符数组指针或字符指针的指针，可以按顺序获得命令行上各个字符串参数。<br>其原形是：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>;</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>;</span><br></pre></td></tr></table></figure>
           <div class="read-more">
-            <a href="/p/2fb3.html" class="read-more-link">阅读更多</a>
+            <a href="/p/2fb3.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -152,7 +152,7 @@
 
     <div class="post-content"><p>可用于定时任务，基本所有的服务都存在定时任务场景，所以还蛮实用的。项目源代码较好的能阅读，基于go和beego框架实现，beego框架也是很容易上手。</p>
           <div class="read-more">
-            <a href="/p/bccb.html" class="read-more-link">阅读更多</a>
+            <a href="/p/bccb.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -222,7 +222,7 @@
 
     <div class="post-content"><p>redis集群时redis提供的分布式数据库方案，集群通过分片来进行数据共享，并提供复制和故障转移功能。主备模式和集群模式在生产环境中还是很常见的。</p>
           <div class="read-more">
-            <a href="/p/3348.html" class="read-more-link">阅读更多</a>
+            <a href="/p/3348.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -247,7 +247,7 @@
 
     <div class="post-content"><p>sentinel（哨兵、哨岗）是redis的高可用性解决方案，由一个或多个sentinel实例组成的sentinel系统可以监控任意多个服务器，以及这些服务器属下的所有从服务器，主要解决了主从模式下主挂了，整个服务挂掉的情况，sentinel模式在主服务器挂掉的情况下从从服务器选举出新的主服务器，继续处理命令。</p>
           <div class="read-more">
-            <a href="/p/8721.html" class="read-more-link">阅读更多</a>
+            <a href="/p/8721.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -272,7 +272,7 @@
 
     <div class="post-content"><p>主从架构很常见，一主一从。有时候也会有主备架构，一主一备。要看业务场景选择。</p>
           <div class="read-more">
-            <a href="/p/6ccf.html" class="read-more-link">阅读更多</a>
+            <a href="/p/6ccf.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -298,7 +298,7 @@
     <div class="post-content"><p>要理解redis事件驱动模型需要具备linux五大IO模型基础知识，欠缺着请移步（<a href="https://blog.csdn.net/qq_34802511/article/details/81543817）" target="_blank" rel="noopener">https://blog.csdn.net/qq_34802511/article/details/81543817）</a></p>
 <p>redis服务器是事件驱动程序，处理两类事件，文件事件和时间事件，基于reactor模式开发了自己的ae-event网络事件处理器，reactor可以参考这个（<a href="http://imdalai.com/p/3461.html）" target="_blank" rel="noopener">http://imdalai.com/p/3461.html）</a></p>
           <div class="read-more">
-            <a href="/p/ad13.html" class="read-more-link">阅读更多</a>
+            <a href="/p/ad13.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -324,7 +324,7 @@
     <div class="post-content"><p>了解一波redis服务器与客户端交互过程。</p>
 <h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2>
           <div class="read-more">
-            <a href="/p/65ef.html" class="read-more-link">阅读更多</a>
+            <a href="/p/65ef.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
@@ -349,11 +349,11 @@
 
     <div class="post-content"><p>redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。</p>
           <div class="read-more">
-            <a href="/p/ca56.html" class="read-more-link">阅读更多</a>
+            <a href="/p/ca56.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/page/2/">
-        <span class="next-text">下一页</span>
+        <span class="next-text">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
     </nav></section></div>
