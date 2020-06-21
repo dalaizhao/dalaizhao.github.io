@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+<meta name="theme-color" content="#f8f5ec">
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="java-lambda表达式看这篇就够了"><meta name="keywords" content="java, lambda, k先生"><link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
+<link rel="canonical" href="http://yoursite.com/p/6438.html">
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
+
+<script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
+</script>
+
+    <title>java-lambda表达式看这篇就够了 - k先生</title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">k先生</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">k先生</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">java-lambda表达式看这篇就够了
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-06-21
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2.5k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 10 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景篇"><span class="toc-text">背景篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用篇"><span class="toc-text">应用篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基础用法"><span class="toc-text">基础用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换为lambda表达式"><span class="toc-text">转换为lambda表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数式接口"><span class="toc-text">函数式接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法引用"><span class="toc-text">方法引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构造器引用"><span class="toc-text">构造器引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量作用域"><span class="toc-text">变量作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#流式用法"><span class="toc-text">流式用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#流的创建"><span class="toc-text">流的创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流的中间操作"><span class="toc-text">流的中间操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流的终结操作"><span class="toc-text">流的终结操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理篇"><span class="toc-text">原理篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#匿名内部类实现"><span class="toc-text">匿名内部类实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lambda表达式实现"><span class="toc-text">lambda表达式实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#推论，this引用意义"><span class="toc-text">推论，this引用意义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能篇"><span class="toc-text">性能篇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结篇"><span class="toc-text">总结篇</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>[TOC]</p>
+<h2 id="背景篇"><a href="#背景篇" class="headerlink" title="背景篇"></a>背景篇</h2><p>java8 lambda表达式是继范型之后java语言最有意思的特性了，理解其中用法、原理可让我们写CRUD时得心应手，撸代码时有飞一般的感觉。本文从lambda表达式的基础用法、流操作、JVM层面与匿名内部类区别、7种遍历性能比较等4大方面讲述。</p>
+<p>版本：JDK1.8</p>
+<h2 id="应用篇"><a href="#应用篇" class="headerlink" title="应用篇"></a>应用篇</h2><a id="more"></a>
+
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>首先看看case用法，如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTester</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LambdaTester lambdaTester = <span class="keyword">new</span> LambdaTester();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.类型声明 </span></span><br><span class="line">        MathOperation addOp = (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; a + b;</span><br><span class="line">        <span class="comment">// 2.不用类型声明</span></span><br><span class="line">        MathOperation subOp = (a, b) -&gt; a - b;</span><br><span class="line">        <span class="comment">// 3.大括号中间返回值</span></span><br><span class="line">        MathOperation multi = (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> a * b;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// 4.没有大括号以及返回值</span></span><br><span class="line">        MathOperation divOp = (<span class="keyword">int</span> a, <span class="keyword">int</span> b) -&gt; a / b;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"10 + 20 = "</span> + lambdaTester.operate(<span class="number">10</span>, <span class="number">20</span>, addOp));</span><br><span class="line">        System.out.println(<span class="string">"10 - 20 = "</span> + lambdaTester.operate(<span class="number">10</span>, <span class="number">20</span>, subOp));</span><br><span class="line">        System.out.println(<span class="string">"10 * 20 = "</span> + lambdaTester.operate(<span class="number">10</span>, <span class="number">20</span>, multi));</span><br><span class="line">        System.out.println(<span class="string">"10 / 20 = "</span> + lambdaTester.operate(<span class="number">10</span>, <span class="number">20</span>, divOp));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 函数式接口，可隐式转换为lambda表达式</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">MathOperation</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">operation</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">operate</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, MathOperation mathOperation)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mathOperation.operation(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>out:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">10 + 20 = 30</span><br><span class="line">10 - 20 = -10</span><br><span class="line">10 * 20 = 200</span><br><span class="line">10 / 20 = 0</span><br></pre></td></tr></table></figure>
+
+<p>上面case展示了常用4种语法：</p>
+<ol>
+<li>带有类型声明</li>
+<li>不用类型声明，</li>
+<li>大括号中间返回值</li>
+<li>没有大括号及返回值</li>
+</ol>
+<h3 id="转换为lambda表达式"><a href="#转换为lambda表达式" class="headerlink" title="转换为lambda表达式"></a>转换为lambda表达式</h3><p>下面展示了可隐式转换为lambda表达式几种情况。</p>
+<h4 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h4><p>函数式接口可以隐式的转换为lambda表达式，所谓的函数式接口是有且只有一个抽象方法，但是可以有多个非抽象方法的接口。<br>如上图接口<code>interface MathOperation</code>就是个函数式接口。</p>
+<h4 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h4><p>上述<code>MathOperation addOp = (int a, int b) -&gt; a + b;</code>可简写为<code>MathOperation addOp2 = Integer::sum;</code></p>
+<p>现在也有现成的方法可以完成某个能力，比如<code>Sysout.out::println</code>和<code>Integer::sum</code>等等，都属于方法引用，也等价于lambda表达式。</p>
+<p>从上面的示例可以看出， 要用<code>::</code>操作符分隔方法名与对象或类名。<br>主要有 3 种情况: </p>
+<ul>
+<li>object::instanceMethod，如 System.out::println  </li>
+<li>Class::static Method ， 如 Integer::sum</li>
+<li>Class::instanceMethod，如 String::compareToIgnoreCase</li>
+</ul>
+<h4 id="构造器引用"><a href="#构造器引用" class="headerlink" title="构造器引用"></a>构造器引用</h4><p>首先看一个示例，把字符串数据转化为Person列表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">"java"</span>,<span class="string">"go"</span>,<span class="string">"php"</span>);</span><br><span class="line">Stream&lt;Person&gt; stream = names.stream().map(Person::<span class="keyword">new</span>);</span><br><span class="line">List&lt;Person&gt; people = stream.collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    Person(String str)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方式Person::new是Person构造器的一个引用，构造器引用也可以转换为lambda表达式。</p>
+<h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p>看看lambda表达式内变量作用域情况。</p>
+<p>首先看一个case:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">repeatMessage</span><span class="params">(String text, <span class="keyword">int</span> num)</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 正确用法</span></span><br><span class="line">	<span class="keyword">new</span> Thread(() -&gt; System.out.println(text)).start();   </span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 错误用法</span></span><br><span class="line">	<span class="comment">// 会报错从lambda表达式应用的本地变量必须是最终变量</span></span><br><span class="line">	<span class="keyword">new</span> Thread(() -&gt; System.out.println(num--)).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，lambda是可以捕获外围作用域中的变量的值（必须是<strong>最终变量</strong>），<strong>只能引用值不能修改且不能引用在外围变化的变量</strong>。</p>
+<p>铁打的规则：</p>
+<blockquote>
+<p>lambda 表达式中捕获的变量必须实际上是最终变量(effectivelyfinal)。 实际上的最终变量是指， 这个变量初始化之后就不会再为它赋新值。</p>
+</blockquote>
+<h3 id="流式用法"><a href="#流式用法" class="headerlink" title="流式用法"></a>流式用法</h3><p>使用Java的流库处理集合数据让编码更优雅简洁，并且不会改变原数据，StreamAPI的流式操作的接口java.util.stream.Stream;</p>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20200621134155.png" alt></p>
+<p>流式操作分三个部分：</p>
+<ul>
+<li>创建流操作，即可从集合转化创建一个流</li>
+<li>中间流操作，即对流进行filter、map等操作</li>
+<li>终结流操作，即把流转换为集合数据</li>
+</ul>
+<h4 id="流的创建"><a href="#流的创建" class="headerlink" title="流的创建"></a>流的创建</h4><p>流创建方式有很多种，以下常用的几种</p>
+<ol>
+<li>Stream静态方法创建流</li>
+<li>数组转化为流</li>
+<li>正则转化为流</li>
+<li>Collection接口类和Map接口类支持直接流操作</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Stream静态方法创建流，of() 和 generate() 方法</span></span><br><span class="line">Stream&lt;String&gt; langArr = Stream.of(<span class="string">"java"</span>,<span class="string">"go"</span>,<span class="string">"php"</span>,<span class="string">"java"</span>);</span><br><span class="line"></span><br><span class="line">Stream.generate(Math::random).limit(<span class="number">10</span>).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 数组转化为流</span></span><br><span class="line">String[] arr = &#123;<span class="string">"java"</span>,<span class="string">"go"</span>,<span class="string">"php"</span>,<span class="string">"java"</span>&#125;;</span><br><span class="line">Arrays.stream(arr).forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">"java"</span>, <span class="string">"go"</span>, <span class="string">"php"</span>);</span><br><span class="line">Stream&lt;Person&gt; stream = names.stream().map(Person::<span class="keyword">new</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 正则表达式中转化出流</span></span><br><span class="line">Stream&lt;String&gt; words = Pattern.compile(<span class="string">"\\PL"</span>).splitAsStream(<span class="string">"hello lambda"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. Collection直接流操作</span></span><br><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(<span class="string">"java"</span>,<span class="string">"go"</span>,<span class="string">"php"</span>,<span class="string">"java"</span>));</span><br><span class="line">list.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
+<h4 id="流的中间操作"><a href="#流的中间操作" class="headerlink" title="流的中间操作"></a>流的中间操作</h4><p>Stream接口中提供了很多种流操作，常用方法如下</p>
+<ol>
+<li>foreach()方法，包含应用于所有元素的所产生的结果</li>
+<li>filter()方法，包含当前流中所有满足条件的元素</li>
+<li>map()方法，包含将map方法引用应用于当前流中所有元素所产生的结果</li>
+<li>flatMap()方法，将原来几个流中元素平摊返回新结果</li>
+<li>distinct()方法，将原来元素的顺序提出重复元素后所产生的结果</li>
+<li>sorted()方法，原有流中按照顺序排列的元素产生的结果</li>
+<li>peek()方法，在获取每个元素时，会将其传递给方法引用</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">String[] str = &#123;<span class="string">"java"</span>, <span class="string">"go"</span>, <span class="string">"php"</span>, <span class="string">"java"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. 2. foreach() 、filter()操作，过滤不是java的字符串</span></span><br><span class="line">Arrays.stream(str).filter(x -&gt; x.equals(<span class="string">"java"</span>)).forEach(x -&gt; System.out.println(x));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. map()操作，元素全部转大写</span></span><br><span class="line">Arrays.stream(str).map(String::toUpperCase).forEach(x -&gt; System.out.println(x));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. flatMap()操作，平摊</span></span><br><span class="line">Stream&lt;List&lt;Integer&gt;&gt; stream1 = Stream.of(Arrays.asList(<span class="number">1</span>,<span class="number">2</span>), Arrays.asList(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>));</span><br><span class="line">stream1.flatMap(list -&gt; list.stream()).forEach(i -&gt; System.out.println(i));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. distinct()操作</span></span><br><span class="line">Arrays.stream(str).distinct().forEach(x -&gt; System.out.println(x));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 6. sorted()操作</span></span><br><span class="line">Arrays.stream(str).sorted((s1, s2) -&gt; s2.length()-s1.length()).forEach(x -&gt; System.out.println(x));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 7. peek()操作</span></span><br><span class="line">Arrays.stream(str).peek(x -&gt; System.out.println(x)).toArray();</span><br></pre></td></tr></table></figure>
+
+<h4 id="流的终结操作"><a href="#流的终结操作" class="headerlink" title="流的终结操作"></a>流的终结操作</h4><p>在上面创建和转换流后最终需要转换为程序中使用的值。</p>
+<ol>
+<li>collect()方法，将流收集到列表或集中</li>
+<li>toArray()方法，流转换成数组</li>
+<li>reduce()方法，用于从流中计算某个值的通用机制</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String[] str = &#123;<span class="string">"java"</span>, <span class="string">"go"</span>, <span class="string">"php"</span>, <span class="string">"java"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. collect()操作，生成list</span></span><br><span class="line">List&lt;String&gt; strList = Arrays.stream(str).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. toArray()操作，生成字符串数组，可加任意流中间操作</span></span><br><span class="line"><span class="comment">// 无String[]::new 会生成Object[]对象数组</span></span><br><span class="line"> String[] strArr1 = Arrays.stream(str).toArray(String[]::<span class="keyword">new</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. reduce操作，计算0+v1+v2+...+vn</span></span><br><span class="line">Arrays.stream(intArr).reduce((x,y)-&gt;x+y).orElse(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>其中collect()方法中传入Collectors对象可以实现从流转换到任意集合中（其实现了Collection接口类和map接口类）。</p>
+<h2 id="原理篇"><a href="#原理篇" class="headerlink" title="原理篇"></a>原理篇</h2><p>基础篇了解到lambda表达式可简化匿名内部类操作，那接下来我们从JVM层面看看与内部类有什么关系呢？又有什么区别呢？</p>
+<p>推荐一篇较好的文章<a href="https://objcoding.com/2019/03/04/lambda/#lambda-and-anonymous-classesii" target="_blank" rel="noopener">分析jVM层面的内部类和lambda表达式链接</a></p>
+<p>那接下来写个case看看效果。</p>
+<h3 id="匿名内部类实现"><a href="#匿名内部类实现" class="headerlink" title="匿名内部类实现"></a>匿名内部类实现</h3><p>创建匿名内部类通过编译、反编译查看其JVM指令实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnonymousClassTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"内部匿名类 - 线程"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>javac LambdaTest.java</code>编译后生俩<code>.class</code>文件，分别是<code>AnonymousClassTest.class</code>和<code>AnonymousClassTest$1.class</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 运行反编译 javap -c AnonymousClassTest.class</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnonymousClassTest</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">AnonymousClassTest</span><span class="params">()</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       <span class="number">0</span>: aload_0</span><br><span class="line">       1: invokespecial #1                  // Method java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">       <span class="number">4</span>: <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  // class java/lang/Thread</span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       4: new           #3                  // class AnonymousClassTest$1 /** 创建内部匿名类**/</span><br><span class="line">       <span class="number">7</span>: dup</span><br><span class="line">       8: invokespecial #4                  // Method AnonymousClassTest$1."&lt;init&gt;":()V</span><br><span class="line">      11: invokespecial #5                  // Method java/lang/Thread."&lt;init&gt;":(Ljava/lang/Runnable;)V</span><br><span class="line">      14: invokevirtual #6                  // Method java/lang/Thread.start:()V</span><br><span class="line">      <span class="number">17</span>: <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可看到创建了一个<code>AnonymousClassTest$1</code>类，且可看其<code>AnonymousClassTest$1.class</code>文件。</p>
+<h3 id="lambda表达式实现"><a href="#lambda表达式实现" class="headerlink" title="lambda表达式实现"></a>lambda表达式实现</h3><p>lambda表达式在JVM指令实现如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="string">"lambda表达式 - 线程"</span>)).start();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译后只产生一个<code>.class</code>文件，反编译查看其实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaTest</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">LambdaTest</span><span class="params">()</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       <span class="number">0</span>: aload_0</span><br><span class="line">       1: invokespecial #1                  // Method java/lang/Object."&lt;init&gt;":()V</span><br><span class="line">       <span class="number">4</span>: <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(java.lang.String[])</span></span>;</span><br><span class="line">    Code:</span><br><span class="line">       0: new           #2                  // class java/lang/Thread</span><br><span class="line">       <span class="number">3</span>: dup</span><br><span class="line">       4: invokedynamic #3,  0              // InvokeDynamic #0:run:()Ljava/lang/Runnable;  /** 使用invokedynamic指令调用 **/</span><br><span class="line">       9: invokespecial #4                  // Method java/lang/Thread."&lt;init&gt;":(Ljava/lang/Runnable;)V</span><br><span class="line">      12: invokevirtual #5                  // Method java/lang/Thread.start:()V</span><br><span class="line">      <span class="number">15</span>: <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="推论，this引用意义"><a href="#推论，this引用意义" class="headerlink" title="推论，this引用意义"></a>推论，this引用意义</h3><p>从反编译指令得知lambda没有创建匿名内部类，那么lambda内部使用this引用会不会是直接用外部类的this呢？跟匿名内部类this不一样呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> ThisTest().test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="keyword">this</span>)).start();  <span class="comment">// 外部类this</span></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; System.out.println(toString())).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="keyword">this</span>);  <span class="comment">//内部类this</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello java"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>out：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hello java</span><br><span class="line">hello java</span><br><span class="line">ThisTest$<span class="number">1</span>@<span class="number">3</span>c86690c</span><br></pre></td></tr></table></figure>
+
+<p>可从输出判断lambda内部使用this即使用了外部类的this，跟内部类的this截然不同。</p>
+<h2 id="性能篇"><a href="#性能篇" class="headerlink" title="性能篇"></a>性能篇</h2><p>自从java8推出了lambda特性深受人们的喜爱（包括我，能用lambda表达式绝不用其它），那lambda跟原来的iterator 和 for-each 循环相比性能如何呢？</p>
+<p>根据Alex Zhitnitsky 的测试结果显示：使用JMH(Java Microbenchmarking Harness) 执行基准测试，比较了7种遍历方式性能，提出Java8 Lambda表达式和流操作如何让你的代码变慢 5 倍。</p>
+<p>效果如图：<br><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/img/20200621131825.png" alt="7种遍历性能比较"></p>
+<p>具体测试过程可查看原文(需要梯子)，或者查看importnew译文。</p>
+<p>原文作者：Alex Zhitnitsky ， java界有名的软件测试<br><a href="https://blog.overops.com/benchmark-how-java-8-lambdas-and-streams-can-make-your-code-5-times-slower/" target="_blank" rel="noopener">原文链接</a><br><a href="https://mp.weixin.qq.com/s/QwW5F0-RPBPTa5seavUK_Q" target="_blank" rel="noopener">importnew译文链接</a><br><a href="https://github.com/takipi/loops-jmh-playground" target="_blank" rel="noopener">原文github源码链接</a></p>
+<h2 id="总结篇"><a href="#总结篇" class="headerlink" title="总结篇"></a>总结篇</h2><p>从lambda表达式的基础用法、流操作、JVM层面与匿名内部类区别、7种遍历性能比较都实现了case，基本涵盖了所有的lamnbda表达式应用，剩余其他的一些类支持流操作本文就不再讲述了（像Arrays、Collection和Map内部也支持流操作）。</p>
+<p>总体来讲，语法糖虽很甜但一直用不一定一直甜，当遇到性能瓶颈时可考虑一下是否是lambda表达式性能问题。</p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="http://yoursite.com">k先生</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="http://yoursite.com/p/6438.html">http://yoursite.com/p/6438.html</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/java/">java</a>
+            <a href="/tags/lambda/">lambda</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/p/2fb3.html">
+        <span class="next-text nav-default">c-解析getopt、getopt_long和getopt_long_only</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div>
+  <div class="comments" id="comments">
+    
+      <div id="vcomments"></div>
+    
+  </div>
+
+</div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:imdalai.pro@gmail.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/dalaizhao" class="iconfont icon-github" title="github"></a>
+        </div><div class="copyright">
+  <span class="copyright-year">&copy;2017 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">k先生</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+<!-- valine Comments -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/xcss/valine@v1.1.7/dist/Valine.min.js"></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: "4zFH7aq8sRLfv16OtB5dOLND-gzGzoHsz",
+        app_key: "4TS0u6RkSOiLLjWegSfGGQLb",
+        placeholder: "世界辣么大，留个痕迹哟哦哦～",
+        avatar: 'mm'
+    });
+</script>
+
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
