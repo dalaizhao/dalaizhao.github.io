@@ -464,8 +464,8 @@
         <category>service</category>
       </categories>
       <tags>
-        <tag>官方文档</tag>
         <tag>Apache Thrift</tag>
+        <tag>官方文档</tag>
       </tags>
   </entry>
   <entry>
@@ -498,8 +498,8 @@
         <category>service</category>
       </categories>
       <tags>
-        <tag>官方文档</tag>
         <tag>Apache Thrift</tag>
+        <tag>官方文档</tag>
       </tags>
   </entry>
   <entry>
@@ -701,9 +701,9 @@
         <category>elasticSearch</category>
       </categories>
       <tags>
+        <tag>官方文档</tag>
         <tag>java client</tag>
         <tag>elasticSearch</tag>
-        <tag>官方文档</tag>
       </tags>
   </entry>
   <entry>
