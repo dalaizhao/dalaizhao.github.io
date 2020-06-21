@@ -106,17 +106,17 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/ca56.html">redis-数据库原理</a>
+      <h1 class="post-title"><a class="post-link" href="/p/8721.html">redis-sentinel哨兵模式</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-11-13
+          2019-11-18
         </span><span class="post-category">
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 315
+          字 283
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,54 +124,24 @@
         </div>
     </header>
 
-    <div class="post-content"><p>redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。</p>
+    <div class="post-content"><p>sentinel（哨兵、哨岗）是redis的高可用性解决方案，由一个或多个sentinel实例组成的sentinel系统可以监控任意多个服务器，以及这些服务器属下的所有从服务器，主要解决了主从模式下主挂了，整个服务挂掉的情况，sentinel模式在主服务器挂掉的情况下从从服务器选举出新的主服务器，继续处理命令。</p>
           <div class="read-more">
-            <a href="/p/ca56.html" class="read-more-link">Read more..</a>
+            <a href="/p/8721.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/de9c.html">redis-持久化</a>
+      <h1 class="post-title"><a class="post-link" href="/p/6ccf.html">redis-主从模式</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-11-12
+          2019-11-18
         </span><span class="post-category">
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 775
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>不同于memcached，redis支持数据本地持久化。</p>
-<p>redis支持两种持久化方式：</p>
-<ul>
-<li>RDB持久化，可以在指定时间内生成数据快照，持久化当前状态，命令有SAVE和BGSAVE</li>
-<li>AOF持久化，保存数据库所执行的写命令来记录数据库状态</li>
-</ul>
-          <div class="read-more">
-            <a href="/p/de9c.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/3461.html">设计-reactor模式</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-11-12
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 420
+          字 560
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -179,50 +149,24 @@
         </div>
     </header>
 
-    <div class="post-content"><p>reactor模式在redis中采用的高性能IO，多路复用IO处理多个客户端请求。</p>
-<p><strong>它解决什么问题呢？</strong><br>在传统的每次请求链接时（Thread-Per-Connection的应用场景），线程在真正处理请求之前首先从socket中读取网络请求，而在读取完之前，线程会被阻塞，不做任何事情。</p>
+    <div class="post-content"><p>主从架构很常见，一主一从。有时候也会有主备架构，一主一备。要看业务场景选择。</p>
           <div class="read-more">
-            <a href="/p/3461.html" class="read-more-link">Read more..</a>
+            <a href="/p/6ccf.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c707.html">redis-对象robj</a>
+      <h1 class="post-title"><a class="post-link" href="/p/ad13.html">redis-事件驱动</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-10-20
+          2019-11-18
         </span><span class="post-category">
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 565
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="对象的类型与编码"><a href="#对象的类型与编码" class="headerlink" title="对象的类型与编码"></a>对象的类型与编码</h2>
-          <div class="read-more">
-            <a href="/p/c707.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/176a.html">redis-压缩表</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-17
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 74
+          字 426
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -230,14 +174,10 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="/p/176a/redis-zip-1.png" alt="包含三个节点的压缩表"></p>
-<ul>
-<li>zlbytes, 压缩表表的总字节数</li>
-<li>zltail, 表头加上zltail即可指向表尾节点的</li>
-<li>zllen, 节点总数</li>
-</ul>
+    <div class="post-content"><p>要理解redis事件驱动模型需要具备linux五大IO模型基础知识，欠缺着请移步（<a href="https://blog.csdn.net/qq_34802511/article/details/81543817）" target="_blank" rel="noopener">https://blog.csdn.net/qq_34802511/article/details/81543817）</a></p>
+<p>redis服务器是事件驱动程序，处理两类事件，文件事件和时间事件，基于reactor模式开发了自己的ae-event网络事件处理器，reactor可以参考这个（<a href="http://imdalai.com/p/3461.html）" target="_blank" rel="noopener">http://imdalai.com/p/3461.html）</a></p>
           <div class="read-more">
-            <a href="/p/176a.html" class="read-more-link">Read more..</a>
+            <a href="/p/ad13.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/2/">

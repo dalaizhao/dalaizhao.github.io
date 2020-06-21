@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 <link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
-<link rel="canonical" href="http://yoursite.com/categories/java/">
+<link rel="canonical" href="http://yoursite.com/page/16/">
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
@@ -37,8 +37,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true,"latex":false};
 </script>
 
-    <title>java · k先生
-  </title>
+    <title>k先生</title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -105,44 +104,99 @@
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content"><section id="archive" class="archive"><div class="archive-title category">
-          <h2 class="archive-name">java</h2>
+          <div id="content" class="content"><section id="posts" class="posts"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/bc7.html">常用 linux 命令</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-29
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 408
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
         </div>
-      <div class="archive-post">
-        <span class="archive-post-time">
-          2020-06-21
-          </span>
-        <span class="archive-post-title">
-          <a href="/p/6438.html" class="archive-post-link">
-            java-lambda表达式看这篇就够了
-          </a>
+    </header>
+
+    <div class="post-content"><p>个人日常使用linux命令笔记，详情用man 命令 来查看即可。  </p>
+          <div class="read-more">
+            <a href="/p/bc7.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/854d.html">java 多线程 生产者-消费者模式 爬取数据</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-29
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 1.3k
         </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-01-03
-          </span>
-        <span class="archive-post-title">
-          <a href="/p/314b.html" class="archive-post-link">
-            jar包详情
-          </a>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 6 min
         </span>
-      </div>
-    <div class="archive-post">
-        <span class="archive-post-time">
-          2018-01-03
-          </span>
-        <span class="archive-post-title">
-          <a href="/p/f2d.html" class="archive-post-link">
-            关于SimpleDateFormat 线程不安全
-          </a>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>最近收集了数据供个人实验使用，后期再展示实验结果。  </p>
+<p>用利用java 多线程，生产者和消费者模式一周爬取了内涵段子1300w+条数据，写了三个文件，每个文件都有1.5G左右。   </p>
+<p>程序的整体思路：  </p>
+<p>一个线程（生产者）爬取json数据并格式化成我想要的json格式（去掉一些无用信息），然后三个线程（消费者）各自写进自己的文件，每行是一条json。还有把所有的任务交给线程池ExecutorService去执行多线程，生产者和消费者的公共容器使用的是LinkedBlockingQueue。  </p>
+<p><strong>这里解释一下，为什么是一个生产者？</strong>   </p>
+<p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
+          <div class="read-more">
+            <a href="/p/854d.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-19
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 526
         </span>
-      </div>
-    </section><nav class="pagination"><a class="next" href="/categories/java/page/2/">
+        <span class="post-visits" title="post.min2read">
+          阅读时长 2 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
+<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
+          <div class="read-more">
+            <a href="/p/c94.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <nav class="pagination"><a class="prev" href="/page/15/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">Prev</span>
+      </a>
+    <a class="next" href="/page/17/">
         <span class="next-text">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    </nav></div>
+    </nav></section></div>
 </div>
       </main>
 

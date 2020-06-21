@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 <link rel="alternate" href="/atom.xml" title="k先生"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.0">
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/page/19/">
 
 <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css"><link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css">
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0">
@@ -106,70 +106,82 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/6438.html">java-lambda表达式看这篇就够了</a>
+      <h1 class="post-title"><a class="post-link" href="/p/889e.html">solr 文档、字段和schema设计</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-06-21
+          2017-09-26
         </span><span class="post-category">
-            <a href="/categories/java/">java</a>
+            <a href="/categories/solr/">solr</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 2.5k
+          字 4.5k
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 10 min
+          阅读时长 16 min
         </span>
         </div>
     </header>
 
-    <div class="post-content"><p>java8 lambda表达式是继范型之后java语言最有意思的特性了，理解其中用法、原理可让我们写CRUD时得心应手，撸代码时有飞一般的感觉。本文从lambda表达式的基础用法、流操作、JVM层面与匿名内部类区别、7种遍历性能比较等4大方面讲述。</p>
-<p>版本：JDK1.8</p>
-<h2 id="应用篇"><a href="#应用篇" class="headerlink" title="应用篇"></a>应用篇</h2>
+    <div class="post-content"><h2 id="概述文档，字段和schema设计"><a href="#概述文档，字段和schema设计" class="headerlink" title="概述文档，字段和schema设计"></a>概述文档，字段和schema设计</h2><p>Solr的基本前提很简单。 你给它很多信息，然后你可以问问题，找到你想要的信息。 您在所有信息中提供的部分称为indexing(索引)或updating(更新)。 当您提出问题时，称为query(查询)。  </p>
+<p>schema是告诉Solr如何从输入文档构建索引的地方。  </p>
+<p>Solr的Schema 文件   </p>
+<p>Solr存储有关在Schema文件中理解的字段类型和字段的详细信息。 此文件的名称和位置可能会有所不同，具体取决于您最初配置Solr的方式或稍后修改它。   </p>
+<ul>
+<li>managed-schema是Solr默认使用的模式文件的名称，用于支持在运行时通过Schema API或Schemaess Mode功能进行Schema更改。 您可以显式配置托管架构功能以使用替代文件名，如果您选择，但文件的内容仍然由Solr自动更新。    </li>
+<li>schema.xml是模式文件的传统名称，可以由使用ClassicIndexSchemaFactory的用户手动编辑。   </li>
+<li>如果使用SolrCloud，您可能无法在本地文件系统上找到这些名称的任何文件。 您只能通过Schema API（如果启用）或通过Solr Admin UI的“云端屏幕”来查看模式。  </li>
+</ul>
+<h2 id="Solr字段类型"><a href="#Solr字段类型" class="headerlink" title="Solr字段类型"></a>Solr字段类型</h2>
           <div class="read-more">
-            <a href="/p/6438.html" class="read-more-link">Read more..</a>
+            <a href="/p/889e.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/2fb3.html">c-解析getopt、getopt_long和getopt_long_only</a>
+      <h1 class="post-title"><a class="post-link" href="/p/2bc5.html">solr 快速入门</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2020-01-10
+          2017-09-26
         </span><span class="post-category">
-            <a href="/categories/os/">os</a>
+            <a href="/categories/solr/">solr</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 492
+          字 2.1k
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
+          阅读时长 8 min
         </span>
         </div>
     </header>
 
-    <div class="post-content"><p>在C程序的主函数有两个参数。第一个参数是整型，可以获得包括程序名字的参数个数，第二个参数是字符数组指针或字符指针的指针，可以按顺序获得命令行上各个字符串参数。<br>其原形是：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>;</span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>;</span><br></pre></td></tr></table></figure>
+    <div class="post-content"><h2 id="Solr-简介"><a href="#Solr-简介" class="headerlink" title="Solr 简介"></a>Solr 简介</h2><p>维基百科的简介：  </p>
+<blockquote>
+<p>Solr（读作“solar”）是Apache Lucene项目的开源企业搜索平台。其主要功能包括全文检索、命中标示、分面搜索、动态聚类、数据库集成，以及富文本（如Word、PDF）的处理。Solr是高度可扩展的，并提供了分布式搜索和索引复制。Solr是最流行的企业级搜索引擎，Solr 4还增加了NoSQL支持。<br>Solr是用Java编写、运行在Servlet容器（如Apache Tomcat或Jetty）的一个独立的全文搜索服务器。 Solr采用了Lucene Java搜索库为核心的全文索引和搜索，并具有类似REST的HTTP/XML和JSON的API。 Solr强大的外部配置功能使得无需进行Java编码，便可对其进行调整以适应多种类型的应用程序。Solr有一个插件架构，以支持更多的高级定制。<br>因为2010年Apache Lucene和Apache Solr项目合并，两个项目是由同一个Apache软件基金会开发团队制作实现的。提到技术或产品时，Lucene/Solr或Solr/Lucene是一样的。   </p>
+</blockquote>
+<p>其实说白了，Solr跟数据库服务器真的很像。  </p>
+<p>以下是Solr可能集成到应用服务器的示例(来自官网)<br><img src="/p/2bc5/solr.PNG" alt>  </p>
+<p>在上述情况下，Solr沿其他服务器应用程序运行。 例如，在线商店应用将提供用户界面，购物车以及为最终用户购买的方式; 而库存管理应用程序将允许商店员工编辑产品信息。 产品元数据将保存在某种数据库以及Solr中。  </p>
           <div class="read-more">
-            <a href="/p/2fb3.html" class="read-more-link">Read more..</a>
+            <a href="/p/2bc5.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/bccb.html">go-搭建webcron过程记录</a>
+      <h1 class="post-title"><a class="post-link" href="/p/96dd.html">solr 完整学习目录</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-12-10
+          2017-09-26
         </span><span class="post-category">
-            <a href="/categories/go/">go</a>
+            <a href="/categories/solr/">solr</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 200
+          字 211
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -177,12 +189,23 @@
         </div>
     </header>
 
-    <div class="post-content"><p>可用于定时任务，基本所有的服务都存在定时任务场景，所以还蛮实用的。项目源代码较好的能阅读，基于go和beego框架实现，beego框架也是很容易上手。</p>
+    <div class="post-content"><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="http://lucene.apache.org/solr/guide/" target="_blank" rel="noopener">Apache Solr Reference Guide</a><br>看他人多少博客都不如看官方文档。  </p>
+<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>本人搭建用到了两种环境(在快速入门中介绍)：  </p>
+<ul>
+<li>windows10 + solr6.6.0</li>
+<li>centos7.2 + solr6.6.0</li>
+</ul>
+<h2 id="Solr6-6-0-学习目录"><a href="#Solr6-6-0-学习目录" class="headerlink" title="Solr6.6.0 学习目录"></a>Solr6.6.0 学习目录</h2><ol>
+<li><p><a href>快速入门</a>  </p></li></ol>
           <div class="read-more">
-            <a href="/p/bccb.html" class="read-more-link">Read more..</a>
+            <a href="/p/96dd.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
-      <nav class="pagination"><a class="next" href="/page/2/">
+      <nav class="pagination"><a class="prev" href="/page/18/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">Prev</span>
+      </a>
+    <a class="next" href="/page/20/">
         <span class="next-text">Next</span>
         <i class="iconfont icon-right"></i>
       </a>

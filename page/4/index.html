@@ -106,17 +106,17 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/8d80.html">redis-整数集合</a>
+      <h1 class="post-title"><a class="post-link" href="/p/65ef.html">redis-客户端和服务端</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-10-16
+          2019-11-16
         </span><span class="post-category">
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 98
+          字 360
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,52 +124,50 @@
         </div>
     </header>
 
-    <div class="post-content"><a id="more"></a>
-
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">    <span class="keyword">uint32_t</span> length;</span><br><span class="line">    <span class="keyword">int8_t</span> contents[];      <span class="comment">/** 保存整数集合内容 */</span></span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure>
-
-<p>整数集合的底层实现为数组，数组以有序、无重复的方式保存元素，升级整数类型提升灵活性，尽可能节约空间，只支持升级操作，不支持降级操作。</p>
-<p>更多源码注释说明见<code>intset.h</code><a href="https://github.com/dalaizhao/redis/tree/feature_code_comment" target="_blank" rel="noopener">https://github.com/dalaizhao/redis/tree/feature_code_comment</a></p>
-
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/1ce5.html">redis-跳跃表</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-12
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 194
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2>
+    <div class="post-content"><p>了解一波redis服务器与客户端交互过程。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2>
           <div class="read-more">
-            <a href="/p/1ce5.html" class="read-more-link">Read more..</a>
+            <a href="/p/65ef.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/f389.html">redis-字典</a>
+      <h1 class="post-title"><a class="post-link" href="/p/ca56.html">redis-数据库原理</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-10-08
+          2019-11-13
         </span><span class="post-category">
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 577
+          字 315
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。</p>
+          <div class="read-more">
+            <a href="/p/ca56.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/de9c.html">redis-持久化</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-12
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 775
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 2 min
@@ -177,60 +175,14 @@
         </div>
     </header>
 
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2>
+    <div class="post-content"><p>不同于memcached，redis支持数据本地持久化。</p>
+<p>redis支持两种持久化方式：</p>
+<ul>
+<li>RDB持久化，可以在指定时间内生成数据快照，持久化当前状态，命令有SAVE和BGSAVE</li>
+<li>AOF持久化，保存数据库所执行的写命令来记录数据库状态</li>
+</ul>
           <div class="read-more">
-            <a href="/p/f389.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/a923.html">redis-链表</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-07
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 135
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>实现很基础，无环双向链表和保存全局的表头；</p>
-          <div class="read-more">
-            <a href="/p/a923.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/be3f.html">redis-动态字符串</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-10-06
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 549
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>redis简单动态字符串，即sds。</p>
-<h2 id="sds定义"><a href="#sds定义" class="headerlink" title="sds定义"></a>sds定义</h2><p>3.2版本如下面五种类型，以前是只有一种。<br>源码位置<code>sds.h/sdshdr</code>，</p>
-          <div class="read-more">
-            <a href="/p/be3f.html" class="read-more-link">Read more..</a>
+            <a href="/p/de9c.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">

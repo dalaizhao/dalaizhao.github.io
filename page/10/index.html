@@ -106,17 +106,43 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/bc7.html">常用 linux 命令</a>
+      <h1 class="post-title"><a class="post-link" href="/p/df10.html">os-gcc生成so文件及动态链接使用</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-10-29
+          2019-07-22
         </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
+            <a href="/categories/os/">os</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 408
+          字 799
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 3 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>linux下gcc如何生成.so文件及使用动态链接库.so文件。</p>
+<h2 id="生成-so文件且使用"><a href="#生成-so文件且使用" class="headerlink" title="生成.so文件且使用"></a>生成.so文件且使用</h2>
+          <div class="read-more">
+            <a href="/p/df10.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/8e8c.html">os-进程线程关系及区别</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-17
+        </span><span class="post-category">
+            <a href="/categories/os/">os</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 304
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -124,126 +150,37 @@
         </div>
     </header>
 
-    <div class="post-content"><p>个人日常使用linux命令笔记，详情用man 命令 来查看即可。  </p>
+    <div class="post-content"><h2 id="关系-amp-区别"><a href="#关系-amp-区别" class="headerlink" title="关系&amp;区别"></a>关系&amp;区别</h2><p>进程(process)是资源分配的最小单位，有自己独立的地址空间，单个进程的崩溃不会影响其它进程；</p>
+<p>线程(thread)是处理器调度的最小单位，共享进程空间，也有自己的独立内存（PC、栈、栈指针等空间），单个线程的崩溃会导致整个进程的崩溃，影响其它的线程；</p>
           <div class="read-more">
-            <a href="/p/bc7.html" class="read-more-link">Read more..</a>
+            <a href="/p/8e8c.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/854d.html">java 多线程 生产者-消费者模式 爬取数据</a>
+      <h1 class="post-title"><a class="post-link" href="/p/e68.html">os-线程总结</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-10-29
+          2019-03-15
         </span><span class="post-category">
-            <a href="/categories/java/">java</a>
+            <a href="/categories/os/">os</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 1.3k
+          字 2.9k
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 6 min
+          阅读时长 11 min
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>最近收集了数据供个人实验使用，后期再展示实验结果。  </p>
-<p>用利用java 多线程，生产者和消费者模式一周爬取了内涵段子1300w+条数据，写了三个文件，每个文件都有1.5G左右。   </p>
-<p>程序的整体思路：  </p>
-<p>一个线程（生产者）爬取json数据并格式化成我想要的json格式（去掉一些无用信息），然后三个线程（消费者）各自写进自己的文件，每行是一条json。还有把所有的任务交给线程池ExecutorService去执行多线程，生产者和消费者的公共容器使用的是LinkedBlockingQueue。  </p>
-<p><strong>这里解释一下，为什么是一个生产者？</strong>   </p>
-<p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
+    <div class="post-content"><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>现代系统允许一个进程里同时运行多个线程，线程由内核自动调度。每个线程都有它自己的线程上下文，包括一个唯一的整数线程ID、栈、栈指针、程序计数器（PC）、通用目的寄存器和条件码。</p>
+<p>共享本进程虚拟地址空间的所有内容，包括它的代码、数据、堆、共享库和打开的文件。</p>
+<p>Posix线程（Pthreads）是在C程序中处理线程的标准接口。</p>
           <div class="read-more">
-            <a href="/p/854d.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-19
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 526
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
-<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
-          <div class="read-more">
-            <a href="/p/c94.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/8a28.html">shell脚本 定期删除日志文件</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 338
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>编写定期删除日志文件的shell脚本程序。  </p>
-<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><p>创建脚本del_log.sh  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim del_log.sh</span><br></pre></td></tr></table></figure>
-
-<p>编写,用find命令简洁    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">location=&quot;/home/dl/code/logs&quot;</span><br><span class="line"></span><br><span class="line">find $location -mtime +4 -type f | xargs rm -f</span><br><span class="line"></span><br><span class="line">#location 是删除文件所在目录</span><br><span class="line">#-mtime +4 是设置删除多少天以前的文件</span><br><span class="line">#-type f 删除的类型为文件</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/p/8a28.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/ab2f.html">spring boot 使用</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/spring-boot/">spring boot</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 8 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>本节将详细介绍如何使用Spring Boot。 它涵盖了诸如构建系统，自动配置以及如何运行应用程序等主题。 我们还介绍了一些Spring Boot的最佳做法。 虽然Spring Boot没有什么特别的特点（它只是另一个可以消耗的lib），但是有一些建议可以让您的开发过程更容易一些。  </p>
-<h2 id="构建系统"><a href="#构建系统" class="headerlink" title="构建系统"></a>构建系统</h2><p>构建典型的系统，在另一篇 <a href="http://www.jianshu.com/p/959edc9c70d8" target="_blank" rel="noopener">spring boot 快速入门</a>中有maven 和 gradle 配置方式。  </p>
-<p>典型的pom.xml里有这个parent里加了org.springframework.boot,如果pom.xml已经有其它的parent，这里也有不用继承，也能配置maven的方式。</p>
-<p>parent 是 maven 的一个元素，可以继承pom.xml中依赖，不用重复配置pom。  </p>
-          <div class="read-more">
-            <a href="/p/ab2f.html" class="read-more-link">Read more..</a>
+            <a href="/p/e68.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/9/">

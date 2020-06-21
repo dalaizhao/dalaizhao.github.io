@@ -106,42 +106,17 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/692d.html">os-进程总结</a>
+      <h1 class="post-title"><a class="post-link" href="/p/a923.html">redis-链表</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-03-07
+          2019-10-07
         </span><span class="post-category">
-            <a href="/categories/os/">os</a>
+            <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 2.3k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 8 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>进程五态模型状态：新建、运行、就绪、阻塞和终止。<br><img src="/p/692d/%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B.png" alt></p>
-          <div class="read-more">
-            <a href="/p/692d.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/daf6.html">cmd-man使用方法</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-01
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 153
+          字 135
         </span>
         <span class="post-visits" title="post.min2read">
           阅读时长 1 min
@@ -149,107 +124,60 @@
         </div>
     </header>
 
-    <div class="post-content"><p>linux的man手册共有以下几个章节（参数）:</p>
+    <div class="post-content"><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>实现很基础，无环双向链表和保存全局的表头；</p>
           <div class="read-more">
-            <a href="/p/daf6.html" class="read-more-link">Read more..</a>
+            <a href="/p/a923.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/797a.html">os-链接</a>
+      <h1 class="post-title"><a class="post-link" href="/p/be3f.html">redis-动态字符串</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2019-02-28
-        </span><span class="post-category">
-            <a href="/categories/os/">os</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.2k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 7 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>链接；将不同部分的代码和数据收集和组合成为一个单一文件的过程，这个文件可被加载（或被拷贝）到存储器执行了。<br>链接是由叫链接器（linker）的程序自动执行的。</p>
-<ul>
-<li>静态链接</li>
-<li>加载时的共享库的动态链接</li>
-<li>运行时的共享库的动态链接</li></ul>
-          <div class="read-more">
-            <a href="/p/797a.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/ea70.html">git命令收集</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-20
-        </span><span class="post-category">
-            <a href="/categories/git/">git</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.6k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 6 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>git命令收集，要用时就怕忘记，备份一份。   </p>
-<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/pic2019/git-home-1.png" alt="git">  </p>
-<ul>
-<li>Workspace：工作区</li>
-<li>Index / Stage：暂存区</li>
-<li>Repository：仓库区（或本地仓库）</li>
-<li>Remote：远程仓库</li>
-</ul>
-<h2 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 在当前目录新建一个Git代码库</span><br><span class="line"><span class="meta">$</span> git init</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 新建一个目录，将其初始化为Git代码库</span><br><span class="line"><span class="meta">$</span> git init [project-name]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 下载一个项目和它的整个代码历史</span><br><span class="line"><span class="meta">$</span> git clone [url]</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/p/ea70.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/56c8.html">Jedis API 详细示例</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-16
+          2019-10-06
         </span><span class="post-category">
             <a href="/categories/redis/">redis</a>
             </span>
         <span class="post-visits" title="post.wordcount">
-          字 4.6k
+          字 549
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 21 min
+          阅读时长 2 min
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h2 id="Redis-简介"><a href="#Redis-简介" class="headerlink" title="Redis 简介"></a>Redis 简介</h2><p>Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。  </p>
-<p>Redis 与其他 key - value 缓存产品有以下三个特点：  </p>
-<ul>
-<li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。  </li>
-<li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。  </li>
-<li>Redis支持数据的备份，即master-slave模式的数据备份。  </li>
-</ul>
-<h2 id="Redis-优势"><a href="#Redis-优势" class="headerlink" title="Redis 优势"></a>Redis 优势</h2><ul>
-<li>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。</li>
-<li>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。    </li>
-<li>原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。</li>
-<li>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。</li></ul>
+    <div class="post-content"><p>redis简单动态字符串，即sds。</p>
+<h2 id="sds定义"><a href="#sds定义" class="headerlink" title="sds定义"></a>sds定义</h2><p>3.2版本如下面五种类型，以前是只有一种。<br>源码位置<code>sds.h/sdshdr</code>，</p>
           <div class="read-more">
-            <a href="/p/56c8.html" class="read-more-link">Read more..</a>
+            <a href="/p/be3f.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/d66e.html">redis-数据类型</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-10-05
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 38
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>redis 2.6版本的不同类型和编码的对象<br><img src="/p/d66e/redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B-1.png" alt="对象"></p>
+          <div class="read-more">
+            <a href="/p/d66e.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/6/">

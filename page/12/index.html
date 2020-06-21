@@ -106,152 +106,105 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/2bc5.html">solr 快速入门</a>
+      <h1 class="post-title"><a class="post-link" href="/p/ea70.html">git命令收集</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2017-09-26
+          2018-01-20
         </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
+            <a href="/categories/git/">git</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 1.6k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 6 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>git命令收集，要用时就怕忘记，备份一份。   </p>
+<p><img src="https://raw.githubusercontent.com/dalaizhao/picture-bed/master/pic2019/git-home-1.png" alt="git">  </p>
+<ul>
+<li>Workspace：工作区</li>
+<li>Index / Stage：暂存区</li>
+<li>Repository：仓库区（或本地仓库）</li>
+<li>Remote：远程仓库</li>
+</ul>
+<h2 id="新建代码库"><a href="#新建代码库" class="headerlink" title="新建代码库"></a>新建代码库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 在当前目录新建一个Git代码库</span><br><span class="line"><span class="meta">$</span> git init</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 新建一个目录，将其初始化为Git代码库</span><br><span class="line"><span class="meta">$</span> git init [project-name]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 下载一个项目和它的整个代码历史</span><br><span class="line"><span class="meta">$</span> git clone [url]</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/p/ea70.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/56c8.html">Jedis API 详细示例</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-16
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 4.6k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 21 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><h2 id="Redis-简介"><a href="#Redis-简介" class="headerlink" title="Redis 简介"></a>Redis 简介</h2><p>Redis 是完全开源免费的，遵守BSD协议，是一个高性能的key-value数据库。  </p>
+<p>Redis 与其他 key - value 缓存产品有以下三个特点：  </p>
+<ul>
+<li>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。  </li>
+<li>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。  </li>
+<li>Redis支持数据的备份，即master-slave模式的数据备份。  </li>
+</ul>
+<h2 id="Redis-优势"><a href="#Redis-优势" class="headerlink" title="Redis 优势"></a>Redis 优势</h2><ul>
+<li>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。</li>
+<li>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。    </li>
+<li>原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。</li>
+<li>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。</li></ul>
+          <div class="read-more">
+            <a href="/p/56c8.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/91ef.html">Apache Spark LDA 官方文档</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/Apache-Spark/">Apache Spark</a>
             </span>
         <span class="post-visits" title="post.wordcount">
           字 2.1k
         </span>
         <span class="post-visits" title="post.min2read">
-          阅读时长 8 min
+          阅读时长 9 min
         </span>
         </div>
     </header>
 
-    <div class="post-content"><h2 id="Solr-简介"><a href="#Solr-简介" class="headerlink" title="Solr 简介"></a>Solr 简介</h2><p>维基百科的简介：  </p>
-<blockquote>
-<p>Solr（读作“solar”）是Apache Lucene项目的开源企业搜索平台。其主要功能包括全文检索、命中标示、分面搜索、动态聚类、数据库集成，以及富文本（如Word、PDF）的处理。Solr是高度可扩展的，并提供了分布式搜索和索引复制。Solr是最流行的企业级搜索引擎，Solr 4还增加了NoSQL支持。<br>Solr是用Java编写、运行在Servlet容器（如Apache Tomcat或Jetty）的一个独立的全文搜索服务器。 Solr采用了Lucene Java搜索库为核心的全文索引和搜索，并具有类似REST的HTTP/XML和JSON的API。 Solr强大的外部配置功能使得无需进行Java编码，便可对其进行调整以适应多种类型的应用程序。Solr有一个插件架构，以支持更多的高级定制。<br>因为2010年Apache Lucene和Apache Solr项目合并，两个项目是由同一个Apache软件基金会开发团队制作实现的。提到技术或产品时，Lucene/Solr或Solr/Lucene是一样的。   </p>
-</blockquote>
-<p>其实说白了，Solr跟数据库服务器真的很像。  </p>
-<p>以下是Solr可能集成到应用服务器的示例(来自官网)<br><img src="/p/2bc5/solr.PNG" alt>  </p>
-<p>在上述情况下，Solr沿其他服务器应用程序运行。 例如，在线商店应用将提供用户界面，购物车以及为最终用户购买的方式; 而库存管理应用程序将允许商店员工编辑产品信息。 产品元数据将保存在某种数据库以及Solr中。  </p>
-          <div class="read-more">
-            <a href="/p/2bc5.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/96dd.html">solr 完整学习目录</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/solr/">solr</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 211
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><p><a href="http://lucene.apache.org/solr/guide/" target="_blank" rel="noopener">Apache Solr Reference Guide</a><br>看他人多少博客都不如看官方文档。  </p>
-<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>本人搭建用到了两种环境(在快速入门中介绍)：  </p>
+    <div class="post-content"><p>学习[spark lda]<a href="https://spark.apache.org/docs/latest/mllib-clustering.html#latent-dirichlet-allocation-lda()" target="_blank" rel="noopener">https://spark.apache.org/docs/latest/mllib-clustering.html#latent-dirichlet-allocation-lda()</a> 英文文档,为了学习方便顺便翻译了。   </p>
+<h2 id="理论参数"><a href="#理论参数" class="headerlink" title="理论参数"></a>理论参数</h2><p>狄利克雷分配（Latent Dirichlet allocation LDA）是一个从文本文献集合中推断主题的主题模型。   </p>
+<p>LDA可以被认为是如下的聚类算法：</p>
 <ul>
-<li>windows10 + solr6.6.0</li>
-<li>centos7.2 + solr6.6.0</li>
+<li>主题对应于聚类中心，文档对应于数据集中的示例（数据行）。 </li>
+<li>主题和文档都存在于特征空间中，其中特征向量是词计数的向量（词袋）。 </li>
+<li>LDA不是使用传统距离来估计聚类，而是使用基于文本文档如何生成的统计模型的函数。</li>
 </ul>
-<h2 id="Solr6-6-0-学习目录"><a href="#Solr6-6-0-学习目录" class="headerlink" title="Solr6.6.0 学习目录"></a>Solr6.6.0 学习目录</h2><ol>
-<li><p><a href>快速入门</a>  </p></li></ol>
+<p>LDA通过setOptimizer函数支持不同的推理算法。 EMLDAOptimizer利用似然函数的期望最大化来学习聚类，并产生综合结果，而OnlineLDAOptimizer使用迭代小批量采样进行在线变分推理，并且通常是内存友好的。  </p>
+<p>LDA将文档集合作为词计数的向量和以下参数（使用构建器模式进行设置）：    </p>
           <div class="read-more">
-            <a href="/p/96dd.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/5875.html">es java client 教程</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-26
-        </span><span class="post-category">
-            <a href="/categories/elasticSearch/">elasticSearch</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 743
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 3 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>个人学习elasticSearch 5 的过程分享，至于实现代码后期有空再整理，很多东西可以从文档中找到的，拿过来用即可。  </p>
-<h2 id="学习elasticSearch官方文档"><a href="#学习elasticSearch官方文档" class="headerlink" title="学习elasticSearch官方文档"></a>学习elasticSearch官方文档</h2><p><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/foreword_id.html" target="_blank" rel="noopener">elasticSearch权威指南 中文版</a>  </p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/client/java-api/5.0/java-api.html" target="_blank" rel="noopener">elasticSearch java客户端</a>  </p>
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/getting-started.html" target="_blank" rel="noopener">elasticSearch英文文档</a>   </p>
-<p>说明：<br>我用的是ES 5.0.0版本，以上文档除了权威指南，其它是ES 5.0.0版本，但是进去后可以选择切换成其它版本。elasticSearch权威指南(中文版)是1.4.X版本的，读着了解基本流程、操作很有用，有什么疑惑就查看对应的英文版。还有1.4.X、2.X和5.X的连接方式都不同，查看对应的版本文档，并最好使用对应的jar包。  </p>
-<p><strong>特别声明</strong>  </p>
-          <div class="read-more">
-            <a href="/p/5875.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/591c.html">JUnit 单元测试</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-09-04
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.8k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 12 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>所有代码上线之前开发人员都要做单元测试的，很重要！！！<br>本文就来学习学习使用JUnit编写单元测试。  </p>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>文中例子用的是Eclipse，对于IntelliJ IDEA也一样，万变不离其宗。  </p>
-<p><a href="https://github.com/junit-team/junit4/wiki/Download-and-Install" target="_blank" rel="noopener">JUnit下载</a>  </p>
-<p>JUnit 是一个 Java 编程语言的单元测试框架。JUnit 在测试驱动的开发方面有很重要的发展，是起源于 JUnit 的一个统称为 xUnit 的单元测试框架之一。  </p>
-<p>JUnit 促进了“先测试后编码”的理念，强调建立测试数据的一段代码，可以先测试，然后再应用。  </p>
-          <div class="read-more">
-            <a href="/p/591c.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/279d.html">剑指offer java实现</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-06-14
-        </span><span class="post-category">
-            <a href="/categories/algorithm/">algorithm</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 636
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h1 id="剑指offer-66道题"><a href="#剑指offer-66道题" class="headerlink" title="剑指offer  66道题"></a>剑指offer  66道题</h1><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p><a href="https://github.com/dalaizhao/Algorithm/tree/master/剑指offer-java" target="_blank" rel="noopener">全部代码地址</a>   </p>
-<h2 id="涉及到的数据结构与算法"><a href="#涉及到的数据结构与算法" class="headerlink" title="涉及到的数据结构与算法"></a>涉及到的数据结构与算法</h2><p>数据结构：数组、字符串、哈希表、二叉树、栈、队列、链表、堆    </p>
-<p>算法：归并、动态规划、深度优先搜索（DFS）、广度优先搜索（BFS）、回溯、递归、二分查找</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2>
-          <div class="read-more">
-            <a href="/p/279d.html" class="read-more-link">Read more..</a>
+            <a href="/p/91ef.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/11/">
