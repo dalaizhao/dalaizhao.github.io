@@ -106,6 +106,41 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/314b.html">jar包详情</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 7 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>java jar包 常用来运行java程序的压缩包。今天就来看看内幕。       </p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>维基百科</p>
+<blockquote>
+<p>在软件领域，JAR文件（Java归档，英语：Java ARchive）是一种软件包文件格式，通常用于聚合大量的Java类文件、相关的元数据和资源（文本、图片等）文件到一个文件，以便分发Java平台应用软件或库。<br>JAR文件是一种归档文件，以ZIP格式构建，以.jar为文件扩展名。用户可以使用JDK自带的jar命令创建或提取JAR文件。也可以使用其他zip压缩工具，不过压缩时zip文件头里的条目顺序很重要，因为Manifest资源配置文件常需放在首位。JAR文件内的文件名是Unicode文本。  </p>
+</blockquote>
+<p>JAR 文件可以用于：  </p>
+<ul>
+<li>用于发布和使用类库</li>
+<li>作为应用程序和扩展的构建单元</li>
+<li>作为组件、applet或者插件程序的部署单位</li>
+<li>用于打包与组件有关联的辅助资源</li></ul>
+          <div class="read-more">
+            <a href="/p/314b.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/f2d.html">关于SimpleDateFormat 线程不安全</a>
         </h1>
 
@@ -159,36 +194,6 @@
 <p>官网有复杂的安装thrift和编译的过程，复杂多余，最终目的还是要转成jar包，添加maven依赖。不过现在已经有maven依赖的，省去了编译打包jar包过程。一个maven依赖就可以加载进来所有需要的jar包。    </p>
           <div class="read-more">
             <a href="/p/413a.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/7dd5.html">统计日志里某时间段内访问最的ip</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-01-03
-        </span><span class="post-category">
-            <a href="/categories/linux/">linux</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 207
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 1 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>今天某时间段服务出现异常，需要统计某段时间内请求最多的ip，查看是否有人添加了服务，学习了运维大牛，并且在此记录分享。    </p>
-<p>命令：    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#按时间段统计</span><br><span class="line">sed -n &apos;/10:35:00/,/11:11:00/p&apos; access.log | awk &apos;&#123;print $1&#125;&apos;|sort|uniq -c|sort -n -r |head -n 20</span><br></pre></td></tr></table></figure>
-
-<p>日志格式：    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.90.11.10 - 5000 - [27/Nov/2017:17:45:55 +0800]</span><br></pre></td></tr></table></figure>
-          <div class="read-more">
-            <a href="/p/7dd5.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/13/">

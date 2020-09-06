@@ -106,6 +106,32 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/ad13.html">redis-事件驱动</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-11-18
+        </span><span class="post-category">
+            <a href="/categories/redis/">redis</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 426
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>要理解redis事件驱动模型需要具备linux五大IO模型基础知识，欠缺着请移步（<a href="https://blog.csdn.net/qq_34802511/article/details/81543817）" target="_blank" rel="noopener">https://blog.csdn.net/qq_34802511/article/details/81543817）</a></p>
+<p>redis服务器是事件驱动程序，处理两类事件，文件事件和时间事件，基于reactor模式开发了自己的ae-event网络事件处理器，reactor可以参考这个（<a href="http://imdalai.com/p/3461.html）" target="_blank" rel="noopener">http://imdalai.com/p/3461.html）</a></p>
+          <div class="read-more">
+            <a href="/p/ad13.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/65ef.html">redis-客户端和服务端</a>
         </h1>
 
@@ -153,36 +179,6 @@
     <div class="post-content"><p>redis数据库服务器的实现，键值对的保存方式、添加、删除、查看、更新操作的实现。</p>
           <div class="read-more">
             <a href="/p/ca56.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/de9c.html">redis-持久化</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-11-12
-        </span><span class="post-category">
-            <a href="/categories/redis/">redis</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 775
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>不同于memcached，redis支持数据本地持久化。</p>
-<p>redis支持两种持久化方式：</p>
-<ul>
-<li>RDB持久化，可以在指定时间内生成数据快照，持久化当前状态，命令有SAVE和BGSAVE</li>
-<li>AOF持久化，保存数据库所执行的写命令来记录数据库状态</li>
-</ul>
-          <div class="read-more">
-            <a href="/p/de9c.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/3/">

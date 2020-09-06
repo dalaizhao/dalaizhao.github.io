@@ -106,6 +106,36 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/7dd5.html">统计日志里某时间段内访问最的ip</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-01-03
+        </span><span class="post-category">
+            <a href="/categories/linux/">linux</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 207
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 1 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天某时间段服务出现异常，需要统计某段时间内请求最多的ip，查看是否有人添加了服务，学习了运维大牛，并且在此记录分享。    </p>
+<p>命令：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#按时间段统计</span><br><span class="line">sed -n &apos;/10:35:00/,/11:11:00/p&apos; access.log | awk &apos;&#123;print $1&#125;&apos;|sort|uniq -c|sort -n -r |head -n 20</span><br></pre></td></tr></table></figure>
+
+<p>日志格式：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.90.11.10 - 5000 - [27/Nov/2017:17:45:55 +0800]</span><br></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/p/7dd5.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/cd69.html">java 内存模型</a>
         </h1>
 
@@ -159,34 +189,6 @@
 <h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2>
           <div class="read-more">
             <a href="/p/447c.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/79a4.html">JDK1.8 HashMap源码解析</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-11-05
-        </span><span class="post-category">
-            <a href="/categories/JDK/">JDK</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 2.4k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 11 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>JDK源码深揪，JDK1.8版本。   </p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>HashMap 经常用到的 java 内置的数据结构，今天就深入源码瞧瞧,刨一刨。   </p>
-<p>HashMap 是对 Map 接口的一种哈希表的实现，是 key-value（键-值对），通过 key 可以<strong>常数时间</strong>内找到 value 。它是非线程安全，如果需要满足线程安全，可以用 Collections 的 synchronizedMap 方法使 HashMap 具有线程安全的能力，或者使用 ConcurrentHashMap。但是 HashMap 不是 Collection 的子集，但是 HashMap 的 key 和value 都可以单独的转换成 Collection子集，比如转换成 Set。HashMap 允许存在 null的，最多只允许一条记录的键为 null，允许多条记录的值为 null。   </p>
-<p>那我就简单的看一看 HashMap 源码，也是我第一次看整个类，以前都是需要哪个方法 就跳进去 看看，过程又惊喜又痛苦。      </p>
-          <div class="read-more">
-            <a href="/p/79a4.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/14/">

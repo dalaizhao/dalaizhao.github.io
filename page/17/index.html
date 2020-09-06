@@ -106,6 +106,35 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-10-19
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 526
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 2 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
+<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
+          <div class="read-more">
+            <a href="/p/c94.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/8a28.html">shell脚本 定期删除日志文件</a>
         </h1>
 
@@ -160,37 +189,6 @@
 <p>parent 是 maven 的一个元素，可以继承pom.xml中依赖，不用重复配置pom。  </p>
           <div class="read-more">
             <a href="/p/ab2f.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/7dd9.html">spring boot 快速入门</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-17
-        </span><span class="post-category">
-            <a href="/categories/spring-boot/">spring boot</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 1.5k
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 6 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="介绍spring-boot"><a href="#介绍spring-boot" class="headerlink" title="介绍spring boot"></a>介绍spring boot</h2><p>spring boot 就是给使用spring的人带来方便，不在需要繁杂的xml配置。</p>
-<p>Spring Boot可以轻松创建可以“运行”的独立的，生产级的基于Spring的应用程序。 大多数Spring Boot应用程序需要很少的Spring配置。 您可以使用Spring Boot创建可以使用java -jar或更多传统war部署启动的Java应用程序。 我们还提供运行“spring script”的命令行工具。<br>spring boot的主要目标是：  </p>
-<ul>
-<li>为所有Spring开发提供一个更快，更广泛的入门体验。 </li>
-<li>被要求开箱即用，但随着需求开始偏离默认值而迅速脱离出来。 </li>
-<li>提供大量项目（例如嵌入式服务器，安全性，指标，运行状况检查，外部化配置）通用的一系列非功能特性。 </li>
-<li>绝对没有代码生成，也不需要XML配置。</li></ul>
-          <div class="read-more">
-            <a href="/p/7dd9.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/16/">

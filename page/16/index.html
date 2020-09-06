@@ -106,6 +106,34 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/p/79a4.html">JDK1.8 HashMap源码解析</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2017-11-05
+        </span><span class="post-category">
+            <a href="/categories/JDK/">JDK</a>
+            </span>
+        <span class="post-visits" title="post.wordcount">
+          字 2.4k
+        </span>
+        <span class="post-visits" title="post.min2read">
+          阅读时长 11 min
+        </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>JDK源码深揪，JDK1.8版本。   </p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>HashMap 经常用到的 java 内置的数据结构，今天就深入源码瞧瞧,刨一刨。   </p>
+<p>HashMap 是对 Map 接口的一种哈希表的实现，是 key-value（键-值对），通过 key 可以<strong>常数时间</strong>内找到 value 。它是非线程安全，如果需要满足线程安全，可以用 Collections 的 synchronizedMap 方法使 HashMap 具有线程安全的能力，或者使用 ConcurrentHashMap。但是 HashMap 不是 Collection 的子集，但是 HashMap 的 key 和value 都可以单独的转换成 Collection子集，比如转换成 Set。HashMap 允许存在 null的，最多只允许一条记录的键为 null，允许多条记录的值为 null。   </p>
+<p>那我就简单的看一看 HashMap 源码，也是我第一次看整个类，以前都是需要哪个方法 就跳进去 看看，过程又惊喜又痛苦。      </p>
+          <div class="read-more">
+            <a href="/p/79a4.html" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/p/bc7.html">常用 linux 命令</a>
         </h1>
 
@@ -157,35 +185,6 @@
 <p>原因是爬取的json数据里有请求下一个json数据的max_time变量，这导致无法使用多个生产者。  </p>
           <div class="read-more">
             <a href="/p/854d.html" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/p/c94.html">从服务端获取json串中文unicode编码问题</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2017-10-19
-        </span><span class="post-category">
-            <a href="/categories/java/">java</a>
-            </span>
-        <span class="post-visits" title="post.wordcount">
-          字 526
-        </span>
-        <span class="post-visits" title="post.min2read">
-          阅读时长 2 min
-        </span>
-        </div>
-    </header>
-
-    <div class="post-content"><p>今天遇到从服务端获取json数据打印到控制台后发现json中包含的中文全部是unicode编码显示状态，经过查阅解决问题如下。  </p>
-<p>服务端返回的json中输出到控制台的内容有一段是这样的：   </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"text"</span>: <span class="string">"\u6709\u53ea\u82cd\u8747\u98de\u8fdb"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="用getBytes-不可用"><a href="#用getBytes-不可用" class="headerlink" title="用getBytes() (不可用)"></a>用getBytes() (不可用)</h2><p>直接截取内容用getBytes()转能转成中文，但是整个json内容转的时候确实无效的。   </p>
-          <div class="read-more">
-            <a href="/p/c94.html" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="prev" href="/page/15/">
